@@ -1,0 +1,40 @@
+body {
+  background: #222;
+  margin: 0;
+  font-family: sans-serif;
+}
+
+.site-header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: #232323;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+  z-index: 1000;
+  text-align: center;
+  padding: 1.5rem 0 0.5rem 0;
+}
+
+.site-title {
+  color: #f5f5f5;
+  margin: 0;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+.site-nav {
+  margin-top: 0.5rem;
+}
+
+.nav-link {
+  color: #ccc;
+  text-decoration: none;
+  margin: 0 1.5rem;
+  font-size: 1.1rem;
+  transition: color 0.3s, text-shadow 0.3s;
+}
+
+.nav-link:hover {
+  color: #fff;
+  text-shadow: 0 0 8px #fff;
+}
