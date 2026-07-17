@@ -1,0 +1,36 @@
+/* CYBERNETIC PREMIUM — TYPOGRAPHY TOKENS
+   Three faces, strict roles. Headings INHERIT color (never bind a fixed token)
+   so they survive the card inversion; binding a token makes them invisible on
+   an inverted card. */
+:root{
+  /* families */
+  --font-display:'Rajdhani',system-ui,sans-serif;   /* headings, UPPERCASE */
+  --font-body:'Space Grotesk',system-ui,sans-serif;  /* body copy, proportional */
+  --font-mono:'JetBrains Mono',ui-monospace,monospace;/* labels, data, nav, buttons, stencil */
+
+  /* weights */
+  --w-display:700/* @kind other */;
+  --w-display-med:600/* @kind other */;
+  --w-body:400/* @kind other */;
+  --w-mono:400/* @kind other */;
+
+  /* display / heading scale (Rajdhani, uppercase, tight tracking) */
+  --fs-h1:44px;   --lh-h1:1.1/* @kind other */;   --ls-h1:.005em;
+  --fs-h2:26px;   --lh-h2:1.15/* @kind other */;
+  --fs-h3:17px;   --lh-h3:1.25/* @kind other */;
+  --fs-display:30px;  /* large stat numerals — gold-eligible */
+
+  /* body */
+  --fs-body:15.5px;   --lh-body:1.75/* @kind other */;
+  --fs-body-sm:13.5px;/* body inside a card */
+
+  /* mono / label scale */
+  --fs-eyebrow:11px;  --ls-eyebrow:.16em; /* uppercase eyebrows */
+  --fs-tag:10px;      --ls-tag:.1em;
+  --fs-btn:12px;      --ls-btn:.08em;
+  --fs-nav:12px;      --ls-nav:.06em;
+  --fs-stencil:8px;   --ls-stencil:.1em;  /* card metadata, bottom-right */
+  --fs-caption:10px;  --ls-caption:.08em; /* figure captions */
+
+  --measure:620px;    /* max body line length */
+}
