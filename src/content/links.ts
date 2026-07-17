@@ -13,8 +13,8 @@ export type PrimaryLink = {
 export const PRIMARY_LINKS: PrimaryLink[] = [
   { label: 'Résumé', arrow: '↓', href: '#', variant: 'primary' },
   { label: 'GitHub', arrow: '→', href: 'https://github.com/jdtherobot', variant: 'outline', external: true },
-  { label: 'LinkedIn', arrow: '→', href: '#', variant: 'outline', external: true },
-  { label: 'Email', arrow: '→', href: '#', variant: 'outline' },
+  { label: 'LinkedIn', arrow: '→', href: 'https://www.linkedin.com/in/justinderekbritt/', variant: 'outline', external: true },
+  { label: 'Email', arrow: '→', href: 'mailto:jd@britt.gg', variant: 'outline' },
 ]
 
 export const SECTION_LINKS = [
