@@ -1,0 +1,36 @@
+/* CYBERNETIC PREMIUM — SPACING, BORDER & LAYOUT TOKENS
+   Precision over decoration. Hairline borders, no radii (nothing rounds except
+   the mode-toggle track), no shadows anywhere in the system. */
+:root{
+  /* spacing scale */
+  --sp-1:4px;
+  --sp-2:8px;
+  --sp-3:14px;
+  --sp-4:20px;
+  --sp-5:26px;
+  --sp-6:32px;
+  --sp-8:48px;
+  --sp-10:72px;   /* section vertical rhythm */
+
+  /* layout */
+  --wrap-max:1040px;
+  --wrap-pad:32px;
+  --gap-grid:20px;
+
+  /* borders — always hairline, always --edge */
+  --border-hair:1px;
+  --radius:0;         /* the system is orthogonal; corners are square */
+  --radius-pill:11px; /* the SOLE exception: mode-toggle track */
+
+  /* card internals */
+  --card-pad:22px 24px 26px;
+  --figure-pad:8px;   /* carbon frame around imagery */
+
+  /* motifs */
+  --dot-grid:26px;    /* dot-grid pitch */
+  --tierline-h:14px;  /* SVG tier line at card top edge */
+
+  /* motion */
+  --ease-settle:cubic-bezier(.22,.9,.24,1)/* @kind other */; /* entrance "piano run" */
+  --dur-mode:.3s/* @kind other */;     /* day/night cross-fade */
+}

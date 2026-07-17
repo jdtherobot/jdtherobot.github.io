@@ -1,0 +1,303 @@
+/* Global stylesheet — token imports first, then app helpers.
+   Helpers (.wrap/.dot/.ey/.disp/.body/.stencil/.ph/.frame/.rv/.rail/…) are
+   lifted from the prototype's inline <style>, plus responsive + reduced-motion. */
+@import './fonts.css';
+@import './colors.css';
+@import './typography.css';
+@import './spacing.css';
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  transition: background var(--dur-mode), color var(--dur-mode);
+}
+* {
+  box-sizing: border-box;
+}
+a {
+  color: var(--label-on-bg);
+  text-decoration: none;
+}
+a:hover {
+  color: var(--text);
+}
+::selection {
+  background: var(--gold);
+  color: var(--btn-text);
+}
+:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.wrap {
+  max-width: var(--wrap-max);
+  margin: 0 auto;
+  padding: 0 var(--wrap-pad);
+}
+.dot {
+  background-image: radial-gradient(var(--dot, rgba(0, 0, 0, 0.14)) 1px, transparent 1px);
+  background-size: var(--dot-grid) var(--dot-grid);
+}
+.ey {
+  font-family: var(--font-mono);
+  font-size: var(--fs-eyebrow);
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--label-on-bg);
+}
+.disp {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: 0.005em;
+  margin: 0;
+}
+.body {
+  font-family: var(--font-body);
+  line-height: 1.75;
+}
+.stencil {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--label-on-bg);
+  opacity: 0.55;
+}
+
+/* framed placeholder (honest empty state, carbon frame per DS imagery rule) */
+.ph {
+  position: relative;
+  width: 100%;
+  background: #0e0d10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+}
+.ph span {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(236, 226, 198, 0.5);
+  line-height: 1.7;
+  padding: 16px;
+}
+.frame {
+  background: var(--panel);
+  border: 1px solid var(--edge);
+  padding: var(--figure-pad, 8px);
+}
+
+/* reveal-on-scroll */
+.rv {
+  opacity: 1;
+}
+body.motion .rv {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.55s cubic-bezier(0.2, 0.7, 0.2, 1),
+    transform 0.55s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+body.motion .rv.in {
+  opacity: 1;
+  transform: none;
+}
+
+/* horizontal rail */
+.rail {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 6px;
+}
+.rail > * {
+  scroll-snap-align: start;
+  flex: none;
+}
+.rail::-webkit-scrollbar {
+  height: 6px;
+}
+.rail::-webkit-scrollbar-thumb {
+  background: var(--edge);
+}
+.rail::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.navlink {
+  font-family: var(--font-mono);
+  font-size: var(--fs-nav);
+  letter-spacing: var(--ls-nav);
+  color: var(--label-on-bg);
+  opacity: 0.78;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: opacity 0.18s, color 0.18s;
+}
+.navlink:hover {
+  opacity: 1;
+  color: var(--text);
+}
+
+.softrow {
+  display: flex;
+  align-items: baseline;
+  gap: 18px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--edge);
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  background: none;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  color: inherit;
+  font: inherit;
+}
+.softrow:hover .softname {
+  color: var(--label-on-bg);
+}
+
+/* link rows (Background section) */
+.linkrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid var(--edge);
+  padding: 14px 16px;
+  transition: border-color 0.2s, background 0.2s;
+}
+.linkrow:hover {
+  border-color: var(--gold);
+  background: rgba(201, 164, 94, 0.06);
+}
+
+/* ambient glitch slice */
+@keyframes slice {
+  0%,
+  100% {
+    clip-path: inset(0 0 0 0);
+    transform: none;
+  }
+  20% {
+    clip-path: inset(42% 0 38% 0);
+    transform: translateX(-2px);
+  }
+  22% {
+    clip-path: inset(12% 0 70% 0);
+    transform: translateX(2px);
+  }
+  24% {
+    clip-path: inset(0 0 0 0);
+    transform: none;
+  }
+}
+.slice {
+  animation: slice 0.4s steps(2) 1;
+}
+
+/* nav links menu (mark trigger) */
+.linksmenu {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  min-width: 190px;
+  background: var(--bg);
+  border: 1px solid var(--edge);
+  border-radius: var(--radius);
+  z-index: 90;
+}
+.linksmenu a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  padding: 12px 16px;
+  color: var(--label-on-bg);
+  border-bottom: 1px solid var(--edge);
+  transition: background 0.18s, color 0.18s;
+}
+.linksmenu a:last-child {
+  border-bottom: none;
+}
+.linksmenu a:hover {
+  background: rgba(201, 164, 94, 0.08);
+  color: var(--text);
+}
+.linksmenu a .arrow {
+  opacity: 0.5;
+}
+
+/* section rhythm helper */
+.section {
+  padding: var(--sp-10) 0;
+  border-top: 1px solid var(--edge);
+}
+
+/* ---------- Responsive (mobile ≤820px) ---------- */
+.nav-sections {
+  display: flex;
+  gap: 26px;
+}
+@media (max-width: 820px) {
+  :root {
+    --wrap-pad: 20px;
+  }
+  .nav-sections {
+    display: none;
+  }
+  .hero-grid,
+  .bg-grid,
+  .research-grid,
+  .flagship-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .hero-h1 {
+    font-size: 34px !important;
+  }
+  .h2-lg {
+    font-size: 28px !important;
+  }
+  .hero-figure {
+    order: 2;
+  }
+}
+@media (max-width: 480px) {
+  .hero-h1 {
+    font-size: 30px !important;
+  }
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .slice {
+    animation: none;
+  }
+  body.motion .rv {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  * {
+    scroll-behavior: auto !important;
+  }
+}

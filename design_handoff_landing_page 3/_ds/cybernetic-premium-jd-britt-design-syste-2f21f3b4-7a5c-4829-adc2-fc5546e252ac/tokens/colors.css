@@ -1,0 +1,64 @@
+/* CYBERNETIC PREMIUM — COLOR TOKENS
+   ============================================================================
+   THE CORE RULE: GOLD IS A MATERIAL, NOT AN INK.
+   In the reference (ROG Flow Z13 x Kojima), gold is always a SURFACE — the lid,
+   the trim, a trace — and NEVER small text. #C9A45E on cream #ECE2C6 is 1.9:1
+   and unreadable. So --gold is confined to fills, traces, rules, the mark, and
+   LARGE numerals. All small text is INK: dark on light grounds, bone on dark.
+
+   --gold is IDENTICAL in both modes (it's a material, it doesn't invert).
+   --label-* are INKS and SWAP between modes, because the card inverts against
+   the page: what is dark-on-light on the page becomes bone-on-dark on the card.
+   ============================================================================ */
+
+:root{
+  /* material — constant across modes, never small text */
+  --gold:#C9A45E;
+
+  /* the two anchor neutrals, named for what they physically are */
+  --cream:#ECE2C6;   /* bone / cream ground */
+  --carbon:#17161A;  /* black carbon-fibre ground */
+  --ink:#1E1B12;     /* near-black text ink */
+
+  /* focus rings use an INK, never --gold (material gold fails 3:1 non-text) */
+  --focus-ring:var(--label-on-bg);
+}
+
+/* DAY — cream page, carbon cards ---------------------------------------------- */
+html[data-mode="day"]{
+  --bg:#ECE2C6;              /* page ground */
+  --text:#1E1B12;           /* page text ink */
+  --panel:#17161A;          /* card ground (inverts vs page) */
+  --panel-text:#ECE2C6;     /* card text ink */
+  --edge:#c9b98a;           /* hairline borders / rules */
+  --dot:#c9b98a;            /* dot-grid dots */
+
+  --label-on-bg:#4A4436;    /* labels/eyebrows on page — 7.5:1 on cream */
+  --label-on-panel:#C9BFA6; /* labels/eyebrows on card — 10:1 on carbon */
+  --stat:#8A6F2E;           /* LARGE numerals only — 3.7:1, never small text */
+  --btn-text:#17161A;       /* text sitting on a gold button — 7.8:1 */
+
+  --seam:rgba(201,164,94,.5);  /* laser-etched card seams */
+  --slice-bg:#ECE2C6;          /* opaque backing for the glitch-slice bands */
+}
+
+/* NIGHT — carbon page, cream cards -------------------------------------------- */
+html[data-mode="night"]{
+  --bg:#17161A;
+  --text:#ECE2C6;
+  --panel:#ECE2C6;
+  --panel-text:#17161A;
+  --edge:#3a3626;
+  --dot:#3a3626;
+
+  --label-on-bg:#C9BFA6;
+  --label-on-panel:#4A4436;
+  --stat:#C9A45E;           /* 7.8:1 on carbon page */
+  --btn-text:#17161A;
+
+  --seam:rgba(122,97,40,.35);
+  --slice-bg:#17161A;
+}
+
+/* a card's slice-backing must match the CARD ground, not the page */
+.card,.dsp-card{--slice-bg:var(--panel)}

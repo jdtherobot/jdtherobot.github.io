@@ -1,0 +1,299 @@
+{
+  "plugins": [
+    "react",
+    "import"
+  ],
+  "rules": {
+    "react/forbid-elements": [
+      "warn",
+      {
+        "forbid": []
+      }
+    ],
+    "no-restricted-imports": [
+      "warn",
+      {
+        "patterns": [
+          {
+            "group": [
+              "components/brand/**",
+              "components/core/**",
+              "components/data/**",
+              "components/surface/**",
+              "ui_kits/portfolio/**"
+            ],
+            "message": "Import design-system components from 'index.js', not component internals."
+          }
+        ]
+      }
+    ],
+    "no-restricted-syntax": [
+      "warn",
+      {
+        "selector": "Literal[value=/#[0-9a-fA-F]{3,8}\\b/]",
+        "message": "Raw hex color — use a design-system color token via var()."
+      },
+      {
+        "selector": "Literal[value=/\\b\\d+px\\b/]",
+        "message": "Raw px value — use a design-system spacing token via var()."
+      },
+      {
+        "selector": "Literal[value=/font-family\\s*:\\s*(?!['\\\"]?(?:Rajdhani|Space Grotesk|JetBrains Mono))/i]",
+        "message": "Font not provided by the design system. Available: Rajdhani, Space Grotesk, JetBrains Mono."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute > JSXIdentifier[name!=/^(?:variant|href|children|onClick|disabled|type|style|key|ref|className|style|children)$/]",
+        "message": "<Button> doesn't accept that prop. Declared props: variant, href, children, onClick, disabled, type, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute[name.name='variant'] > Literal[value!=/^(?:primary|outline)$/]",
+        "message": "<Button> variant must be one of 'primary' | 'outline'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute[name.name='type'] > Literal[value!=/^(?:button|submit|reset)$/]",
+        "message": "<Button> type must be one of 'button' | 'submit' | 'reset'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Card'] > JSXAttribute > JSXIdentifier[name!=/^(?:tier|stencil|children|style|innerStyle|key|ref|className|style|children)$/]",
+        "message": "<Card> doesn't accept that prop. Declared props: tier, stencil, children, style, innerStyle."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Card'] > JSXAttribute[name.name='tier'] > Literal[value!=/^(?:plain|branch|dissolve)$/]",
+        "message": "<Card> tier must be one of 'plain' | 'branch' | 'dissolve'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Eyebrow'] > JSXAttribute > JSXIdentifier[name!=/^(?:children|on|as|style|key|ref|className|style|children)$/]",
+        "message": "<Eyebrow> doesn't accept that prop. Declared props: children, on, as, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Eyebrow'] > JSXAttribute[name.name='on'] > Literal[value!=/^(?:bg|panel)$/]",
+        "message": "<Eyebrow> on must be one of 'bg' | 'panel'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Figure'] > JSXAttribute > JSXIdentifier[name!=/^(?:src|alt|caption|ratio|children|style|imgStyle|key|ref|className|style|children)$/]",
+        "message": "<Figure> doesn't accept that prop. Declared props: src, alt, caption, ratio, children, style, imgStyle."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='ModeToggle'] > JSXAttribute > JSXIdentifier[name!=/^(?:showLabel|style|key|ref|className|style|children)$/]",
+        "message": "<ModeToggle> doesn't accept that prop. Declared props: showLabel, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='NoteRow'] > JSXAttribute > JSXIdentifier[name!=/^(?:tag|title|href|date|style|key|ref|className|style|children)$/]",
+        "message": "<NoteRow> doesn't accept that prop. Declared props: tag, title, href, date, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Stat'] > JSXAttribute > JSXIdentifier[name!=/^(?:value|label|style|key|ref|className|style|children)$/]",
+        "message": "<Stat> doesn't accept that prop. Declared props: value, label, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Tag'] > JSXAttribute > JSXIdentifier[name!=/^(?:children|on|style|key|ref|className|style|children)$/]",
+        "message": "<Tag> doesn't accept that prop. Declared props: children, on, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Tag'] > JSXAttribute[name.name='on'] > Literal[value!=/^(?:bg|panel)$/]",
+        "message": "<Tag> on must be one of 'bg' | 'panel'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='TierLine'] > JSXAttribute > JSXIdentifier[name!=/^(?:variant|style|key|ref|className|style|children)$/]",
+        "message": "<TierLine> doesn't accept that prop. Declared props: variant, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='TierLine'] > JSXAttribute[name.name='variant'] > Literal[value!=/^(?:plain|branch|dissolve)$/]",
+        "message": "<TierLine> variant must be one of 'plain' | 'branch' | 'dissolve'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='WaveTrace'] > JSXAttribute > JSXIdentifier[name!=/^(?:color|width|strokeWidth|title|style|key|ref|className|style|children)$/]",
+        "message": "<WaveTrace> doesn't accept that prop. Declared props: color, width, strokeWidth, title, style."
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": [
+        "**/index.js"
+      ],
+      "rules": {
+        "no-restricted-imports": "off"
+      }
+    }
+  ],
+  "x-omelette": {
+    "components": {
+      "Button": {
+        "replaces": []
+      },
+      "Card": {
+        "replaces": []
+      },
+      "Eyebrow": {
+        "replaces": []
+      },
+      "Figure": {
+        "replaces": []
+      },
+      "ModeToggle": {
+        "replaces": []
+      },
+      "NoteRow": {
+        "replaces": []
+      },
+      "Stat": {
+        "replaces": []
+      },
+      "Tag": {
+        "replaces": []
+      },
+      "TierLine": {
+        "replaces": []
+      },
+      "WaveTrace": {
+        "replaces": []
+      }
+    },
+    "tokens": [
+      "--bg",
+      "--border-hair",
+      "--btn-text",
+      "--carbon",
+      "--card-pad",
+      "--cream",
+      "--dot",
+      "--dot-grid",
+      "--dur-mode",
+      "--ease-settle",
+      "--edge",
+      "--figure-pad",
+      "--focus-ring",
+      "--font-body",
+      "--font-display",
+      "--font-mono",
+      "--fs-body",
+      "--fs-body-sm",
+      "--fs-btn",
+      "--fs-caption",
+      "--fs-display",
+      "--fs-eyebrow",
+      "--fs-h1",
+      "--fs-h2",
+      "--fs-h3",
+      "--fs-nav",
+      "--fs-stencil",
+      "--fs-tag",
+      "--gap-grid",
+      "--gold",
+      "--ink",
+      "--label-on-bg",
+      "--label-on-panel",
+      "--lh-body",
+      "--lh-h1",
+      "--lh-h2",
+      "--lh-h3",
+      "--ls-btn",
+      "--ls-caption",
+      "--ls-eyebrow",
+      "--ls-h1",
+      "--ls-nav",
+      "--ls-stencil",
+      "--ls-tag",
+      "--measure",
+      "--panel",
+      "--panel-text",
+      "--radius",
+      "--radius-pill",
+      "--seam",
+      "--slice-bg",
+      "--sp-1",
+      "--sp-10",
+      "--sp-2",
+      "--sp-3",
+      "--sp-4",
+      "--sp-5",
+      "--sp-6",
+      "--sp-8",
+      "--stat",
+      "--text",
+      "--tierline-h",
+      "--w-body",
+      "--w-display",
+      "--w-display-med",
+      "--w-mono",
+      "--wrap-max",
+      "--wrap-pad"
+    ],
+    "tokenKinds": {
+      "--gold": "color",
+      "--cream": "color",
+      "--carbon": "color",
+      "--ink": "color",
+      "--focus-ring": "color",
+      "--bg": "color",
+      "--text": "font",
+      "--panel": "color",
+      "--panel-text": "font",
+      "--edge": "color",
+      "--dot": "color",
+      "--label-on-bg": "color",
+      "--label-on-panel": "color",
+      "--stat": "color",
+      "--btn-text": "font",
+      "--seam": "color",
+      "--slice-bg": "color",
+      "--font-display": "font",
+      "--font-body": "font",
+      "--font-mono": "font",
+      "--w-display": "other",
+      "--w-display-med": "other",
+      "--w-body": "other",
+      "--w-mono": "other",
+      "--fs-h1": "spacing",
+      "--lh-h1": "other",
+      "--ls-h1": "spacing",
+      "--fs-h2": "spacing",
+      "--lh-h2": "other",
+      "--fs-h3": "spacing",
+      "--lh-h3": "other",
+      "--fs-display": "spacing",
+      "--fs-body": "spacing",
+      "--lh-body": "other",
+      "--fs-body-sm": "spacing",
+      "--fs-eyebrow": "spacing",
+      "--ls-eyebrow": "spacing",
+      "--fs-tag": "spacing",
+      "--ls-tag": "spacing",
+      "--fs-btn": "spacing",
+      "--ls-btn": "spacing",
+      "--fs-nav": "spacing",
+      "--ls-nav": "spacing",
+      "--fs-stencil": "spacing",
+      "--ls-stencil": "spacing",
+      "--fs-caption": "spacing",
+      "--ls-caption": "spacing",
+      "--measure": "spacing",
+      "--sp-1": "spacing",
+      "--sp-2": "spacing",
+      "--sp-3": "spacing",
+      "--sp-4": "spacing",
+      "--sp-5": "spacing",
+      "--sp-6": "spacing",
+      "--sp-8": "spacing",
+      "--sp-10": "spacing",
+      "--wrap-max": "spacing",
+      "--wrap-pad": "spacing",
+      "--gap-grid": "spacing",
+      "--border-hair": "spacing",
+      "--radius": "radius",
+      "--radius-pill": "radius",
+      "--card-pad": "spacing",
+      "--figure-pad": "spacing",
+      "--dot-grid": "spacing",
+      "--tierline-h": "spacing",
+      "--ease-settle": "other",
+      "--dur-mode": "other"
+    },
+    "fontFamilies": [
+      "JetBrains Mono",
+      "Rajdhani",
+      "Space Grotesk"
+    ]
+  }
+}
