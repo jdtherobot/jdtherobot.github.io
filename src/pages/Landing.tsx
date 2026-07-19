@@ -304,9 +304,15 @@ export default function Landing() {
                       Read the writeup →
                     </Link>
                     {p.liveUrl && (
-                      <a className="stencil" href={p.liveUrl} target="_blank" rel="noreferrer noopener" style={{ textDecoration: 'none' }}>
+                      <Button
+                        href={p.liveUrl}
+                        variant="primary"
+                        target="_blank"
+                        rel="noreferrer noopener"
+                        style={{ fontSize: 10, letterSpacing: '0.14em', textTransform: 'uppercase', padding: '9px 16px' }}
+                      >
                         Launch app →
-                      </a>
+                      </Button>
                     )}
                   </div>
                 </div>
