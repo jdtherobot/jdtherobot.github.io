@@ -272,6 +272,48 @@ export default function Landing() {
             </div>
           </div>
 
+          {/* Software & tools */}
+          <div className="wrap" style={{ marginTop: 44 }}>
+            <div className="rv" style={{ marginBottom: 16 }}>
+              <Eyebrow>Software &amp; tools</Eyebrow>
+            </div>
+            <div className="proj-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(2,1fr)', gap: 20 }}>
+              {otherProjects.map((p) => (
+                <div
+                  key={p.slug}
+                  className="rv"
+                  style={{ display: 'flex', flexDirection: 'column', border: '1px solid var(--edge)', padding: '22px 24px', background: 'var(--bg)' }}
+                >
+                  <Link
+                    to={`/projects/${p.slug}`}
+                    style={{ display: 'flex', flexDirection: 'column', flex: 1, color: 'inherit', textDecoration: 'none' }}
+                  >
+                    {p.dashboardFigure ? (
+                      <DashboardFigure style={{ marginBottom: 16 }} />
+                    ) : (
+                      p.figure && <CodeFigure data={p.figure} style={{ marginBottom: 16 }} />
+                    )}
+                    <div className="disp" style={{ fontSize: 18, marginBottom: 10 }}>{p.title}</div>
+                    <p className="body" style={{ fontSize: 13.5, opacity: 0.82, margin: '0 0 16px', flex: 1 }}>{p.tagline}</p>
+                    <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+                      {p.tags.map((tg) => (<Tag key={tg}>{tg}</Tag>))}
+                    </div>
+                  </Link>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12, marginTop: 14 }}>
+                    <Link to={`/projects/${p.slug}`} className="stencil" style={{ textDecoration: 'none' }}>
+                      Read the writeup →
+                    </Link>
+                    {p.liveUrl && (
+                      <a className="stencil" href={p.liveUrl} target="_blank" rel="noreferrer noopener" style={{ textDecoration: 'none' }}>
+                        Launch app →
+                      </a>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
           {/* Coursework — flagship block (feature card → overview + 3 course boxes) */}
           <div className="wrap" style={{ marginTop: 44 }}>
             <div className="rv" style={{ marginBottom: 14 }}>
@@ -307,35 +349,6 @@ export default function Landing() {
                   {d.figure && <CodeFigure data={d.figure} style={{ marginBottom: 14 }} />}
                   <div className="disp" style={{ fontSize: 16 }}>{d.title}</div>
                   <p className="body" style={{ fontSize: 12.5, opacity: 0.75, margin: '8px 0 0' }}>{docSnippet(coursework.slug, d.file)}</p>
-                </Link>
-              ))}
-            </div>
-          </div>
-
-          {/* Other code projects */}
-          <div className="wrap" style={{ marginTop: 44 }}>
-            <div className="rv" style={{ marginBottom: 16 }}>
-              <Eyebrow>Software &amp; tools</Eyebrow>
-            </div>
-            <div className="proj-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(2,1fr)', gap: 20 }}>
-              {otherProjects.map((p) => (
-                <Link
-                  key={p.slug}
-                  to={`/projects/${p.slug}`}
-                  className="rv"
-                  style={{ display: 'flex', flexDirection: 'column', border: '1px solid var(--edge)', padding: '22px 24px', color: 'inherit', background: 'var(--bg)' }}
-                >
-                  {p.dashboardFigure ? (
-                    <DashboardFigure style={{ marginBottom: 16 }} />
-                  ) : (
-                    p.figure && <CodeFigure data={p.figure} style={{ marginBottom: 16 }} />
-                  )}
-                  <div className="disp" style={{ fontSize: 18, marginBottom: 10 }}>{p.title}</div>
-                  <p className="body" style={{ fontSize: 13.5, opacity: 0.82, margin: '0 0 16px', flex: 1 }}>{p.tagline}</p>
-                  <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 14 }}>
-                    {p.tags.map((tg) => (<Tag key={tg}>{tg}</Tag>))}
-                  </div>
-                  <span className="stencil">Read the writeup →</span>
                 </Link>
               ))}
             </div>
