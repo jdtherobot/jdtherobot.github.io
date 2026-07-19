@@ -29,6 +29,7 @@ export type Project = {
   docs: ProjectDoc[]
   featured?: boolean // rendered as a flagship block on the landing
   figure?: FigureData // code-window preview for the landing card / flagship
+  dashboardFigure?: boolean // render the themed dashboard preview instead of a code window
 }
 
 export const PROJECTS: Project[] = [
@@ -96,29 +97,30 @@ class Part {
     github: 'https://github.com/jdtherobot/cisco-switch-config-generator',
     tags: ['VBA', 'Tooling', 'Networking'],
     figure: {
-      filename: 'Module1.bas',
-      code: `' Reference!F:AF -> AutoBuildVLANs -> A:C
-' VLAN_List (dynamic named range)
-FinalConfig = ConfigTemplate _
-  & Reference(A:B) & Ports(A:D)`,
+      filename: 'FinalConfig.txt',
+      code: `hostname CORE-B12
+!
+vlan 10
+ name USERS
+vlan 20
+ name VOICE
+!
+interface GigabitEthernet1/0/1
+ switchport mode access
+ switchport access vlan 10
+ switchport voice vlan 20`,
     },
     docs: [{ docSlug: 'overview', title: 'Overview', file: 'README.md' }],
   },
   {
     slug: 'career-plan-app',
-    title: 'Career Plan Codex',
+    title: 'Career Plan — Financial Planner',
     tagline:
       'A deterministic 50-year career-path financial planner that runs entirely in the browser via Pyodide.',
     github: 'https://github.com/jdtherobot/career-plan-app',
     liveUrl: 'https://britt.gg/career-plan-app/',
     tags: ['React', 'TypeScript', 'Pyodide'],
-    figure: {
-      filename: 'build.sh',
-      code: `# deterministic 50-yr planner, in-browser
-python3 scripts/export_web_data.py
-cd web && npm run build:full
-# Pyodide runs the projection client-side`,
-    },
+    dashboardFigure: true,
     docs: [{ docSlug: 'overview', title: 'Overview', file: 'README.md' }],
   },
 ]
