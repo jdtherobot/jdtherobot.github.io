@@ -19,8 +19,7 @@ export const PRIMARY_LINKS: PrimaryLink[] = [
 
 export const SECTION_LINKS = [
   { id: 'sec-background', label: 'Background' },
-  { id: 'sec-research', label: 'Research' },
-  { id: 'sec-challenges', label: 'Challenges' },
-  { id: 'sec-hardware', label: 'Hardware' },
-  { id: 'sec-software', label: 'Software' },
+  { id: 'sec-research', label: 'Research Direction' },
+  { id: 'sec-work', label: 'Work' },
+  { id: 'sec-projects', label: 'Projects' },
 ]

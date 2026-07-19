@@ -36,13 +36,27 @@ Push to `main` → the Actions workflow builds and publishes `dist/` to Pages.
 - `public/404.html` is an SPA fallback so deep links (e.g.
   `/challenges/warehouse-scavenger-hunt`) resolve on refresh.
 
+## Sections
+
+Nav: **Background · Research Direction · Work · Projects**.
+
+- **Work** (`src/content/work.ts`) — a 12-year career as a scroll of
+  accomplishments plus an awards list; the section title links to the full
+  career résumé at `/career` (distinct from the standard résumé).
+- **Projects** — the "puzzle" challenges (`src/content/items.ts`, detail pages at
+  `/challenges/<slug>`) plus code projects (`src/content/projects.ts`). Each code
+  project links to `/projects/<slug>`, which renders the repo's README(s), themed
+  like a GitHub/JetBrains preview. READMEs are **baked locally** under
+  `src/content/readmes/<slug>/` so the site works regardless of repo visibility;
+  a repo with multiple docs shows them as clickable preview boxes.
+
 ## Editing content
 
-All projects live in **`src/content/items.ts`** — one entry per challenge,
-hardware, and software item, each with its own slug/route. The landing cards and
-the detail pages are both generated from this file; edit it to add or change an
-item. The four primary links (Résumé / GitHub / LinkedIn / Email) live in
-`src/content/links.ts`.
+- Challenges → `src/content/items.ts`
+- Work accomplishments + awards → `src/content/work.ts`
+- Code projects (repos, tags, doc list) → `src/content/projects.ts`; refresh the
+  baked markdown by re-fetching into `src/content/readmes/<slug>/`
+- Primary links (Résumé / GitHub / LinkedIn / Email) → `src/content/links.ts`
 
 Copy and imagery are **placeholder** (bracketed `[…]` text; reserved carbon-frame
 figure slots) pending real content.

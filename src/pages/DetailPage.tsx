@@ -7,10 +7,8 @@ import Figure from '../components/Figure'
 import { findItem, nextInSection, SECTION_LABEL, type Section, type Item } from '../content/items'
 import { useReveal, useGlitchSlice, useRailScroll } from '../hooks/useMotion'
 
-/* Shared detail template (820px measure). Every challenge/hardware/software
-   item renders here at /:section/:slug. Copy is placeholder until JD fills it. */
-
-const VALID: Section[] = ['challenges', 'hardware', 'software']
+/* Challenge detail template (820px measure). Each challenge renders here at
+   /challenges/<slug>. Copy is placeholder until JD fills it. */
 
 function Ph({ children, ratio = '16/9' }: { children: React.ReactNode; ratio?: string }) {
   return (
@@ -21,9 +19,10 @@ function Ph({ children, ratio = '16/9' }: { children: React.ReactNode; ratio?: s
 }
 
 export default function DetailPage() {
-  const { section = '', slug = '' } = useParams()
+  const { slug = '' } = useParams()
   const navigate = useNavigate()
-  const routeKey = `${section}/${slug}`
+  const sec: Section = 'challenges'
+  const routeKey = `${sec}/${slug}`
 
   useReveal(routeKey)
   useGlitchSlice()
@@ -33,15 +32,7 @@ export default function DetailPage() {
     window.scrollTo(0, 0)
   }, [routeKey])
 
-  const isValidSection = VALID.includes(section as Section)
-  const item = findItem(section, slug)
-
-  // Unknown section entirely → home.
-  if (!isValidSection) {
-    return <NotFound />
-  }
-
-  const sec = section as Section
+  const item = findItem(sec, slug)
   const label = SECTION_LABEL[sec]
   const next = item ? nextInSection(sec, item.slug) : undefined
 
@@ -61,7 +52,7 @@ export default function DetailPage() {
     stencil: 'DOC · REV 2026.07',
   }
 
-  const backTo = `/#${sec === 'challenges' ? 'sec-challenges' : sec === 'hardware' ? 'sec-hardware' : 'sec-software'}`
+  const backTo = '/#sec-projects'
 
   return (
     <>
@@ -162,24 +153,6 @@ export default function DetailPage() {
             )}
           </div>
         </footer>
-      </main>
-    </>
-  )
-}
-
-function NotFound() {
-  return (
-    <>
-      <Nav />
-      <main className="dot" style={{ minHeight: '60vh' }}>
-        <div className="wrap" style={{ maxWidth: 820, padding: '80px 0' }}>
-          <div className="ey">Error · 404</div>
-          <h1 className="disp" style={{ fontSize: 42, margin: '14px 0 14px' }}>Page not found</h1>
-          <p className="body" style={{ fontSize: 15.5, opacity: 0.9, marginBottom: 24 }}>
-            That page doesn’t exist yet.
-          </p>
-          <Link className="navlink" style={{ color: 'var(--text)', opacity: 1 }} to="/">← Back home</Link>
-        </div>
       </main>
     </>
   )

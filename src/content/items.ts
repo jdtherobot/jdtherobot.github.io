@@ -1,17 +1,15 @@
-/* Content model — every challenge, hardware, and software item resolves to its
-   own blank detail page at /:section/:slug. Copy is PLACEHOLDER (bracketed);
-   JD writes real content later. To add/edit an item, edit this file only —
-   the landing cards and the detail routes are both generated from it. */
+/* Challenges — the "puzzle" work, now nested inside the Projects section. Each
+   challenge resolves to its own detail page at /challenges/<slug>. Copy is
+   PLACEHOLDER (bracketed); JD writes real content later. */
 
-export type Section = 'challenges' | 'hardware' | 'software'
+export type Section = 'challenges'
 
 export type Item = {
   section: Section
   slug: string
   title: string
   eyebrow: string // detail-page kicker, e.g. "Challenge · Steganography"
-  oneLine: string // short premise shown on the landing card / row sub
-  sub?: string // mono label for software rows (e.g. "Java")
+  oneLine: string // short premise shown on the landing card
   tags: string[]
   flagship?: boolean
   // detail-page body (all placeholder)
@@ -25,8 +23,6 @@ export type Item = {
 
 export const SECTION_LABEL: Record<Section, string> = {
   challenges: 'Challenges',
-  hardware: 'Hardware & firmware',
-  software: 'Software & coursework',
 }
 
 const ph = {
@@ -39,7 +35,6 @@ const ph = {
 }
 
 export const ITEMS: Item[] = [
-  // ---------------- Challenges ----------------
   {
     section: 'challenges',
     slug: 'warehouse-scavenger-hunt',
@@ -91,84 +86,6 @@ export const ITEMS: Item[] = [
     tags: ['[Tag]'],
     ...ph,
     stencil: 'DOC.05 · REV 2026.07',
-  },
-
-  // ---------------- Hardware & firmware ----------------
-  {
-    section: 'hardware',
-    slug: 'ps2-shell-console',
-    title: 'PS2-shell emulation console',
-    eyebrow: 'Hardware · Embedded',
-    oneLine: '[AMD APU · authentic 15 kHz CRT output via external DAC.]',
-    tags: ['Embedded', 'Analog / CRT'],
-    ...ph,
-    stencil: 'HW.01 · REV 2026.07',
-  },
-  {
-    section: 'hardware',
-    slug: 'psp-vita-android-firmware',
-    title: 'PSP / PS Vita / Android firmware',
-    eyebrow: 'Hardware · Firmware',
-    oneLine: '[Firmware modding for retro emulation.]',
-    tags: ['Firmware'],
-    ...ph,
-    stencil: 'HW.02 · REV 2026.07',
-  },
-  {
-    section: 'hardware',
-    slug: 'signal-path-03',
-    title: '[Signal-path detail]',
-    eyebrow: 'Hardware · Signal',
-    oneLine: '[Placeholder for a third hardware artifact.]',
-    tags: ['Signal'],
-    ...ph,
-    stencil: 'HW.03 · REV 2026.07',
-  },
-
-  // ---------------- Software & coursework ----------------
-  {
-    section: 'software',
-    slug: 'java-coursework',
-    title: 'Coursework projects',
-    eyebrow: 'Software · Java',
-    sub: 'Java',
-    oneLine: '[D288 · D387 · others]',
-    tags: ['Java'],
-    ...ph,
-    stencil: 'SW.01 · REV 2026.07',
-  },
-  {
-    section: 'software',
-    slug: 'cpp-c-coursework',
-    title: 'Coursework & practice',
-    eyebrow: 'Software · C++ / C',
-    sub: 'C++ / C',
-    oneLine: '[Placeholder — to be retrieved]',
-    tags: ['C++', 'C'],
-    ...ph,
-    stencil: 'SW.02 · REV 2026.07',
-  },
-  {
-    section: 'software',
-    slug: 'cisco-config-generator',
-    title: 'Cisco switch-config generator',
-    eyebrow: 'Software · VBA / Excel',
-    sub: 'VBA / Excel',
-    oneLine: '[GUI that generates switch configs]',
-    tags: ['VBA', 'Tooling'],
-    ...ph,
-    stencil: 'SW.03 · REV 2026.07',
-  },
-  {
-    section: 'software',
-    slug: 'career-planning-app',
-    title: 'Career-planning app',
-    eyebrow: 'Software · Web app',
-    sub: 'Web app',
-    oneLine: '[Finishing final details]',
-    tags: ['Web app'],
-    ...ph,
-    stencil: 'SW.04 · REV 2026.07',
   },
 ]
 
