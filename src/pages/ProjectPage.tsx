@@ -1,16 +1,15 @@
 import { useEffect } from 'react'
-import { useParams, Link, useNavigate } from 'react-router-dom'
+import { useParams, Link, useNavigate, Navigate } from 'react-router-dom'
 import Nav from '../components/Nav'
-import Eyebrow from '../components/Eyebrow'
 import Tag from '../components/Tag'
 import Button from '../components/Button'
 import Markdown from '../components/Markdown'
-import { findProject, getDocRaw, docSnippet } from '../content/projects'
+import { findProject, getDocRaw, overviewDoc } from '../content/projects'
 import { useReveal } from '../hooks/useMotion'
 
-/* Project page. /projects/:slug shows the repo's README, or — when the repo has
-   multiple docs — a grid of clickable preview boxes. /projects/:slug/:doc
-   renders one specific doc. Content is baked locally under content/readmes. */
+/* Project page. /projects/:slug/:doc renders one writeup; multi-doc projects
+   cross-link their writeups with a tab row (active one gold-boxed) and redirect
+   the bare /projects/:slug to their overview. Content is baked under readmes. */
 
 export default function ProjectPage() {
   const { slug = '', doc } = useParams()
@@ -38,11 +37,12 @@ export default function ProjectPage() {
   }
 
   const single = project.docs.length === 1
-  const activeDoc = doc
-    ? project.docs.find((d) => d.docSlug === doc)
-    : single
-      ? project.docs[0]
-      : undefined
+  const activeDoc = doc ? project.docs.find((d) => d.docSlug === doc) : project.docs[0]
+
+  // Bare multi-doc URL, or an unknown doc slug → send to the overview writeup.
+  if ((!doc && !single) || (doc && !activeDoc)) {
+    return <Navigate replace to={`/projects/${project.slug}/${overviewDoc(project).docSlug}`} />
+  }
 
   const activeRaw = activeDoc ? getDocRaw(project.slug, activeDoc.file) : undefined
 
@@ -56,15 +56,9 @@ export default function ProjectPage() {
             className="wrap"
             style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16, height: 54 }}
           >
-            {doc && !single ? (
-              <button className="navlink" style={{ color: 'var(--text)', opacity: 1 }} onClick={() => navigate(`/projects/${project.slug}`)}>
-                ← {project.title}
-              </button>
-            ) : (
-              <button className="navlink" style={{ color: 'var(--text)', opacity: 1 }} onClick={() => navigate('/')}>
-                ← All projects
-              </button>
-            )}
+            <button className="navlink" style={{ color: 'var(--text)', opacity: 1 }} onClick={() => navigate('/#sec-projects')}>
+              ← All projects
+            </button>
             <span className="stencil">{project.github.replace('https://github.com/', 'GH · ')}</span>
           </div>
         </div>
@@ -72,14 +66,34 @@ export default function ProjectPage() {
         {/* header */}
         <header className="dot" style={{ padding: '56px 0 40px' }}>
           <div className="wrap" style={{ maxWidth: 900 }}>
-            <div className="ey rv">Project</div>
+            <div className="rv" style={{ display: 'flex', alignItems: 'center', gap: 14, flexWrap: 'wrap' }}>
+              <div className="ey">Project</div>
+              {!single && (
+                <div className="doc-tabs">
+                  {project.docs.map((d) => (
+                    <Link
+                      key={d.docSlug}
+                      to={`/projects/${project.slug}/${d.docSlug}`}
+                      className={`doc-tab${activeDoc?.docSlug === d.docSlug ? ' is-active' : ''}`}
+                    >
+                      {d.title}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
             <h1 className="disp rv" data-slice style={{ fontSize: 42, margin: '14px 0 14px' }}>
-              {activeDoc && !single && doc ? activeDoc.title : project.title}
+              {single ? project.title : activeDoc?.title ?? project.title}
             </h1>
             <p className="body rv" style={{ fontSize: 17, opacity: 0.9, maxWidth: 640, margin: '0 0 18px' }}>
               {project.tagline}
             </p>
             <div className="rv" style={{ display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'center' }}>
+              {project.liveUrl && (
+                <Button href={project.liveUrl} variant="primary" target="_blank" rel="noreferrer noopener">
+                  Launch app →
+                </Button>
+              )}
               <Button href={project.github} variant="outline" target="_blank" rel="noreferrer noopener">
                 View on GitHub →
               </Button>
@@ -90,39 +104,13 @@ export default function ProjectPage() {
 
         {/* body */}
         <div className="wrap" style={{ maxWidth: 900, paddingTop: 20, paddingBottom: 72 }}>
-          {activeDoc && activeRaw ? (
+          {activeRaw && (
             <div
               className="rv"
               style={{ border: '1px solid var(--edge)', background: 'var(--bg)', padding: '32px 34px' }}
             >
               <Markdown source={activeRaw} />
             </div>
-          ) : (
-            <>
-              <div className="rv" style={{ marginBottom: 18 }}>
-                <Eyebrow>Documents</Eyebrow>
-              </div>
-              <div
-                className="rv"
-                style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(260px,1fr))', gap: 16 }}
-              >
-                {project.docs.map((d) => (
-                  <Link
-                    key={d.docSlug}
-                    to={`/projects/${project.slug}/${d.docSlug}`}
-                    style={{ display: 'block', border: '1px solid var(--edge)', padding: '20px 22px', color: 'inherit', background: 'var(--panel)' }}
-                  >
-                    <div style={{ color: 'var(--panel-text)' }}>
-                      <div className="disp" style={{ fontSize: 17, marginBottom: 8 }}>{d.title}</div>
-                      <p className="body" style={{ fontSize: 13, opacity: 0.75, margin: 0, color: 'var(--panel-text)' }}>
-                        {docSnippet(project.slug, d.file)}
-                      </p>
-                      <div className="stencil" style={{ marginTop: 14, color: 'var(--label-on-panel)' }}>Open →</div>
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            </>
           )}
         </div>
 

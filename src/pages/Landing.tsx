@@ -8,8 +8,9 @@ import Card from '../components/Card'
 import Stat from '../components/Stat'
 import { WaveTrace, MarkSpike } from '../components/WaveTrace'
 import PrimaryExits from '../components/PrimaryExits'
+import CodeFigure from '../components/CodeFigure'
 import { itemsBySection, type Item } from '../content/items'
-import { PROJECTS } from '../content/projects'
+import { PROJECTS, findProject, overviewDoc, subDocs, docSnippet } from '../content/projects'
 import { ACCOMPLISHMENTS, AWARDS } from '../content/work'
 import { useReveal, useGlitchSlice, useRailScroll } from '../hooks/useMotion'
 
@@ -52,6 +53,11 @@ export default function Landing() {
   const challenges = itemsBySection('challenges')
   const flagship = challenges.find((c) => c.flagship) as Item
   const railChallenges = challenges.filter((c) => !c.flagship)
+
+  const coursework = findProject('coursework-portfolio')!
+  const courseworkOverview = overviewDoc(coursework)
+  const courseBoxes = subDocs(coursework)
+  const otherProjects = PROJECTS.filter((p) => !p.featured)
 
   return (
     <>
@@ -265,19 +271,60 @@ export default function Landing() {
             </div>
           </div>
 
-          {/* Code projects sub-block — each opens its README page */}
+          {/* Coursework — flagship block (feature card → overview + 3 course boxes) */}
+          <div className="wrap" style={{ marginTop: 44 }}>
+            <div className="rv" style={{ marginBottom: 14 }}>
+              <Eyebrow>Coursework</Eyebrow>
+              <p className="body" style={{ fontSize: 14, opacity: 0.75, margin: '8px 0 0', maxWidth: 640 }}>
+                [Full-stack software-engineering coursework — three graded builds, each with its own writeup.]
+              </p>
+            </div>
+            <Link
+              to={`/projects/${coursework.slug}/${courseworkOverview.docSlug}`}
+              className="rv flagship-grid"
+              style={{ display: 'grid', gridTemplateColumns: '1.1fr 1fr', gap: 28, alignItems: 'center', border: '1px solid var(--edge)', padding: 24, color: 'inherit', marginBottom: 26 }}
+            >
+              {coursework.figure && <CodeFigure data={coursework.figure} />}
+              <div>
+                <Eyebrow>Featured · Coursework</Eyebrow>
+                <h3 className="disp" style={{ fontSize: 24, margin: '10px 0 12px' }}>{coursework.title}</h3>
+                <p className="body" style={{ fontSize: 14.5, opacity: 0.82, margin: '0 0 16px' }}>{coursework.tagline}</p>
+                <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 18 }}>
+                  {coursework.tags.map((tg) => (<Tag key={tg}>{tg}</Tag>))}
+                </div>
+                <Button variant="primary">Read the writeup →</Button>
+              </div>
+            </Link>
+            <div className="proj-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 20 }}>
+              {courseBoxes.map((d) => (
+                <Link
+                  key={d.docSlug}
+                  to={`/projects/${coursework.slug}/${d.docSlug}`}
+                  className="rv"
+                  style={{ display: 'flex', flexDirection: 'column', border: '1px solid var(--edge)', padding: 18, color: 'inherit', background: 'var(--bg)' }}
+                >
+                  {d.figure && <CodeFigure data={d.figure} style={{ marginBottom: 14 }} />}
+                  <div className="disp" style={{ fontSize: 16 }}>{d.title}</div>
+                  <p className="body" style={{ fontSize: 12.5, opacity: 0.75, margin: '8px 0 0' }}>{docSnippet(coursework.slug, d.file)}</p>
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {/* Other code projects */}
           <div className="wrap" style={{ marginTop: 44 }}>
             <div className="rv" style={{ marginBottom: 16 }}>
-              <Eyebrow>Code &amp; coursework</Eyebrow>
+              <Eyebrow>Software &amp; tools</Eyebrow>
             </div>
-            <div className="proj-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 20 }}>
-              {PROJECTS.map((p) => (
+            <div className="proj-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(2,1fr)', gap: 20 }}>
+              {otherProjects.map((p) => (
                 <Link
                   key={p.slug}
                   to={`/projects/${p.slug}`}
                   className="rv"
                   style={{ display: 'flex', flexDirection: 'column', border: '1px solid var(--edge)', padding: '22px 24px', color: 'inherit', background: 'var(--bg)' }}
                 >
+                  {p.figure && <CodeFigure data={p.figure} style={{ marginBottom: 16 }} />}
                   <div className="disp" style={{ fontSize: 18, marginBottom: 10 }}>{p.title}</div>
                   <p className="body" style={{ fontSize: 13.5, opacity: 0.82, margin: '0 0 16px', flex: 1 }}>{p.tagline}</p>
                   <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 14 }}>

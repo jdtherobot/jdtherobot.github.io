@@ -253,6 +253,87 @@ body.motion .rv.in {
   border-top: 1px solid var(--edge);
 }
 
+/* project doc tabs (writeup switcher) */
+.doc-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+.doc-tab {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.06em;
+  color: var(--label-on-bg);
+  padding: 6px 10px;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  transition: color 0.18s, border-color 0.18s, background 0.18s;
+}
+.doc-tab:hover {
+  color: var(--text);
+}
+.doc-tab.is-active {
+  border-color: var(--gold);
+  color: var(--text);
+}
+
+/* code-window figure (project previews) */
+.code-figure-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-bottom: 1px solid rgba(201, 164, 94, 0.25);
+  background: #131217;
+}
+.code-figure-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--gold);
+  flex: none;
+}
+.code-figure-name {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.06em;
+  color: rgba(236, 226, 198, 0.7);
+  text-transform: lowercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.code-figure-body {
+  padding: 12px 12px 14px;
+  overflow: hidden;
+  flex: 1;
+}
+.code-figure-pre {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  line-height: 1.7;
+  white-space: pre;
+  overflow: hidden;
+}
+.code-figure-line {
+  display: block;
+}
+.code-figure-num {
+  display: inline-block;
+  width: 1.6em;
+  margin-right: 12px;
+  text-align: right;
+  color: rgba(201, 164, 94, 0.4);
+  user-select: none;
+}
+.code-figure-code {
+  color: #ECE2C6;
+}
+.code-figure-code.is-comment {
+  color: rgba(201, 164, 94, 0.72);
+}
+
 /* ---------- Responsive (mobile ≤820px) ---------- */
 .nav-sections {
   display: flex;
