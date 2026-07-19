@@ -153,6 +153,21 @@
   border-radius: var(--radius);
 }
 
+/* rendered mermaid diagrams */
+.markdown-body .mermaid-slot {
+  margin: 0 0 1.1em;
+  border: 1px solid var(--edge);
+  padding: 18px;
+  overflow-x: auto;
+  background: var(--bg);
+}
+.markdown-body .mermaid-slot svg {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  height: auto;
+}
+
 .markdown-body kbd {
   font-family: var(--font-mono);
   font-size: 0.85em;
