@@ -9,6 +9,7 @@ import Stat from '../components/Stat'
 import { WaveTrace, MarkSpike } from '../components/WaveTrace'
 import PrimaryExits from '../components/PrimaryExits'
 import CodeFigure from '../components/CodeFigure'
+import DashboardFigure from '../components/DashboardFigure'
 import { itemsBySection, type Item } from '../content/items'
 import { PROJECTS, findProject, overviewDoc, subDocs, docSnippet } from '../content/projects'
 import { ACCOMPLISHMENTS, AWARDS } from '../content/work'
@@ -324,7 +325,11 @@ export default function Landing() {
                   className="rv"
                   style={{ display: 'flex', flexDirection: 'column', border: '1px solid var(--edge)', padding: '22px 24px', color: 'inherit', background: 'var(--bg)' }}
                 >
-                  {p.figure && <CodeFigure data={p.figure} style={{ marginBottom: 16 }} />}
+                  {p.dashboardFigure ? (
+                    <DashboardFigure style={{ marginBottom: 16 }} />
+                  ) : (
+                    p.figure && <CodeFigure data={p.figure} style={{ marginBottom: 16 }} />
+                  )}
                   <div className="disp" style={{ fontSize: 18, marginBottom: 10 }}>{p.title}</div>
                   <p className="body" style={{ fontSize: 13.5, opacity: 0.82, margin: '0 0 16px', flex: 1 }}>{p.tagline}</p>
                   <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 14 }}>

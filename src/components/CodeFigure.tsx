@@ -19,6 +19,7 @@ export default function CodeFigure({ data, style }: { data: FigureData; style?: 
         overflow: 'hidden',
         display: 'flex',
         flexDirection: 'column',
+        aspectRatio: 'var(--figure-ratio)',
         ...style,
       }}
     >

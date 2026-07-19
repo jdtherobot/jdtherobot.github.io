@@ -6,6 +6,11 @@
 @import './typography.css';
 @import './spacing.css';
 
+:root {
+  /* one standard preview-figure shape across the site (matches the .ph boxes) */
+  --figure-ratio: 16 / 10;
+}
+
 html,
 body {
   margin: 0;
@@ -278,7 +283,16 @@ body.motion .rv.in {
   color: var(--text);
 }
 
+/* keep grid tracks equal — long code lines must clip, not widen their cell */
+.proj-grid > *,
+.flagship-grid > * {
+  min-width: 0;
+}
+
 /* code-window figure (project previews) */
+.code-figure {
+  min-width: 0;
+}
 .code-figure-bar {
   display: flex;
   align-items: center;

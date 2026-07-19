@@ -1,4 +1,4 @@
-# Career Plan Codex
+# Career Plan — Financial Planner
 
 A deterministic 50-year career-path financial planner that runs **entirely in
 your browser**. The Python projection engine executes client-side via Pyodide —
