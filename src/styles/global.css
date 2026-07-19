@@ -268,7 +268,8 @@ body.motion .rv.in {
   .hero-grid,
   .bg-grid,
   .research-grid,
-  .flagship-grid {
+  .flagship-grid,
+  .proj-grid {
     grid-template-columns: 1fr !important;
   }
   .hero-h1 {

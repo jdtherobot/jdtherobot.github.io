@@ -9,6 +9,8 @@ import Stat from '../components/Stat'
 import { WaveTrace, MarkSpike } from '../components/WaveTrace'
 import PrimaryExits from '../components/PrimaryExits'
 import { itemsBySection, type Item } from '../content/items'
+import { PROJECTS } from '../content/projects'
+import { ACCOMPLISHMENTS, AWARDS } from '../content/work'
 import { useReveal, useGlitchSlice, useRailScroll } from '../hooks/useMotion'
 
 const RESEARCH_TIERS = [
@@ -37,8 +39,6 @@ export default function Landing() {
   useGlitchSlice()
   useRailScroll('home')
 
-  // If arriving with a hash (e.g. from a detail "All challenges" link), scroll
-  // to that section with the sticky-nav offset once the DOM is present.
   useEffect(() => {
     if (location.hash) {
       const id = location.hash.slice(1)
@@ -52,8 +52,6 @@ export default function Landing() {
   const challenges = itemsBySection('challenges')
   const flagship = challenges.find((c) => c.flagship) as Item
   const railChallenges = challenges.filter((c) => !c.flagship)
-  const hardware = itemsBySection('hardware')
-  const software = itemsBySection('software')
 
   return (
     <>
@@ -137,7 +135,7 @@ export default function Landing() {
           </div>
         </section>
 
-        {/* RESEARCH */}
+        {/* RESEARCH DIRECTION */}
         <section id="sec-research" className="dot section">
           <div className="wrap">
             <div className="ey rv">Research direction</div>
@@ -163,41 +161,93 @@ export default function Landing() {
           </div>
         </section>
 
-        {/* CHALLENGES — flagship, inverted ground */}
-        <section
-          id="sec-challenges"
-          data-rail-section
-          style={{ padding: '78px 0', background: 'var(--panel)', color: 'var(--panel-text)', borderTop: '1px solid var(--edge)' }}
-        >
+        {/* WORK — puzzle-style: accomplishments rail + awards. Title → /career */}
+        <section id="sec-work" data-rail-section className="dot section">
           <div className="wrap">
-            <div className="ey rv" style={{ color: 'var(--label-on-panel)' }}>Challenges I’ve built</div>
-            <h2 className="disp rv h2-lg" data-slice style={{ fontSize: 38, margin: '14px 0 12px' }}>
-              Building the puzzle is the deeper proof
+            <div className="ey rv">Work</div>
+            <h2 className="disp rv h2-lg" data-slice style={{ fontSize: 32, margin: '14px 0 8px' }}>
+              <Link to="/career" style={{ color: 'inherit', borderBottom: '2px solid var(--gold)', paddingBottom: 2 }}>
+                Twelve years of it →
+              </Link>
             </h2>
-            <p className="body rv" style={{ fontSize: 16, opacity: 0.85, maxWidth: 640, margin: '0 0 32px' }}>
-              [Lead — why authoring a challenge others solve is a rarer signal than solving one. This
-              is the strongest thing on the page; it gets the most room.]
+            <p className="body rv" style={{ fontSize: 15, opacity: 0.82, maxWidth: 620, margin: '0 0 8px' }}>
+              [Lead — the through-line of a 12-year career, told as a scroll of accomplishments.
+              The title opens the full career résumé.]
             </p>
+            <div className="rv" style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', margin: '18px 0 14px' }}>
+              <span className="ey">Accomplishments</span>
+              <span className="stencil">advances as you scroll · drag → to explore</span>
+            </div>
+          </div>
+          <div className="wrap">
+            <div className="rail" data-rail>
+              {ACCOMPLISHMENTS.map((a) => (
+                <Link
+                  key={a.slug}
+                  to="/career"
+                  style={{ width: 300, border: '1px solid var(--edge)', padding: 18, color: 'inherit', display: 'block' }}
+                >
+                  <div className="stencil" style={{ marginBottom: 10 }}>{a.period}</div>
+                  <Ph style={{ marginBottom: 14 }}>FIGURE</Ph>
+                  <div className="disp" style={{ fontSize: 16 }}>{a.title}</div>
+                  <p className="body" style={{ fontSize: 12.5, opacity: 0.75, margin: '8px 0 0' }}>{a.oneLine}</p>
+                </Link>
+              ))}
+            </div>
+          </div>
+          <div className="wrap" style={{ marginTop: 34 }}>
+            <div className="rv" style={{ marginBottom: 8 }}>
+              <Eyebrow>Awards</Eyebrow>
+            </div>
+            <div className="rv" style={{ borderTop: '1px solid var(--edge)' }}>
+              {AWARDS.map((aw, i) => (
+                <div key={i} style={{ display: 'flex', alignItems: 'baseline', gap: 18, padding: '16px 0', borderBottom: '1px solid var(--edge)' }}>
+                  <span className="stencil" style={{ width: 70, flex: 'none' }}>{aw.year}</span>
+                  <div style={{ flex: 1 }}>
+                    <div className="disp" style={{ fontSize: 15 }}>{aw.title}</div>
+                    <div className="body" style={{ fontSize: 12.5, opacity: 0.68, marginTop: 2 }}>{aw.detail}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* PROJECTS — the puzzle/challenges block (re-themed) + code projects */}
+        <section id="sec-projects" data-rail-section className="dot section">
+          <div className="wrap">
+            <div className="ey rv">Projects</div>
+            <h2 className="disp rv h2-lg" data-slice style={{ fontSize: 32, margin: '14px 0 8px' }}>
+              Things I’ve built
+            </h2>
+            <p className="body rv" style={{ fontSize: 15, opacity: 0.82, maxWidth: 620, margin: '0 0 30px' }}>
+              [Lead — the range: challenges authored for others to solve, and shipped software with
+              writeups. Each opens its own page.]
+            </p>
+
+            {/* Challenges sub-block (re-themed: follows day/night, black figure boxes kept) */}
+            <div className="rv" style={{ marginBottom: 14 }}>
+              <Eyebrow>Challenges I’ve built</Eyebrow>
+              <p className="body" style={{ fontSize: 14, opacity: 0.75, margin: '8px 0 0', maxWidth: 640 }}>
+                [Authoring a challenge others solve is a rarer signal than solving one.]
+              </p>
+            </div>
             <Link
               to={`/challenges/${flagship.slug}`}
               className="rv flagship-grid"
-              style={{ display: 'grid', gridTemplateColumns: '1.1fr 1fr', gap: 28, alignItems: 'center', border: '1px solid var(--edge)', padding: 24, color: 'inherit' }}
+              style={{ display: 'grid', gridTemplateColumns: '1.1fr 1fr', gap: 28, alignItems: 'center', border: '1px solid var(--edge)', padding: 24, color: 'inherit', marginBottom: 26 }}
             >
               <Ph>FLAGSHIP FIGURE<br />warehouse scavenger hunt</Ph>
               <div>
-                <Eyebrow on="panel">Featured · Steganography</Eyebrow>
+                <Eyebrow>Featured · Steganography</Eyebrow>
                 <h3 className="disp" style={{ fontSize: 24, margin: '10px 0 12px' }}>{flagship.title}</h3>
                 <p className="body" style={{ fontSize: 14.5, opacity: 0.82, margin: '0 0 16px' }}>{flagship.oneLine}</p>
                 <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 18 }}>
-                  {flagship.tags.map((tg) => (<Tag key={tg} on="panel">{tg}</Tag>))}
+                  {flagship.tags.map((tg) => (<Tag key={tg}>{tg}</Tag>))}
                 </div>
                 <Button variant="primary">Read the writeup →</Button>
               </div>
             </Link>
-            <div className="rv" style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', margin: '26px 0 14px' }}>
-              <span className="ey" style={{ color: 'var(--label-on-panel)' }}>More challenges</span>
-              <span className="stencil" style={{ color: 'var(--label-on-panel)' }}>advances as you scroll · drag → to explore</span>
-            </div>
           </div>
           <div className="wrap">
             <div className="rail" data-rail>
@@ -214,55 +264,26 @@ export default function Landing() {
               ))}
             </div>
           </div>
-        </section>
 
-        {/* HARDWARE & FIRMWARE */}
-        <section id="sec-hardware" data-rail-section className="dot section">
-          <div className="wrap">
-            <div className="ey rv">Hardware &amp; firmware</div>
-            <h2 className="disp rv h2-lg" data-slice style={{ fontSize: 32, margin: '14px 0 8px' }}>
-              Embedded systems &amp; analog signal work
-            </h2>
-            <p className="body rv" style={{ fontSize: 15, opacity: 0.82, maxWidth: 600, margin: '0 0 26px' }}>
-              [Lead — the discipline behind the builds: APUs, timing, authentic signal paths.]
-            </p>
-          </div>
-          <div className="wrap">
-            <div className="rail" data-rail>
-              {hardware.map((h) => (
-                <Link
-                  key={h.slug}
-                  to={`/hardware/${h.slug}`}
-                  style={{ width: 340, border: '1px solid var(--edge)', padding: 18, background: 'var(--bg)', color: 'inherit', display: 'block' }}
-                >
-                  <Ph style={{ marginBottom: 14 }}>FIGURE</Ph>
-                  <div className="disp" style={{ fontSize: 16 }}>{h.title}</div>
-                  <p className="body" style={{ fontSize: 12.5, opacity: 0.78, margin: '8px 0 12px' }}>{h.oneLine}</p>
-                  <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
-                    {h.tags.map((tg) => (<Tag key={tg}>{tg}</Tag>))}
-                  </div>
-                </Link>
-              ))}
+          {/* Code projects sub-block — each opens its README page */}
+          <div className="wrap" style={{ marginTop: 44 }}>
+            <div className="rv" style={{ marginBottom: 16 }}>
+              <Eyebrow>Code &amp; coursework</Eyebrow>
             </div>
-          </div>
-        </section>
-
-        {/* SOFTWARE & COURSEWORK */}
-        <section id="sec-software" className="section">
-          <div className="wrap">
-            <div className="ey rv">Software &amp; coursework</div>
-            <h2 className="disp rv h2-lg" data-slice style={{ fontSize: 32, margin: '14px 0 22px' }}>
-              Everything else, plainly listed
-            </h2>
-            <div className="rv" style={{ borderTop: '1px solid var(--edge)' }}>
-              {software.map((s) => (
-                <Link key={s.slug} to={`/software/${s.slug}`} className="softrow">
-                  <span className="stencil" style={{ width: 120, flex: 'none' }}>{s.sub}</span>
-                  <span style={{ flex: 1 }}>
-                    <span className="disp softname" style={{ fontSize: 15, transition: 'color .18s', display: 'block' }}>{s.title}</span>
-                    <span className="body" style={{ fontSize: 12.5, opacity: 0.68, marginTop: 2, display: 'block' }}>{s.oneLine}</span>
-                  </span>
-                  <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, opacity: 0.5 }}>→</span>
+            <div className="proj-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 20 }}>
+              {PROJECTS.map((p) => (
+                <Link
+                  key={p.slug}
+                  to={`/projects/${p.slug}`}
+                  className="rv"
+                  style={{ display: 'flex', flexDirection: 'column', border: '1px solid var(--edge)', padding: '22px 24px', color: 'inherit', background: 'var(--bg)' }}
+                >
+                  <div className="disp" style={{ fontSize: 18, marginBottom: 10 }}>{p.title}</div>
+                  <p className="body" style={{ fontSize: 13.5, opacity: 0.82, margin: '0 0 16px', flex: 1 }}>{p.tagline}</p>
+                  <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 14 }}>
+                    {p.tags.map((tg) => (<Tag key={tg}>{tg}</Tag>))}
+                  </div>
+                  <span className="stencil">Read the writeup →</span>
                 </Link>
               ))}
             </div>

@@ -4,3 +4,4 @@ dist
 *.local
 .vite
 career-context/
+.idea/
