@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import Nav from '../components/Nav'
 import Eyebrow from '../components/Eyebrow'
@@ -6,6 +5,7 @@ import Tag from '../components/Tag'
 import Figure from '../components/Figure'
 import { findItem, nextInSection, SECTION_LABEL, type Section, type Item } from '../content/items'
 import { useReveal, useGlitchSlice, useRailScroll } from '../hooks/useMotion'
+import { canGoBack } from '../hooks/useScrollRestoration'
 
 /* Challenge detail template (820px measure). Each challenge renders here at
    /challenges/<slug>. Copy is placeholder until JD fills it. */
@@ -27,10 +27,6 @@ export default function DetailPage() {
   useReveal(routeKey)
   useGlitchSlice()
   useRailScroll(routeKey)
-
-  useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [routeKey])
 
   const item = findItem(sec, slug)
   const label = SECTION_LABEL[sec]
@@ -60,18 +56,15 @@ export default function DetailPage() {
       <main>
         {/* back bar */}
         <div style={{ borderBottom: '1px solid var(--edge)' }}>
-          <div
-            className="wrap"
-            style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16, height: 54 }}
-          >
+          <div className="wrap backbar">
             <button
               className="navlink"
               style={{ color: 'var(--text)', opacity: 1 }}
-              onClick={() => navigate('/')}
+              onClick={() => (canGoBack() ? navigate(-1) : navigate(backTo))}
             >
               ← Back to {label.toLowerCase()}
             </button>
-            <span className="stencil">{view.stencil}</span>
+            <span className="stencil backbar-meta">{view.stencil}</span>
           </div>
         </div>
 
@@ -79,7 +72,7 @@ export default function DetailPage() {
         <header className="dot" style={{ padding: '56px 0 40px' }}>
           <div className="wrap" style={{ maxWidth: 820 }}>
             <div className="ey rv">{view.eyebrow}</div>
-            <h1 className="disp rv" data-slice style={{ fontSize: 42, margin: '14px 0 14px' }}>
+            <h1 className="disp rv page-h1" data-slice style={{ fontSize: 42, margin: '14px 0 14px' }}>
               {view.title}
             </h1>
             <p className="body rv" style={{ fontSize: 17, opacity: 0.9, maxWidth: 640, margin: '0 0 18px' }}>

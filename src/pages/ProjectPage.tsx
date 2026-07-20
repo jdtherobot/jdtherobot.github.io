@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import { useParams, Link, useNavigate, Navigate } from 'react-router-dom'
 import Nav from '../components/Nav'
 import Tag from '../components/Tag'
@@ -6,6 +5,7 @@ import Button from '../components/Button'
 import Markdown from '../components/Markdown'
 import { findProject, getDocRaw, overviewDoc } from '../content/projects'
 import { useReveal } from '../hooks/useMotion'
+import { canGoBack } from '../hooks/useScrollRestoration'
 
 /* Project page. /projects/:slug/:doc renders one writeup; multi-doc projects
    cross-link their writeups with a tab row (active one gold-boxed) and redirect
@@ -17,9 +17,10 @@ export default function ProjectPage() {
   const project = findProject(slug)
   useReveal(`${slug}/${doc ?? ''}`)
 
-  useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [slug, doc])
+  /* Going back beats the section anchor: it lands the visitor exactly where they
+     left off rather than at the top of the Projects block. Only when there is no
+     history to return to (deep link, fresh tab) do we fall back to the anchor. */
+  const goBack = () => (canGoBack() ? navigate(-1) : navigate('/#sec-projects'))
 
   if (!project) {
     return (
@@ -28,7 +29,7 @@ export default function ProjectPage() {
         <main className="dot" style={{ minHeight: '60vh' }}>
           <div className="wrap" style={{ maxWidth: 820, padding: '80px 0' }}>
             <div className="ey">Error · 404</div>
-            <h1 className="disp" style={{ fontSize: 42, margin: '14px 0 14px' }}>Project not found</h1>
+            <h1 className="disp page-h1" style={{ fontSize: 42, margin: '14px 0 14px' }}>Project not found</h1>
             <Link className="navlink" style={{ color: 'var(--text)', opacity: 1 }} to="/">← Back home</Link>
           </div>
         </main>
@@ -52,14 +53,13 @@ export default function ProjectPage() {
       <main>
         {/* back bar */}
         <div style={{ borderBottom: '1px solid var(--edge)' }}>
-          <div
-            className="wrap"
-            style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16, height: 54 }}
-          >
-            <button className="navlink" style={{ color: 'var(--text)', opacity: 1 }} onClick={() => navigate('/#sec-projects')}>
+          <div className="wrap backbar">
+            <button className="navlink" style={{ color: 'var(--text)', opacity: 1 }} onClick={goBack}>
               ← All projects
             </button>
-            <span className="stencil">{project.github.replace('https://github.com/', 'GH · ')}</span>
+            <span className="stencil backbar-meta">
+              {project.github.replace('https://github.com/', 'GH · ')}
+            </span>
           </div>
         </div>
 
@@ -82,7 +82,7 @@ export default function ProjectPage() {
                 </div>
               )}
             </div>
-            <h1 className="disp rv" data-slice style={{ fontSize: 42, margin: '14px 0 14px' }}>
+            <h1 className="disp rv page-h1" data-slice style={{ fontSize: 42, margin: '14px 0 14px' }}>
               {single ? project.title : activeDoc?.title ?? project.title}
             </h1>
             <p className="body rv" style={{ fontSize: 17, opacity: 0.9, maxWidth: 640, margin: '0 0 18px' }}>
@@ -104,11 +104,11 @@ export default function ProjectPage() {
 
         {/* body */}
         <div className="wrap" style={{ maxWidth: 900, paddingTop: 20, paddingBottom: 72 }}>
+          {/* No .rv here: the wrapper is the whole rendered README (8–25k px tall),
+              so a reveal on it is invisible anyway — and it used to trap the page
+              at opacity 0 on short viewports. The header above still reveals. */}
           {activeRaw && (
-            <div
-              className="rv"
-              style={{ border: '1px solid var(--edge)', background: 'var(--bg)', padding: '32px 34px' }}
-            >
+            <div className="doc-card">
               <Markdown source={activeRaw} />
             </div>
           )}

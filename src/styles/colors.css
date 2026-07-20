@@ -20,6 +20,27 @@
   --carbon:#17161A;  /* black carbon-fibre ground */
   --ink:#1E1B12;     /* near-black text ink */
 
+  /* screen grounds — the "device" surfaces (figure boxes, code windows). Darker
+     than --carbon so a card's carbon panel still reads as a frame around them.
+     Constant across modes: a screen is unlit in both. */
+  --screen:#0e0d10;      /* figure / code-window ground */
+  --screen-bar:#131217;  /* the chrome bar above a code window */
+
+  /* gold as a wash, not an ink — the tint ladder used for fills, rules and
+     hairlines. Kept here so the alphas stay consistent across the system. */
+  --gold-06:rgba(201,164,94,.06);
+  --gold-08:rgba(201,164,94,.08);
+  --gold-10:rgba(201,164,94,.10);
+  --gold-12:rgba(201,164,94,.12);
+  --gold-25:rgba(201,164,94,.25);
+  --gold-40:rgba(201,164,94,.40);
+  --gold-72:rgba(201,164,94,.72);
+
+  /* cream as a wash — for ink on a screen ground */
+  --cream-28:rgba(236,226,198,.28);
+  --cream-50:rgba(236,226,198,.50);
+  --cream-70:rgba(236,226,198,.70);
+
   /* focus rings use an INK, never --gold (material gold fails 3:1 non-text) */
   --focus-ring:var(--label-on-bg);
 }

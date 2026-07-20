@@ -14,7 +14,7 @@ export default function CodeFigure({ data, style }: { data: FigureData; style?: 
       className="code-figure"
       aria-hidden="true"
       style={{
-        background: '#0e0d10',
+        background: 'var(--screen)',
         border: '1px solid var(--edge)',
         overflow: 'hidden',
         display: 'flex',

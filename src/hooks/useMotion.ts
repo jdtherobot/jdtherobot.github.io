@@ -9,7 +9,10 @@ export function prefersReducedMotion(): boolean {
 }
 
 /* Reveal-on-scroll: .rv elements fade + rise, each firing once.
-   IntersectionObserver threshold .14, rootMargin 0 0 -6% 0.
+   threshold MUST stay 0: a ratio-based threshold can never be met by an element
+   taller than viewport/threshold, so tall nodes (a full README runs 8–25k px on
+   a phone) would stay at opacity 0 forever. The negative bottom rootMargin is
+   what delays the reveal until the element is properly on screen.
    Re-runs whenever `dep` changes (e.g. route change) to pick up new nodes. */
 export function useReveal(dep?: unknown) {
   useEffect(() => {
@@ -19,8 +22,10 @@ export function useReveal(dep?: unknown) {
       return
     }
     document.body.classList.add('motion')
+    let delivered = false
     const io = new IntersectionObserver(
       (ents) => {
+        delivered = true
         ents.forEach((en) => {
           if (en.isIntersecting) {
             en.target.classList.add('in')
@@ -28,14 +33,22 @@ export function useReveal(dep?: unknown) {
           }
         })
       },
-      { threshold: 0.14, rootMargin: '0px 0px -6% 0px' }
+      { threshold: 0, rootMargin: '0px 0px -10% 0px' }
     )
     // slight delay so freshly-mounted nodes exist
     const t = setTimeout(() => {
       document.querySelectorAll('.rv:not(.in)').forEach((el) => io.observe(el))
     }, 40)
+    /* Observers ride the rendering loop, so a tab that isn't producing frames
+       (hidden, occluded, some embedders) never gets even the guaranteed initial
+       callback — and would sit at opacity 0. If nothing has been delivered
+       shortly after observing, stop animating and show everything. */
+    const failsafe = setTimeout(() => {
+      if (!delivered) document.querySelectorAll('.rv').forEach((el) => el.classList.add('in'))
+    }, 700)
     return () => {
       clearTimeout(t)
+      clearTimeout(failsafe)
       io.disconnect()
     }
   }, [dep])

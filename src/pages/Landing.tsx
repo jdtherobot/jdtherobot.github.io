@@ -1,5 +1,4 @@
-import { useEffect } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import Nav from '../components/Nav'
 import Eyebrow from '../components/Eyebrow'
 import Tag from '../components/Tag'
@@ -36,20 +35,11 @@ function Ph({ children, ratio = '16/10', style }: { children: React.ReactNode; r
 }
 
 export default function Landing() {
-  const location = useLocation()
+  // Scroll placement (top / #hash / restored offset) belongs to
+  // useScrollRestoration in App — doing it here too would fight it.
   useReveal('home')
   useGlitchSlice()
   useRailScroll('home')
-
-  useEffect(() => {
-    if (location.hash) {
-      const id = location.hash.slice(1)
-      setTimeout(() => {
-        const el = document.getElementById(id)
-        if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.pageYOffset - 62, behavior: 'auto' })
-      }, 60)
-    }
-  }, [location.hash])
 
   const challenges = itemsBySection('challenges')
   const flagship = challenges.find((c) => c.flagship) as Item
