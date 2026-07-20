@@ -183,6 +183,34 @@
   background-attachment: local;
 }
 
+/* themed scrollbars — match the landing rails (6px, edge thumb, no track) */
+.markdown-body pre,
+.markdown-body table,
+.markdown-body .mermaid-slot,
+.mmd-zoom {
+  scrollbar-width: thin;
+  scrollbar-color: var(--edge) transparent;
+}
+.markdown-body pre::-webkit-scrollbar,
+.markdown-body table::-webkit-scrollbar,
+.markdown-body .mermaid-slot::-webkit-scrollbar,
+.mmd-zoom::-webkit-scrollbar {
+  height: 6px;
+  width: 6px;
+}
+.markdown-body pre::-webkit-scrollbar-thumb,
+.markdown-body table::-webkit-scrollbar-thumb,
+.markdown-body .mermaid-slot::-webkit-scrollbar-thumb,
+.mmd-zoom::-webkit-scrollbar-thumb {
+  background: var(--edge);
+}
+.markdown-body pre::-webkit-scrollbar-track,
+.markdown-body table::-webkit-scrollbar-track,
+.markdown-body .mermaid-slot::-webkit-scrollbar-track,
+.mmd-zoom::-webkit-scrollbar-track {
+  background: transparent;
+}
+
 /* enlarged diagram */
 .mmd-zoom {
   position: fixed;
