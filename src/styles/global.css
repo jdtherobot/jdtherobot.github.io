@@ -484,6 +484,26 @@ body.motion .rv.in {
   width: 100%;
 }
 
+/* metric row — three equal columns, each figure centered over its label, so
+   the blocks distribute evenly across the measure instead of packing left */
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 44px;
+  margin-top: 30px;
+  padding-top: 24px;
+  border-top: 1px solid var(--edge);
+}
+.stat-row .ds-stat {
+  text-align: center;
+}
+@media (max-width: 600px) {
+  .stat-row {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+}
+
 /* code-window figure (project previews) */
 .code-figure {
   min-width: 0;
