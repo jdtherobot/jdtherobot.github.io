@@ -24,7 +24,8 @@ export type Project = {
   title: string
   tagline: string
   github: string
-  liveUrl?: string // deployed app; renders a primary "Launch app →" button
+  liveUrl?: string // deployed app; renders a primary launch button in the header
+  liveLabel?: string // label for the liveUrl button (default "Launch app →")
   tags: string[]
   docs: ProjectDoc[]
   featured?: boolean // rendered as a flagship block on the landing
@@ -33,6 +34,26 @@ export type Project = {
 }
 
 export const PROJECTS: Project[] = [
+  {
+    slug: 'steganography-ctf',
+    title: 'Steganography CTF Challenges',
+    tagline:
+      'A four-challenge steganography CTF — photo-metadata crypto, steghide, a page-table warehouse hunt, and a nested-payload carve.',
+    github: 'https://github.com/jdtherobot/steganography-ctf',
+    // TODO: swap to the deployed lab page once jd-ctf-environment is hosted on the site.
+    liveUrl: 'https://github.com/jdtherobot/jd-ctf-environment',
+    liveLabel: 'Launch challenges →',
+    tags: ['Steganography', 'Cryptography', 'Computer architecture'],
+    featured: true,
+    // Docs order = tab order = cycle order: overview, then Warehouse first, then the levels.
+    docs: [
+      { docSlug: 'overview', title: 'Overview', file: 'README.md' },
+      { docSlug: 'warehouse', title: 'Warehouse', file: 'warehouse.md' },
+      { docSlug: 'steganography-lvl-1', title: 'Steganography lvl 1', file: 'lvl-1.md' },
+      { docSlug: 'steganography-lvl-2', title: 'Steganography lvl 2', file: 'lvl-2.md' },
+      { docSlug: 'steganography-lvl-3', title: 'Steganography lvl 3', file: 'lvl-3.md' },
+    ],
+  },
   {
     slug: 'coursework-portfolio',
     title: 'Coursework portfolio',

@@ -81,6 +81,17 @@ export default function ProjectPage() {
                   ))}
                 </div>
               )}
+              {project.liveUrl && (
+                <Button
+                  href={project.liveUrl}
+                  variant="primary"
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  style={{ marginLeft: 'auto' }}
+                >
+                  {project.liveLabel ?? 'Launch app →'}
+                </Button>
+              )}
             </div>
             <h1 className="disp rv page-h1" data-slice style={{ fontSize: 42, margin: '14px 0 14px' }}>
               {single ? project.title : activeDoc?.title ?? project.title}
@@ -89,11 +100,6 @@ export default function ProjectPage() {
               {project.tagline}
             </p>
             <div className="rv" style={{ display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'center' }}>
-              {project.liveUrl && (
-                <Button href={project.liveUrl} variant="primary" target="_blank" rel="noreferrer noopener">
-                  Launch app →
-                </Button>
-              )}
               <Button href={project.github} variant="outline" target="_blank" rel="noreferrer noopener">
                 View on GitHub →
               </Button>

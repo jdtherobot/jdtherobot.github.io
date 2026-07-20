@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Nav from '../components/Nav'
 import Eyebrow from '../components/Eyebrow'
 import Tag from '../components/Tag'
@@ -9,21 +9,42 @@ import { WaveTrace, MarkSpike } from '../components/WaveTrace'
 import PrimaryExits from '../components/PrimaryExits'
 import CodeFigure from '../components/CodeFigure'
 import DashboardFigure from '../components/DashboardFigure'
-import { itemsBySection, type Item } from '../content/items'
+import WorkFigure from '../components/WorkFigure'
 import { PROJECTS, findProject, overviewDoc, subDocs, docSnippet } from '../content/projects'
 import { ACCOMPLISHMENTS, AWARDS } from '../content/work'
 import { useReveal, useGlitchSlice, useRailScroll } from '../hooks/useMotion'
 
 const RESEARCH_TIERS = [
-  { tier: 'plain', stencil: 'TIER.01', eyebrow: 'Theory', tagline: '[How I’d approach it — the theoretical lens, placeholder length.]', tag: 'Theory' },
-  { tier: 'branch', stencil: 'TIER.02', eyebrow: 'Implementation', tagline: '[How I’d approach it — where hardware meets the theory.]', tag: 'Implementation' },
-  { tier: 'dissolve', stencil: 'TIER.03', eyebrow: 'Application', tagline: '[How I’d approach it — what the theory + hardware make possible.]', tag: 'Application' },
+  {
+    tier: 'plain',
+    stencil: 'Q.01',
+    eyebrow: 'Theory',
+    question: 'How can a system adapt continually without erasing what it already knows?',
+    tagline: 'Continual learning without catastrophic forgetting — brain-inspired algorithms as the lens.',
+    tag: 'Theory',
+  },
+  {
+    tier: 'branch',
+    stencil: 'Q.02',
+    eyebrow: 'Implementation',
+    question: 'How should learning, memory, runtime, and hardware be co-designed under limited resources?',
+    tagline: 'Neuromorphic and embedded constraints as a design input, not an afterthought.',
+    tag: 'Implementation',
+  },
+  {
+    tier: 'dissolve',
+    stencil: 'Q.03',
+    eyebrow: 'Application',
+    question: 'Can adaptive methods improve neural-signal decoding and other real-time closed-loop systems?',
+    tagline: 'Real-time decoding for BCIs — where latency, drift, and noise are the problem.',
+    tag: 'Application',
+  },
 ] as const
 
 const BG_ROWS = [
-  { stencil: 'Occupation', title: 'Full-time U.S. Air Force IT professional' },
-  { stencil: 'Academics', title: 'Full-time CS undergrad' },
-  { stencil: 'Personal development', title: 'Projects, books, certifications' },
+  { stencil: 'Occupation', title: 'Full-time U.S. Air Force IT professional', to: '/background/occupation' },
+  { stencil: 'Academics', title: 'Full-time CS undergrad', to: '/background/academics' },
+  { stencil: 'Personal development', title: 'Projects, books, certifications', to: '/background/personal-development' },
 ]
 
 function Ph({ children, ratio = '16/10', style }: { children: React.ReactNode; ratio?: string; style?: React.CSSProperties }) {
@@ -41,9 +62,9 @@ export default function Landing() {
   useGlitchSlice()
   useRailScroll('home')
 
-  const challenges = itemsBySection('challenges')
-  const flagship = challenges.find((c) => c.flagship) as Item
-  const railChallenges = challenges.filter((c) => !c.flagship)
+  const navigate = useNavigate()
+  const ctf = findProject('steganography-ctf')!
+  const ctfDocs = subDocs(ctf)
 
   const coursework = findProject('coursework-portfolio')!
   const courseworkOverview = overviewDoc(coursework)
@@ -66,8 +87,9 @@ export default function Landing() {
                 <span className="hero-h1" style={{ fontSize: 'inherit' }}>JD Britt</span>
               </h1>
               <p className="body rv" style={{ fontSize: 17, maxWidth: 560, opacity: 0.9, margin: '18px 0 0' }}>
-                [One-line positioning — the hardware-to-application through-line, written last.]
-                Placeholder sized like the real sentence will run so the measure reads true.
+                Twelve years keeping Air Force missions online — now engineering the layer where
+                hardware meets learning: adaptive algorithms, co-designed systems, and
+                brain-computer interfaces built for the real world.
               </p>
               <div className="rv" style={{ margin: '26px 0 28px' }}>
                 <WaveTrace width={300} />
@@ -93,31 +115,29 @@ export default function Landing() {
           <div className="wrap">
             <div className="ey rv">Background</div>
             <h2 className="disp rv h2-lg" data-slice style={{ fontSize: 32, margin: '14px 0 6px' }}>
-              Three commitments, at once
+              Who Am I?
             </h2>
             <div
               className="bg-grid"
               style={{ display: 'grid', gridTemplateColumns: '1.25fr 1fr', gap: 44, alignItems: 'start', marginTop: 22 }}
             >
               <div className="rv">
-                <p className="body" style={{ fontSize: 16, opacity: 0.9, margin: '0 0 16px' }}>
-                  [Narrative paragraph — how a full-time IT career, a full-time CS degree, and U.S.
-                  Air Force service run in parallel rather than in conflict. The section that reframes
-                  the load as evidence of throughput, not overreach.]
-                </p>
                 <p className="body" style={{ fontSize: 16, opacity: 0.9, margin: 0 }}>
-                  [Second paragraph — the through-line, and why it points at the research direction below.]
+                  Active-duty U.S. Air Force IT Leader &amp; Computer Science Undergrad. Experienced
+                  in operational infrastructure, software, and embedded experimentation. Preparing
+                  for research in hardware-software co-design, adaptive algorithms, and engineering
+                  next-generation brain-computer interfaces (BCIs) for real-world environments.
                 </p>
               </div>
               <div className="rv" style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                 {BG_ROWS.map((r) => (
-                  <a key={r.stencil} href="#" className="linkrow">
+                  <Link key={r.stencil} to={r.to} className="linkrow">
                     <div style={{ flex: 1 }}>
                       <div className="stencil">{r.stencil}</div>
                       <div className="disp" style={{ fontSize: 15, marginTop: 5 }}>{r.title}</div>
                     </div>
                     <span style={{ fontFamily: 'var(--font-mono)', fontSize: 12, opacity: 0.55 }}>→</span>
-                  </a>
+                  </Link>
                 ))}
               </div>
             </div>
@@ -140,15 +160,17 @@ export default function Landing() {
               The questions I want to work on
             </h2>
             <p className="body rv" style={{ fontSize: 15, opacity: 0.82, maxWidth: 600, margin: '0 0 28px' }}>
-              [Lead — states a point of view. This grows over ~2 years; each tier reads as an angle
-              of attack, not a finished result.]
+              One through-line: systems that keep learning after deployment. Three angles of
+              attack — theory, hardware, application — each an open question, not a finished result.
             </p>
             <div className="research-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 20 }}>
               {RESEARCH_TIERS.map((t) => (
                 <div className="rv" key={t.stencil}>
                   <Card tier={t.tier} stencil={t.stencil} innerStyle={{ padding: 20 }}>
                     <Eyebrow on="panel">{t.eyebrow}</Eyebrow>
-                    <h3 className="disp" style={{ fontSize: 18, margin: '10px 0' }}>[The question]</h3>
+                    <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 600, lineHeight: 1.3, fontSize: 17, margin: '10px 0' }}>
+                      {t.question}
+                    </h3>
                     <p className="body" style={{ fontSize: 13.5, opacity: 0.8, margin: '0 0 14px' }}>{t.tagline}</p>
                     <Tag on="panel">{t.tag}</Tag>
                   </Card>
@@ -164,12 +186,13 @@ export default function Landing() {
             <div className="ey rv">Work</div>
             <h2 className="disp rv h2-lg" data-slice style={{ fontSize: 32, margin: '14px 0 8px' }}>
               <Link to="/career" style={{ color: 'inherit', borderBottom: '2px solid var(--gold)', paddingBottom: 2 }}>
-                Twelve years of it →
+                Twelve years of I.T. →
               </Link>
             </h2>
             <p className="body rv" style={{ fontSize: 15, opacity: 0.82, maxWidth: 620, margin: '0 0 8px' }}>
-              [Lead — the through-line of a 12-year career, told as a scroll of accomplishments.
-              The title opens the full career résumé.]
+              Throughout my career, I&rsquo;ve been the Air Force&rsquo;s geek squad, helpdesk, asset
+              management, team lead, supervisor, project manager, section and flight leader… among
+              other things — and that&rsquo;s only the work stuff. Here&rsquo;s some tidbits.
             </p>
             <div className="rv" style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', margin: '18px 0 14px' }}>
               <span className="ey">Accomplishments</span>
@@ -185,7 +208,7 @@ export default function Landing() {
                   style={{ width: 300, border: '1px solid var(--edge)', padding: 18, color: 'inherit', display: 'block' }}
                 >
                   <div className="stencil" style={{ marginBottom: 10 }}>{a.period}</div>
-                  <Ph style={{ marginBottom: 14 }}>FIGURE</Ph>
+                  <WorkFigure kind={a.figure} style={{ marginBottom: 14 }} />
                   <div className="disp" style={{ fontSize: 16 }}>{a.title}</div>
                   <p className="body" style={{ fontSize: 12.5, opacity: 0.75, margin: '8px 0 0' }}>{a.oneLine}</p>
                 </Link>
@@ -196,7 +219,7 @@ export default function Landing() {
             <div className="rv" style={{ marginBottom: 8 }}>
               <Eyebrow>Awards</Eyebrow>
             </div>
-            <div className="rv" style={{ borderTop: '1px solid var(--edge)' }}>
+            <div className="rv awards-scroll" style={{ borderTop: '1px solid var(--edge)' }}>
               {AWARDS.map((aw, i) => (
                 <div key={i} style={{ display: 'flex', alignItems: 'baseline', gap: 18, padding: '16px 0', borderBottom: '1px solid var(--edge)' }}>
                   <span className="stencil" style={{ width: 70, flex: 'none' }}>{aw.year}</span>
@@ -229,34 +252,46 @@ export default function Landing() {
                 [Authoring a challenge others solve is a rarer signal than solving one.]
               </p>
             </div>
-            <Link
-              to={`/challenges/${flagship.slug}`}
+            <div
               className="rv flagship-grid"
-              style={{ display: 'grid', gridTemplateColumns: '1.1fr 1fr', gap: 28, alignItems: 'center', border: '1px solid var(--edge)', padding: 24, color: 'inherit', marginBottom: 26 }}
+              style={{ display: 'grid', gridTemplateColumns: '1.1fr 1fr', gap: 28, alignItems: 'center', border: '1px solid var(--edge)', padding: 24, marginBottom: 26 }}
             >
-              <Ph>FLAGSHIP FIGURE<br />warehouse scavenger hunt</Ph>
+              <Link to={`/projects/${ctf.slug}/overview`} style={{ display: 'block', color: 'inherit' }}>
+                <Ph>FLAGSHIP FIGURE<br />steganography ctf challenges</Ph>
+              </Link>
               <div>
                 <Eyebrow>Featured · Steganography</Eyebrow>
-                <h3 className="disp" style={{ fontSize: 24, margin: '10px 0 12px' }}>{flagship.title}</h3>
-                <p className="body" style={{ fontSize: 14.5, opacity: 0.82, margin: '0 0 16px' }}>{flagship.oneLine}</p>
+                <Link to={`/projects/${ctf.slug}/overview`} style={{ color: 'inherit', textDecoration: 'none' }}>
+                  <h3 className="disp" style={{ fontSize: 24, margin: '10px 0 12px' }}>{ctf.title}</h3>
+                </Link>
+                <p className="body" style={{ fontSize: 14.5, opacity: 0.82, margin: '0 0 16px' }}>{ctf.tagline}</p>
                 <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 18 }}>
-                  {flagship.tags.map((tg) => (<Tag key={tg}>{tg}</Tag>))}
+                  {ctf.tags.map((tg) => (<Tag key={tg}>{tg}</Tag>))}
                 </div>
-                <Button variant="primary">Read the writeup →</Button>
+                <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', alignItems: 'center' }}>
+                  <Button variant="primary" onClick={() => navigate(`/projects/${ctf.slug}/overview`)}>
+                    Read the writeup →
+                  </Button>
+                  {ctf.liveUrl && (
+                    <Button href={ctf.liveUrl} variant="primary" target="_blank" rel="noreferrer noopener">
+                      {ctf.liveLabel ?? 'Launch app →'}
+                    </Button>
+                  )}
+                </div>
               </div>
-            </Link>
+            </div>
           </div>
           <div className="wrap">
             <div className="rail" data-rail>
-              {railChallenges.map((c) => (
+              {ctfDocs.map((d) => (
                 <Link
-                  key={c.slug}
-                  to={`/challenges/${c.slug}`}
+                  key={d.docSlug}
+                  to={`/projects/${ctf.slug}/${d.docSlug}`}
                   style={{ width: 300, border: '1px solid var(--edge)', padding: 18, color: 'inherit', display: 'block' }}
                 >
                   <Ph style={{ marginBottom: 14 }}>FIGURE</Ph>
-                  <div className="disp" style={{ fontSize: 16 }}>{c.title}</div>
-                  <p className="body" style={{ fontSize: 12.5, opacity: 0.75, margin: '8px 0 0' }}>{c.oneLine}</p>
+                  <div className="disp" style={{ fontSize: 16 }}>{d.title}</div>
+                  <p className="body" style={{ fontSize: 12.5, opacity: 0.75, margin: '8px 0 0' }}>{docSnippet(ctf.slug, d.file)}</p>
                 </Link>
               ))}
             </div>
