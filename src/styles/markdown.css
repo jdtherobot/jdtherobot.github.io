@@ -99,7 +99,7 @@
 .markdown-body code {
   font-family: var(--font-mono);
   font-size: 0.86em;
-  background: rgba(201, 164, 94, 0.1);
+  background: var(--gold-10);
   border: 1px solid var(--edge);
   border-radius: var(--radius);
   padding: 0.15em 0.4em;
@@ -145,7 +145,7 @@
   font-size: 12px;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  background: rgba(201, 164, 94, 0.06);
+  background: var(--gold-06);
 }
 
 .markdown-body img {
@@ -153,19 +153,79 @@
   border-radius: var(--radius);
 }
 
-/* rendered mermaid diagrams */
+/* rendered mermaid diagrams.
+   The SVG is sized in JS (see fitDiagram): scaled to the slot, but never below
+   a legible floor — past that the slot scrolls instead of squashing the type. */
 .markdown-body .mermaid-slot {
+  position: relative;
   margin: 0 0 1.1em;
   border: 1px solid var(--edge);
   padding: 18px;
   overflow-x: auto;
   background: var(--bg);
 }
+.markdown-body .mermaid-slot[data-mmd-ready] {
+  cursor: zoom-in;
+}
 .markdown-body .mermaid-slot svg {
   display: block;
   margin: 0 auto;
-  max-width: 100%;
   height: auto;
+}
+
+/* affordance for anything that scrolls sideways inside the prose */
+.markdown-body .mermaid-slot[data-scrollable],
+.markdown-body table {
+  background-image: linear-gradient(to left, var(--seam), transparent 34px);
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-size: 34px 100%;
+  background-attachment: local;
+}
+
+/* enlarged diagram */
+.mmd-zoom {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 56px 16px 16px;
+  overflow: auto;
+  overscroll-behavior: contain;
+  cursor: zoom-out;
+}
+.mmd-zoom-canvas {
+  margin: auto;
+  cursor: default;
+}
+.mmd-zoom-canvas svg {
+  display: block;
+  /* natural size — this view exists to be readable, so let it overflow and pan */
+  max-width: none;
+  height: auto;
+}
+.mmd-zoom-close {
+  position: fixed;
+  top: 14px;
+  right: 16px;
+  z-index: 1;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--label-on-bg);
+  background: var(--bg);
+  border: 1px solid var(--edge);
+  border-radius: var(--radius);
+  padding: 10px 14px;
+  cursor: pointer;
+}
+.mmd-zoom-close:hover {
+  color: var(--text);
+  border-color: var(--gold);
 }
 
 .markdown-body kbd {

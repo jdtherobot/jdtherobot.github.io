@@ -8,15 +8,22 @@ import { prefersReducedMotion } from '../hooks/useMotion'
 /* Sticky top nav.
    - Waveform mark = the sole menu trigger for the four primary links.
    - "JD BRITT" wordmark = scroll to top (returns home first from a detail route).
-   - Section links smooth-scroll (−62px offset); from detail, return home then scroll. */
+   - Section links smooth-scroll (−62px offset); from detail, return home then scroll.
+   - Under 820px the section links are hidden, so a row of four square marks takes
+     their place: it reports which section you're in and opens the same links as a
+     menu. Without it those four sections are unreachable on a phone. */
 
 export default function Nav() {
   const navigate = useNavigate()
   const location = useLocation()
   const isHome = location.pathname === '/'
   const [menuOpen, setMenuOpen] = useState(false)
+  const [secOpen, setSecOpen] = useState(false)
+  const [activeSection, setActiveSection] = useState<string | null>(null)
   const triggerRef = useRef<HTMLButtonElement>(null)
   const menuRef = useRef<HTMLDivElement>(null)
+  const secTriggerRef = useRef<HTMLButtonElement>(null)
+  const secMenuRef = useRef<HTMLDivElement>(null)
 
   const smooth = !prefersReducedMotion()
 
@@ -50,17 +57,67 @@ export default function Nav() {
     }
   }, [isHome, navigate, smooth])
 
-  // close the menu on any outside click
+  // close either menu on any outside click
   useEffect(() => {
     const onDoc = (e: MouseEvent) => {
-      if (!menuOpen) return
       const t = e.target as Node
-      if (triggerRef.current?.contains(t) || menuRef.current?.contains(t)) return
-      setMenuOpen(false)
+      if (menuOpen && !triggerRef.current?.contains(t) && !menuRef.current?.contains(t)) {
+        setMenuOpen(false)
+      }
+      if (secOpen && !secTriggerRef.current?.contains(t) && !secMenuRef.current?.contains(t)) {
+        setSecOpen(false)
+      }
     }
     document.addEventListener('click', onDoc)
     return () => document.removeEventListener('click', onDoc)
-  }, [menuOpen])
+  }, [menuOpen, secOpen])
+
+  // Escape closes whichever menu is open and hands focus back to its trigger
+  useEffect(() => {
+    if (!menuOpen && !secOpen) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== 'Escape') return
+      if (menuOpen) {
+        setMenuOpen(false)
+        triggerRef.current?.focus()
+      }
+      if (secOpen) {
+        setSecOpen(false)
+        secTriggerRef.current?.focus()
+      }
+    }
+    document.addEventListener('keydown', onKey)
+    return () => document.removeEventListener('keydown', onKey)
+  }, [menuOpen, secOpen])
+
+  /* Which section is on screen, for the mobile marks. Only meaningful on home;
+     elsewhere every mark reads inactive and the menu still navigates home. */
+  useEffect(() => {
+    if (!isHome || !('IntersectionObserver' in window)) {
+      setActiveSection(null)
+      return
+    }
+    const io = new IntersectionObserver(
+      (entries) => {
+        const onScreen = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)
+        if (onScreen.length) setActiveSection(onScreen[0].target.id)
+      },
+      // the nav itself covers the top 62px
+      { rootMargin: '-62px 0px -55% 0px' }
+    )
+    const t = setTimeout(() => {
+      SECTION_LINKS.forEach((s) => {
+        const el = document.getElementById(s.id)
+        if (el) io.observe(el)
+      })
+    }, 40)
+    return () => {
+      clearTimeout(t)
+      io.disconnect()
+    }
+  }, [isHome])
 
   return (
     <nav
@@ -86,7 +143,7 @@ export default function Nav() {
           <button
             ref={triggerRef}
             type="button"
-            aria-haspopup="true"
+            aria-haspopup="menu"
             aria-expanded={menuOpen}
             aria-label="Open links menu"
             onClick={() => setMenuOpen((v) => !v)}
@@ -95,8 +152,9 @@ export default function Nav() {
               alignItems: 'center',
               background: 'none',
               border: 'none',
-              padding: 4,
-              margin: -4,
+              // 22px mark, 44px touch target
+              padding: '11px 12px',
+              margin: '-11px -12px',
               cursor: 'pointer',
             }}
           >
@@ -133,6 +191,52 @@ export default function Nav() {
               {s.label}
             </button>
           ))}
+        </div>
+
+        {/* mobile stand-in for .nav-sections */}
+        <div className="sec-dots">
+          <button
+            ref={secTriggerRef}
+            type="button"
+            className="sec-dots-trigger"
+            aria-haspopup="menu"
+            aria-expanded={secOpen}
+            aria-label={
+              activeSection
+                ? `Sections — currently in ${
+                    SECTION_LINKS.find((s) => s.id === activeSection)?.label ?? ''
+                  }`
+                : 'Sections'
+            }
+            onClick={() => setSecOpen((v) => !v)}
+          >
+            {SECTION_LINKS.map((s) => (
+              <span
+                key={s.id}
+                className={`sec-dot${activeSection === s.id ? ' is-active' : ''}`}
+              />
+            ))}
+          </button>
+          {secOpen && (
+            <div ref={secMenuRef} className="linksmenu is-right" role="menu">
+              {SECTION_LINKS.map((s) => (
+                <a
+                  key={s.id}
+                  href={`/#${s.id}`}
+                  role="menuitem"
+                  className={activeSection === s.id ? 'is-active' : undefined}
+                  onClick={(e) => {
+                    e.preventDefault()
+                    setSecOpen(false)
+                    scrollToId(s.id)
+                  }}
+                >
+                  {s.label}
+                  <span className="arrow">↓</span>
+                </a>
+              ))}
+            </div>
+          )}
         </div>
 
         <ModeToggle />

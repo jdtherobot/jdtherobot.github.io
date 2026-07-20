@@ -23,7 +23,7 @@ controller → service → DAO layering over the JPA model; the provided Angular
 REST/JSON contract unchanged.
 
 ```mermaid
-flowchart LR
+flowchart TB
     subgraph FE["Angular SPA (provided, unmodified)"]
       NG[Angular client]
     end

@@ -43,7 +43,7 @@ export default function Figure({
           position: 'relative',
           width: '100%',
           aspectRatio: ratio,
-          background: '#0e0d10',
+          background: 'var(--screen)',
           overflow: 'hidden',
         }}
       >
