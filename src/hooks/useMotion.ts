@@ -95,18 +95,56 @@ export function useRailScroll(dep?: unknown) {
         })
       }
 
-      const markUser = (rail: HTMLElement) => () => (rail.dataset.user = '1')
+      /* Yield only on a DELIBERATE horizontal gesture. A bare click must not
+         yield, and neither may the stray sideways ticks macOS trackpads emit
+         during ordinary vertical scrolling — that hair-trigger is what used to
+         kill the auto-advance the moment anyone touched the page. On yield the
+         runway collapses too, so no dead vertical scroll is left behind. */
+      const yieldTo = (u: (typeof units)[number]) => {
+        u.rail.dataset.user = '1'
+        u.rail.style.scrollSnapType = ''
+        u.runway.style.height = ''
+      }
       const unbinders: Array<() => void> = []
       units.forEach((u) => {
-        const pd = markUser(u.rail)
+        // snap fights programmatic scrollLeft — off while the runway drives
+        u.rail.style.scrollSnapType = 'none'
+
+        let wheelAccum = 0
         const wh = (e: WheelEvent) => {
-          if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) u.rail.dataset.user = '1'
+          if (u.rail.dataset.user) return
+          if (Math.abs(e.deltaX) > 1.5 * Math.abs(e.deltaY)) {
+            wheelAccum += Math.abs(e.deltaX)
+            if (wheelAccum > 60) yieldTo(u)
+          } else if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+            wheelAccum = 0
+          }
         }
-        u.rail.addEventListener('pointerdown', pd)
+
+        let dragFrom: { x: number; y: number } | null = null
+        const pd = (e: PointerEvent) => {
+          dragFrom = { x: e.clientX, y: e.clientY }
+        }
+        const pm = (e: PointerEvent) => {
+          if (!dragFrom || u.rail.dataset.user) return
+          const dx = e.clientX - dragFrom.x
+          const dy = e.clientY - dragFrom.y
+          if (Math.abs(dx) > 12 && Math.abs(dx) > Math.abs(dy)) yieldTo(u)
+        }
+        const pu = () => (dragFrom = null)
+
         u.rail.addEventListener('wheel', wh, { passive: true })
+        u.rail.addEventListener('pointerdown', pd)
+        u.rail.addEventListener('pointermove', pm)
+        u.rail.addEventListener('pointerup', pu)
+        u.rail.addEventListener('pointercancel', pu)
         unbinders.push(() => {
-          u.rail.removeEventListener('pointerdown', pd)
           u.rail.removeEventListener('wheel', wh)
+          u.rail.removeEventListener('pointerdown', pd)
+          u.rail.removeEventListener('pointermove', pm)
+          u.rail.removeEventListener('pointerup', pu)
+          u.rail.removeEventListener('pointercancel', pu)
+          u.rail.style.scrollSnapType = ''
         })
       })
 
