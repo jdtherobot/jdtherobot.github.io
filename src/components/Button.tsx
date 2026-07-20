@@ -62,15 +62,17 @@ export default function Button({
     onMouseLeave: () => setHover(false),
     onClick: disabled ? undefined : onClick,
   }
+  // gold buttons carry the one-time attention shimmer (see useGoldShimmer)
+  const shimmer = variant === 'primary' ? { 'data-shimmer': '' } : {}
   if (href && !disabled) {
     return (
-      <a href={href} className="ds-btn" style={cls} {...handlers} {...rest}>
+      <a href={href} className="ds-btn" style={cls} {...shimmer} {...handlers} {...rest}>
         {children}
       </a>
     )
   }
   return (
-    <button type={type} disabled={disabled} className="ds-btn" style={cls} {...handlers} {...rest}>
+    <button type={type} disabled={disabled} className="ds-btn" style={cls} {...shimmer} {...handlers} {...rest}>
       {children}
     </button>
   )

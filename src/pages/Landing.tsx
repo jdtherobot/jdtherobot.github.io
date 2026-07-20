@@ -12,32 +12,32 @@ import DashboardFigure from '../components/DashboardFigure'
 import WorkFigure from '../components/WorkFigure'
 import { PROJECTS, findProject, overviewDoc, subDocs, docSnippet } from '../content/projects'
 import { ACCOMPLISHMENTS, AWARDS } from '../content/work'
-import { useReveal, useGlitchSlice, useRailScroll } from '../hooks/useMotion'
+import { useReveal, useRailScroll, usePianoIntro } from '../hooks/useMotion'
 
 const RESEARCH_TIERS = [
   {
     tier: 'plain',
     stencil: 'Q.01',
-    eyebrow: 'Theory',
+    eyebrow: 'Adaptive Learning',
     question: 'How can a system adapt continually without erasing what it already knows?',
     tagline: 'Continual learning without catastrophic forgetting — brain-inspired algorithms as the lens.',
-    tag: 'Theory',
+    tag: 'Adaptive Learning',
   },
   {
     tier: 'branch',
     stencil: 'Q.02',
-    eyebrow: 'Implementation',
+    eyebrow: 'Computer Systems',
     question: 'How should learning, memory, runtime, and hardware be co-designed under limited resources?',
     tagline: 'Neuromorphic and embedded constraints as a design input, not an afterthought.',
-    tag: 'Implementation',
+    tag: 'Computer Systems',
   },
   {
     tier: 'dissolve',
     stencil: 'Q.03',
-    eyebrow: 'Application',
+    eyebrow: 'Neurotechnology',
     question: 'Can adaptive methods improve neural-signal decoding and other real-time closed-loop systems?',
     tagline: 'Real-time decoding for BCIs — where latency, drift, and noise are the problem.',
-    tag: 'Application',
+    tag: 'Neurotechnology',
   },
 ] as const
 
@@ -59,8 +59,8 @@ export default function Landing() {
   // Scroll placement (top / #hash / restored offset) belongs to
   // useScrollRestoration in App — doing it here too would fight it.
   useReveal('home')
-  useGlitchSlice()
   useRailScroll('home')
+  usePianoIntro('home')
 
   const navigate = useNavigate()
   const ctf = findProject('steganography-ctf')!
@@ -145,9 +145,11 @@ export default function Landing() {
               className="rv"
               style={{ display: 'flex', gap: 40, flexWrap: 'wrap', marginTop: 30, paddingTop: 24, borderTop: '1px solid var(--edge)' }}
             >
-              <Stat value="[ — ]" label="Placeholder metric · verify" />
-              <Stat value="[ — ]" label="Placeholder metric · verify" />
-              <Stat value="[ — ]" label="Placeholder metric · verify" />
+              {/* Sums of documented figures across performance reports — see
+                  /background/occupation for the underlying line items. */}
+              <Stat value="250+ · $35M" label="Projects led · documented value" />
+              <Stat value="38K+" label="Security vulnerabilities eliminated" />
+              <Stat value="95K+" label="Labor-hours saved" />
             </div>
           </div>
         </section>
@@ -201,20 +203,24 @@ export default function Landing() {
               <span className="stencil">advances as you scroll · drag → to explore</span>
             </div>
           </div>
-          <div className="wrap">
-            <div className="rail" data-rail>
-              {ACCOMPLISHMENTS.map((a) => (
+          <div data-rail-runway>
+            <div className="rail-pin">
+              <div className="wrap">
+                <div className="rail" data-rail data-piano>
+                  {ACCOMPLISHMENTS.map((a) => (
                 <Link
                   key={a.slug}
                   to="/career"
                   style={{ width: 300, border: '1px solid var(--edge)', padding: 18, color: 'inherit', display: 'block' }}
                 >
-                  <div className="stencil" style={{ marginBottom: 10 }}>{a.period}</div>
-                  <WorkFigure kind={a.figure} style={{ marginBottom: 14 }} />
-                  <div className="disp" style={{ fontSize: 16 }}>{a.title}</div>
-                  <p className="body" style={{ fontSize: 12.5, opacity: 0.75, margin: '8px 0 0' }}>{a.oneLine}</p>
-                </Link>
-              ))}
+                      <div className="stencil" style={{ marginBottom: 10 }}>{a.period}</div>
+                      <WorkFigure kind={a.figure} style={{ marginBottom: 14 }} />
+                      <div className="disp" style={{ fontSize: 16 }}>{a.title}</div>
+                      <p className="body" style={{ fontSize: 12.5, opacity: 0.75, margin: '8px 0 0' }}>{a.oneLine}</p>
+                    </Link>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
           <div className="wrap" style={{ marginTop: 34 }}>
@@ -282,19 +288,23 @@ export default function Landing() {
               </div>
             </div>
           </div>
-          <div className="wrap">
-            <div className="rail" data-rail>
-              {ctfDocs.map((d) => (
-                <Link
-                  key={d.docSlug}
-                  to={`/projects/${ctf.slug}/${d.docSlug}`}
-                  style={{ width: 300, border: '1px solid var(--edge)', padding: 18, color: 'inherit', display: 'block' }}
-                >
-                  <Ph style={{ marginBottom: 14 }}>FIGURE</Ph>
-                  <div className="disp" style={{ fontSize: 16 }}>{d.title}</div>
-                  <p className="body" style={{ fontSize: 12.5, opacity: 0.75, margin: '8px 0 0' }}>{docSnippet(ctf.slug, d.file)}</p>
-                </Link>
-              ))}
+          <div data-rail-runway>
+            <div className="rail-pin">
+              <div className="wrap">
+                <div className="rail" data-rail data-piano>
+                  {ctfDocs.map((d) => (
+                    <Link
+                      key={d.docSlug}
+                      to={`/projects/${ctf.slug}/${d.docSlug}`}
+                      style={{ width: 300, border: '1px solid var(--edge)', padding: 18, color: 'inherit', display: 'block' }}
+                    >
+                      <Ph style={{ marginBottom: 14 }}>FIGURE</Ph>
+                      <div className="disp" style={{ fontSize: 16 }}>{d.title}</div>
+                      <p className="body" style={{ fontSize: 12.5, opacity: 0.75, margin: '8px 0 0' }}>{docSnippet(ctf.slug, d.file)}</p>
+                    </Link>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
 
@@ -370,12 +380,12 @@ export default function Landing() {
                 <Button variant="primary">Read the writeup →</Button>
               </div>
             </Link>
-            <div className="proj-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 20 }}>
+            {/* no .rv on these boxes — the piano intro owns their entrance */}
+            <div className="proj-grid" data-piano style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 20 }}>
               {courseBoxes.map((d) => (
                 <Link
                   key={d.docSlug}
                   to={`/projects/${coursework.slug}/${d.docSlug}`}
-                  className="rv"
                   style={{ display: 'flex', flexDirection: 'column', border: '1px solid var(--edge)', padding: 18, color: 'inherit', background: 'var(--bg)' }}
                 >
                   {d.figure && <CodeFigure data={d.figure} style={{ marginBottom: 14 }} />}

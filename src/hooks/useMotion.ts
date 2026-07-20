@@ -54,77 +54,160 @@ export function useReveal(dep?: unknown) {
   }, [dep])
 }
 
-/* Ambient glitch slice on [data-slice] titles: one random on-screen title
-   every ~9–17s, ~450ms. Suppressed under reduced-motion. */
-export function useGlitchSlice() {
-  useEffect(() => {
-    if (prefersReducedMotion()) return
-    let timer: number
-    const tick = () => {
-      const titles = document.querySelectorAll<HTMLElement>('[data-slice]')
-      if (titles.length) {
-        const el = titles[Math.floor(Math.random() * titles.length)]
-        const r = el.getBoundingClientRect()
-        if (r.top > 0 && r.bottom < window.innerHeight) {
-          el.classList.add('slice')
-          window.setTimeout(() => el.classList.remove('slice'), 450)
-        }
-      }
-      timer = window.setTimeout(tick, 9000 + Math.random() * 8000)
-    }
-    timer = window.setTimeout(tick, 9000 + Math.random() * 8000)
-    return () => window.clearTimeout(timer)
-  }, [])
-}
+/* Sticky scroll-runway rails.
 
-/* Rails advance proportionally to their section's scroll progress and yield
-   permanently to the user on manual pointer/wheel-x. Never blocks vertical
-   scroll. Re-runs on `dep` change (route). Suppressed under reduced-motion. */
+   Each [data-rail-runway] gets extra height (the rail's horizontal overflow,
+   capped at 1.2 viewports); its .rail-pin child sticks while that runway
+   passes, and runway progress maps linearly onto rail.scrollLeft. Slow
+   scrolling walks the cards; a fast flick crosses the runway in a moment —
+   vertical scroll is never intercepted. Manual horizontal input (drag or
+   wheel-x) marks the rail user-owned and the auto-drive yields permanently.
+   Skipped on mobile (≤820px) and under reduced motion: the runway collapses
+   and rails stay plain swipe-scrollers. */
 export function useRailScroll(dep?: unknown) {
   useEffect(() => {
     if (prefersReducedMotion()) return
     let cleanup: (() => void) | undefined
     const t = setTimeout(() => {
-      const rails: { sec: Element; rail: HTMLElement }[] = []
-      document.querySelectorAll('[data-rail-section]').forEach((sec) => {
-        const rail = sec.querySelector<HTMLElement>('[data-rail]')
-        if (rail) rails.push({ sec, rail })
+      const units: { runway: HTMLElement; pin: HTMLElement; rail: HTMLElement }[] = []
+      document.querySelectorAll<HTMLElement>('[data-rail-runway]').forEach((runway) => {
+        const pin = runway.querySelector<HTMLElement>('.rail-pin')
+        const rail = runway.querySelector<HTMLElement>('[data-rail]')
+        if (pin && rail) units.push({ runway, pin, rail })
       })
+      if (!units.length) return
+
+      const wide = () => window.innerWidth > 820
+
+      const measure = () => {
+        units.forEach((u) => {
+          if (!wide()) {
+            u.runway.style.height = ''
+            return
+          }
+          const overflow = u.rail.scrollWidth - u.rail.clientWidth
+          if (overflow <= 0) {
+            u.runway.style.height = ''
+            return
+          }
+          const extra = Math.min(overflow, window.innerHeight * 1.2)
+          u.runway.style.height = `${u.pin.offsetHeight + extra}px`
+        })
+      }
 
       const markUser = (rail: HTMLElement) => () => (rail.dataset.user = '1')
-      const wheelHandlers: Array<() => void> = []
-      rails.forEach((o) => {
-        const pd = markUser(o.rail)
+      const unbinders: Array<() => void> = []
+      units.forEach((u) => {
+        const pd = markUser(u.rail)
         const wh = (e: WheelEvent) => {
-          if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) o.rail.dataset.user = '1'
+          if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) u.rail.dataset.user = '1'
         }
-        o.rail.addEventListener('pointerdown', pd)
-        o.rail.addEventListener('wheel', wh, { passive: true })
-        wheelHandlers.push(() => {
-          o.rail.removeEventListener('pointerdown', pd)
-          o.rail.removeEventListener('wheel', wh)
+        u.rail.addEventListener('pointerdown', pd)
+        u.rail.addEventListener('wheel', wh, { passive: true })
+        unbinders.push(() => {
+          u.rail.removeEventListener('pointerdown', pd)
+          u.rail.removeEventListener('wheel', wh)
         })
       })
 
+      // computed directly in the scroll event (cheap: two rect reads per rail);
+      // an rAF hop here would stall in tabs that aren't producing frames
       const onScroll = () => {
-        window.requestAnimationFrame(() => {
-          const vh = window.innerHeight
-          rails.forEach((o) => {
-            const r = o.sec.getBoundingClientRect()
-            let prog = (vh - r.top) / (vh + r.height)
-            prog = Math.max(0, Math.min(1, prog))
-            const max = o.rail.scrollWidth - o.rail.clientWidth
-            if (max > 0 && !o.rail.dataset.user) o.rail.scrollLeft = prog * max * 0.9
-          })
+        if (!wide()) return
+        units.forEach((u) => {
+          if (u.rail.dataset.user) return
+          const max = u.rail.scrollWidth - u.rail.clientWidth
+          const track = u.runway.offsetHeight - u.pin.offsetHeight
+          if (max <= 0 || track <= 0) return
+          const r = u.runway.getBoundingClientRect()
+          const pinTop = parseFloat(getComputedStyle(u.pin).top) || 0
+          const prog = Math.max(0, Math.min(1, (pinTop - r.top) / track))
+          u.rail.scrollLeft = prog * max
         })
       }
-      window.addEventListener('scroll', onScroll, { passive: true })
+
+      measure()
       onScroll()
+      window.addEventListener('scroll', onScroll, { passive: true })
+      window.addEventListener('resize', measure)
       cleanup = () => {
         window.removeEventListener('scroll', onScroll)
-        wheelHandlers.forEach((fn) => fn())
+        window.removeEventListener('resize', measure)
+        unbinders.forEach((fn) => fn())
+        units.forEach((u) => (u.runway.style.height = ''))
       }
     }, 60)
+    return () => {
+      clearTimeout(t)
+      cleanup?.()
+    }
+  }, [dep])
+}
+
+/* One-time "piano" entrance: cards inside a [data-piano] container sweep in
+   left→right with a settle stagger the first time the container is seen —
+   once per page load, and skipped entirely (cards render normally) when
+   another load ran it less than 8s ago, or under reduced motion. The hidden
+   state is only applied when the intro is definitely going to run, with a
+   failsafe so nothing can be left invisible. */
+const PIANO_KEY = 'jdb-piano'
+const PIANO_SUPPRESS_MS = 8000
+
+export function usePianoIntro(dep?: unknown) {
+  useEffect(() => {
+    if (prefersReducedMotion() || !('IntersectionObserver' in window)) return
+    try {
+      const last = Number(sessionStorage.getItem(PIANO_KEY) || 0)
+      if (Date.now() - last < PIANO_SUPPRESS_MS) return
+    } catch {
+      /* storage unavailable → still play */
+    }
+
+    let cleanup: (() => void) | undefined
+    const t = setTimeout(() => {
+      const containers = Array.from(document.querySelectorAll<HTMLElement>('[data-piano]'))
+      if (!containers.length) return
+      containers.forEach((c) => c.classList.add('piano-armed'))
+      try {
+        sessionStorage.setItem(PIANO_KEY, String(Date.now()))
+      } catch {
+        /* ignore */
+      }
+
+      const run = (c: HTMLElement) => {
+        Array.from(c.children).forEach((child, i) => {
+          ;(child as HTMLElement).style.transitionDelay = `${i * 70}ms`
+        })
+        c.classList.add('piano-run')
+      }
+
+      let delivered = false
+      const io = new IntersectionObserver(
+        (entries) => {
+          delivered = true
+          entries.forEach((en) => {
+            if (!en.isIntersecting) return
+            run(en.target as HTMLElement)
+            io.unobserve(en.target)
+          })
+        },
+        { threshold: 0.2 }
+      )
+      containers.forEach((c) => io.observe(c))
+
+      /* The observer guarantees an initial callback per target when the tab is
+         rendering. If nothing arrived, the tab is frozen — show everything
+         rather than risk hidden cards. (Same failsafe idea as useReveal.) */
+      const failsafe = window.setTimeout(() => {
+        if (!delivered) containers.forEach(run)
+      }, 1200)
+
+      cleanup = () => {
+        clearTimeout(failsafe)
+        io.disconnect()
+        containers.forEach((c) => c.classList.remove('piano-armed', 'piano-run'))
+      }
+    }, 40)
     return () => {
       clearTimeout(t)
       cleanup?.()
