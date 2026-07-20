@@ -79,15 +79,15 @@ worked within that structure to add the features above.
 ## Screenshots
 
 **Landon Hotel — bilingual (EN/FR) welcome and ET/MT/UTC presentation times, served from my multithreaded endpoint** .\
-![Landon Hotel splash with i18n welcome and timezones](../assets/screenshots/hotel-welcome-i18n-splash.jpg)
+![Landon Hotel splash with i18n welcome and timezones](https://raw.githubusercontent.com/jdtherobot/coursework-portfolio/main/assets/screenshots/hotel-welcome-i18n-splash.jpg)
 
 **Room availability with my multi-currency pricing (USD / CAD / EUR)** .\
-![Available rooms in three currencies](../assets/screenshots/hotel-rooms-multicurrency.jpg)
+![Available rooms in three currencies](https://raw.githubusercontent.com/jdtherobot/coursework-portfolio/main/assets/screenshots/hotel-rooms-multicurrency.jpg)
 
 **The app running inside the Docker container I packaged** .\
-![Dockerized app running — 1](../assets/screenshots/hotel-reservation-docker-1.jpg)
+![Dockerized app running — 1](https://raw.githubusercontent.com/jdtherobot/coursework-portfolio/main/assets/screenshots/hotel-reservation-docker-1.jpg)
 
-![Dockerized app running — 2](../assets/screenshots/hotel-reservation-docker-2.jpg)
+![Dockerized app running — 2](https://raw.githubusercontent.com/jdtherobot/coursework-portfolio/main/assets/screenshots/hotel-reservation-docker-2.jpg)
 
 ---
 
