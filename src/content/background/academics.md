@@ -50,13 +50,4 @@ Combines Air Force technical training with general-education coursework. CS-rele
 - Cyber Surety
 - Principles of Electronic Communication / Electronic Communication Theory
 
-*Technical training completed at Keesler AFB, Mississippi (2014) — graduated as the Air Education and Training Command "Top Graduate," earning the Commander's Award.*
-
----
-
-## Transfer & Prior Coursework
-
-- Calculus I — Union College
-- Precalculus — Union College
-- College Algebra — Savannah Technical College
-- Computer Concepts & Applications — Savannah Technical College
+*Technical training completed at Keesler AFB, Mississippi (2014) — graduated earning the Air Education and Training Command Commander's "Top Graduate" Award.*
