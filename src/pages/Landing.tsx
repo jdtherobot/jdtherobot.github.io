@@ -358,7 +358,7 @@ export default function Landing() {
             <div className="rv" style={{ marginBottom: 14 }}>
               <Eyebrow>Coursework</Eyebrow>
               <p className="body" style={{ fontSize: 14, opacity: 0.75, margin: '8px 0 0', maxWidth: 640 }}>
-                [Full-stack software-engineering coursework — three graded builds, each with its own writeup.]
+                Software engineering coursework across the stack
               </p>
             </div>
             <Link
