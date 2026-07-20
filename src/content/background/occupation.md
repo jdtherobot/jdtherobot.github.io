@@ -1,7 +1,3 @@
-*All positions and accomplishments, February 2014 – present, translated from Air Force performance reports into industry-standard language. Newest to oldest: 12+ years across IT operations, technical project management, cybersecurity, and logistics & readiness management.*
-
----
-
 ## 2025 – Present · Beale AFB, California
 
 ### Flight Chief (Manager), Quality Assurance / Training & Evaluations
@@ -76,8 +72,6 @@ Led an office of six project managers supporting a $905M intelligence data-proce
 - Drove a $2M space-utilization project, collaborating with nine stakeholder organizations to design a mission-integration strategy and authoring IT accountability requirements for 934 systems — expanding capability for 760 analysts, saving an estimated 87,000 labor-hours, and securing communications for 374 critical intelligence missions.
 - Organized 465 volunteers across 28 community events as a professional association activity lead — raising $7.2K, distributing 568,000 lbs of food, and landscaping 21 new Habitat for Humanity home sites; also mentored 15 students one-on-one in a junior-professional development seminar.
 - Graduated as a Distinguished Graduate (top of class) from the Air Force's Noncommissioned Officer Academy leadership school; led the team to Team of the Quarter and Team of the Year honors and contributed to the organization's selection for a service-wide excellence award.
-
-#### Team recognition (2Q 2024 Team of the Quarter nomination)
 
 - Authored the requirements-governance process for all modifications to the installation's classified network, solidifying intake for $3.7M in requests covering 24 network and 350 end-user devices, and established the first formal working relationship with a partner unit operating a $780M early-warning radar system.
 - Partnered with special-access-program engineers to integrate next-generation AI-enabled targeting software into core operations: managed 39 technicians and 7,000 work-hours to install a mile of fiber-optic cabling and 107 systems, expanding capability for four analysis teams.

@@ -71,6 +71,6 @@ export const EXTRACURRICULARS: Extracurricular[] = [
     title: 'Community Service',
     meta: '2014 – present',
     line:
-      'Food-bank drives, Habitat for Humanity builds, veterans stand-downs, and host-nation charity programs — hundreds of thousands of pounds of food distributed and dozens of events organized across four installations.',
+      'Food-bank drives, Habitat for Humanity builds, veterans stand-downs, and host-nation charity programs — hundreds of thousands of pounds of food distributed and dozens of events organized across four installations. Ultimately recognized with three “Volunteer of the Year” awards.',
   },
 ]
