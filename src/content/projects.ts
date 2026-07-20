@@ -40,7 +40,7 @@ export const PROJECTS: Project[] = [
     tagline:
       'A four-challenge steganography CTF — photo-metadata crypto, steghide, a page-table warehouse hunt, and a nested-payload carve.',
     github: 'https://github.com/jdtherobot/steganography-ctf',
-    liveUrl: 'https://britt.gg/jd-ctf-environment/',
+    liveUrl: 'https://britt.gg/jd-ctf-environment/browser-lab/workbench.html',
     liveLabel: 'Launch challenges →',
     tags: ['Steganography', 'Cryptography', 'Computer architecture'],
     featured: true,
