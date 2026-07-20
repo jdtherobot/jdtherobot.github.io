@@ -82,12 +82,12 @@ export default function Landing() {
             style={{ display: 'grid', gridTemplateColumns: '1fr .8fr', gap: 48, alignItems: 'center' }}
           >
             <div>
-              <div className="ey rv">Systems engineering · embedded · applied ML</div>
+              <div className="ey rv">ADAPTIVE LEARNING • COMPUTER SYSTEMS • NEUROTECHNOLOGY</div>
               <h1 className="disp rv" data-slice style={{ fontSize: 56, margin: '16px 0 0' }}>
                 <span className="hero-h1" style={{ fontSize: 'inherit' }}>JD Britt</span>
               </h1>
               <p className="body rv" style={{ fontSize: 17, maxWidth: 560, opacity: 0.9, margin: '18px 0 0' }}>
-                Twelve years keeping Air Force missions online — now engineering the layer where
+                Twelve years keeping Air Force missions online — now studying the layer where
                 hardware meets learning: adaptive algorithms, co-designed systems, and
                 brain-computer interfaces built for the real world.
               </p>
@@ -157,11 +157,13 @@ export default function Landing() {
           <div className="wrap">
             <div className="ey rv">Research direction</div>
             <h2 className="disp rv h2-lg" data-slice style={{ fontSize: 32, margin: '14px 0 8px' }}>
-              The questions I want to work on
+              My long-term objective
             </h2>
             <p className="body rv" style={{ fontSize: 15, opacity: 0.82, maxWidth: 600, margin: '0 0 28px' }}>
-              One through-line: systems that keep learning after deployment. Three angles of
-              attack — theory, hardware, application — each an open question, not a finished result.
+              Twofold: to develop fundamentally adaptive learning algorithms and to enable practical brain–computer interfaces
+              capable of lifelong operation. I believe these goals are inseparable. Realizing adaptive neurotechnology
+              will require advances not only in learning algorithms, but also in the co-design of software, computer systems,
+              and hardware that can support continuous learning.
             </p>
             <div className="research-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 20 }}>
               {RESEARCH_TIERS.map((t) => (
@@ -241,15 +243,14 @@ export default function Landing() {
               Things I’ve built
             </h2>
             <p className="body rv" style={{ fontSize: 15, opacity: 0.82, maxWidth: 620, margin: '0 0 30px' }}>
-              [Lead — the range: challenges authored for others to solve, and shipped software with
-              writeups. Each opens its own page.]
+              [Just some things I thought were neat. Each writeup opens its own page.]
             </p>
 
             {/* Challenges sub-block (re-themed: follows day/night, black figure boxes kept) */}
             <div className="rv" style={{ marginBottom: 14 }}>
               <Eyebrow>Challenges I’ve built</Eyebrow>
               <p className="body" style={{ fontSize: 14, opacity: 0.75, margin: '8px 0 0', maxWidth: 640 }}>
-                [Authoring a challenge others solve is a rarer signal than solving one.]
+                [The best way to learn it to teach! Or, write a CTF challenge!]
               </p>
             </div>
             <div

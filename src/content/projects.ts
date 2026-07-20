@@ -48,7 +48,7 @@ export const PROJECTS: Project[] = [
     // Docs order = tab order = cycle order: overview, then Warehouse first, then the levels.
     docs: [
       { docSlug: 'overview', title: 'Overview', file: 'README.md' },
-      { docSlug: 'warehouse', title: 'Warehouse', file: 'warehouse.md' },
+      { docSlug: 'warehouse', title: 'Warehouse Scavenger Hunt', file: 'warehouse.md' },
       { docSlug: 'steganography-lvl-1', title: 'Steganography lvl 1', file: 'lvl-1.md' },
       { docSlug: 'steganography-lvl-2', title: 'Steganography lvl 2', file: 'lvl-2.md' },
       { docSlug: 'steganography-lvl-3', title: 'Steganography lvl 3', file: 'lvl-3.md' },
