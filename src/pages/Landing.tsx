@@ -141,10 +141,7 @@ export default function Landing() {
                 ))}
               </div>
             </div>
-            <div
-              className="rv"
-              style={{ display: 'flex', gap: 40, flexWrap: 'wrap', marginTop: 30, paddingTop: 24, borderTop: '1px solid var(--edge)' }}
-            >
+            <div className="rv stat-row">
               {/* Sums of documented figures across performance reports — see
                   /background/occupation for the underlying line items. */}
               <Stat value="250+ · $35M" label="Projects led · documented value" />
