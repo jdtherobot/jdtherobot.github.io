@@ -68,16 +68,16 @@ flowchart TD
 ## Screenshots
 
 **Main screen — "Noisette Café & Bakery" parts & products, with min/max inventory and Buy-Now**.\
-![Inventory main screen](../assets/screenshots/inventory-main-screen.jpg)
+![Inventory main screen](https://raw.githubusercontent.com/jdtherobot/coursework-portfolio/main/assets/screenshots/inventory-main-screen.jpg)
 
 **Cross-entity validation — a product update blocked because it would push a part below its minimum**.\
-![Min-inventory validation error on the Product Detail form](../assets/screenshots/inventory-product-detail-validation.jpg)
+![Min-inventory validation error on the Product Detail form](https://raw.githubusercontent.com/jdtherobot/coursework-portfolio/main/assets/screenshots/inventory-product-detail-validation.jpg)
 
 **Buy-Now — success, with inventory decremented**.\
-![Purchase complete message](../assets/screenshots/inventory-buy-now-success.jpg)
+![Purchase complete message](https://raw.githubusercontent.com/jdtherobot/coursework-portfolio/main/assets/screenshots/inventory-buy-now-success.jpg)
 
 **Buy-Now — failure when a product is out of stock**.\
-![Out-of-stock purchase message](../assets/screenshots/inventory-buy-now-out-of-stock.jpg)
+![Out-of-stock purchase message](https://raw.githubusercontent.com/jdtherobot/coursework-portfolio/main/assets/screenshots/inventory-buy-now-out-of-stock.jpg)
 
 
 

@@ -121,7 +121,19 @@ interface GigabitEthernet1/0/1
     liveUrl: 'https://britt.gg/career-plan-app/',
     tags: ['React', 'TypeScript', 'Pyodide'],
     dashboardFigure: true,
-    docs: [{ docSlug: 'overview', title: 'Overview', file: 'README.md' }],
+    // Both docs are verbatim copies of the files in the career-plan-app repo.
+    // They are baked at build time (see the glob above), so edits there do NOT
+    // propagate — re-copy both after changing either. Their screenshots use
+    // absolute raw.githubusercontent.com URLs so the same file renders here and
+    // on GitHub without path rewriting.
+    docs: [
+      { docSlug: 'overview', title: 'Overview', file: 'README.md' },
+      {
+        docSlug: 'engineering',
+        title: 'Engineering Background',
+        file: 'ENGINEERING.md',
+      },
+    ],
   },
 ]
 
