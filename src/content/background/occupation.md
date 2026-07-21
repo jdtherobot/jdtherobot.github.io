@@ -1,20 +1,16 @@
-## Oct 2025 – Present · Beale AFB, California
+## Department Lead, Quality Assurance (Section Chief, Training & Evaluations)
 
-### Flight Chief (Manager), Quality Assurance / Training & Evaluations
-
-*48th Intelligence Support Squadron
+**Oct 2025 – Present**<br>48th Intelligence Support Squadron · Beale AFB, California
 
 Leads the organization's training and evaluation function, managing 62 organizational programs. Directs training through a locally developed communications academy and organization-wide master training plans, and serves as a planner, advisor, and inspector for enterprise- and command-directed exercises — work that directly supports a $905M intelligence data-processing enterprise and its 760 on-site analysts. *(Current position — further accomplishments pending the next evaluation cycle.)*
 
 ---
 
-## Apr – Oct 2025 · Deployed, Undisclosed Location
+## Senior Project Manager, Deployed Communications
 
-### Senior Project Manager, Deployed Communications
+**Apr 2025 – Oct 2025**<br>386th Expeditionary Communications Squadron · Deployed, Undisclosed Location
 
-*Expeditionary Communications Squadron
-
-Directed four departments — cyber planning, cybersecurity, data management, and logistics — for a deployed multinational air operation supporting aircraft from five nations flying 24,000 annual flights, with $1.7B in aircraft assets, at a hub handling a majority of the region's air cargo.
+Directed four departments — cyber planning, cybersecurity, data management, and logistics — for a deployed multinational air operation supporting aircraft from five nations flying 24,000 annual flights, with $1.7B in aircraft assets, at a hub handling 60% of the region's air cargo.
 
 - Managed a $10M communications and cybersecurity project portfolio spanning four installations, overseeing infrastructure programs that delivered three secure, hardened telecommunications networks and improved resiliency across the region.
 - Directed a $10M network modernization program, synchronizing design, engineering, and operations teams across outside-plant, inside-plant, and backbone workstreams for nine secure network builds — completing three and laying the foundation for a hardened, redundant network mesh.
@@ -24,19 +20,17 @@ Directed four departments — cyber planning, cybersecurity, data management, an
 
 ---
 
-## Nov 2022  – Apr 2025 · Beale AFB, California
+## Division Lead, IT Projects & Requirements (Flight Chief, Plans & Programs)
 
-### Division Lead, Plans & Requirements (October 2024 – April 2025)
-
-*48th Intelligence Support Squadron*
+**Oct 2024 – Apr 2025**<br>48th Intelligence Support Squadron · Beale AFB, California
 
 Guided an office of six project managers supporting a $905M intelligence data-processing enterprise. Managed service agreements between the organization and 12 partner agencies, defining work standards for 127 support personnel, and directed technology refreshes across five network environments serving 760 intelligence analysts.
 
-- Led the organization's share of a \$162M classified-network modernization, coordinating strategy between three organizations and outside contractors to migrate an entire campus to a new secure network domain. Personally parsed 5,300 asset records from three datasets, led a 16-person team alongside remote technicians, and migrated 439 devices — modernizing a $1.9M network for 740 analysts.
+- Led the organization's share of a $162M classified-network modernization, coordinating strategy between three organizations and outside contractors to migrate an entire campus to a new secure network domain. Personally parsed 5,300 asset records from three datasets, led a 16-person team alongside remote technicians, and migrated 439 devices — modernizing a $1.9M network for 740 analysts.
 - Reached 90% completion within the scheduled migration window versus a 54% average across the parent command — nearly double the enterprise benchmark.
 - Served as acting Flight Chief (department manager) for 29 personnel across seven technical specialties, ensuring operations continuity across disciplines.
 - Directed the audit and first documented emergency power-shedding plan for a $905M data center.
-- Expedited the relocation of a \$1.2M intelligence sensor to a sister site, saving the enterprise $40M annually in operations and maintenance costs, and directed the disposition of $907K in assets.
+- Expedited the relocation of a $1.2M intelligence sensor to a sister site, saving the enterprise $40M annually in operations and maintenance costs, and directed the disposition of $907K in assets.
 - Filled a senior-manager (superintendent) role for three weeks over four offices with distinct missions: oversaw design of a new enterprise records-management implementation plan, updated project-execution curriculum and trained 30+ staff, and authored two procedures governing sensitive-item handling and warehouse storage.
 - Directed IT lifecycle management: ran four simultaneous equipment-refresh projects replacing 25% of a $4.2M inventory, completed 15 procurement packages in under a month, revived a $2.1M network backbone that was 90% end-of-life, and brought the voice network into 100% compliance with National Security Agency directives.
 - Built an Excel/VBA configuration generator for Cisco 9300 switches: reverse-engineered existing configuration files with a senior network engineer, then developed a GUI-driven tool that takes port counts and VLAN assignments as input and outputs ready-to-deploy configuration files — standardizing builds and eliminating manual provisioning errors.
@@ -45,9 +39,9 @@ Guided an office of six project managers supporting a $905M intelligence data-pr
 
 ---
 
-### Department Lead, Project Management (November 2022 – October 2024)
+## Department Lead, Project Management (NCOIC, Plans & Requirements)
 
-*48th Intelligence Support Squadron*
+**Nov 2022 – Oct 2024**<br>48th Intelligence Support Squadron · Beale AFB, California
 
 Led an office of six project managers supporting a $905M intelligence data-processing enterprise serving 760 analysts and seven major national-level commands. Managed service agreements with 12 partner agencies, setting work standards for 127 support personnel, and directed technology refreshes across five network environments. Also oversaw the enterprise IT asset-management program — custodian training and inventory for 3,200 devices.
 
@@ -57,7 +51,7 @@ Led an office of six project managers supporting a $905M intelligence data-proce
 - Took on data-center management duties: provided network engineering support for $152K in upgrades and worked with the National Security Agency to remove 37 end-of-life devices — updating servers and closing a security vulnerability that had stood open for two years.
 - Spearheaded an out-of-cycle physical inventory of the campus — 6,000 devices worth $6M — then developed and implemented the enterprise's first four-year lifecycle management plan, standardizing annual IT budgeting and acquisition.
 - Standardized training across five business units for the acquisition, installation, and secure disposal of $1.5M in communications equipment annually.
-- Led a major consolidation initiative relocating eight departments and merging three partner organizations: directly managed a \$2.5M infrastructure package, relocated four command suites, and installed 118 systems — earning a formal commendation and avoiding $47.5M in new construction costs.
+- Led a major consolidation initiative relocating eight departments and merging three partner organizations: directly managed a $2.5M infrastructure package, relocated four command suites, and installed 118 systems — earning a formal commendation and avoiding $47.5M in new construction costs.
 - As vice president of a professional association chapter, selected and placed 12 key officers, managed 22 committees, and ensured the success of 32 community outreach events yielding $10K; organized an executive site visit, hosted five development sessions, and led a 10-person delegation to an international conference.
 - As acting department manager, led the team to four quarterly organization-level awards while personally earning Volunteer of the Year at both the group and installation level and the organization's Manager (noncommissioned officer) of the Year award.
 
@@ -66,26 +60,23 @@ Led an office of six project managers supporting a $905M intelligence data-proce
 - Led the enterprise's transition to a new infrastructure-planning platform (CIPS — the Air Force's system for generating and managing network infrastructure requirements): directed five team leads to deliver a first-of-its-kind user portal, 11 standard procedures, and 17 training classes for 79 users.
 - Overhauled daily operations, improving management of 145 projects worth $4.1M — eliminating a three-year backlog and cutting average project completion time from 12 weeks to 3.
 - Stepped up during a director vacancy to lead the enterprise asset-management program: partnered with four sections to execute a $910K technology refresh, installing 840 systems across five business units.
-- Revamped the enterprise's \$3.4M asset-management program, benchmarking best practices across 16 accounts and directing the secure disposition of 4,200 devices — saving $1.9M.
+- Revamped the enterprise's $3.4M asset-management program, benchmarking best practices across 16 accounts and directing the secure disposition of 4,200 devices — saving $1.9M.
 - Drove a $2M space-utilization project, collaborating with nine stakeholder organizations to design a mission-integration strategy and authoring IT accountability requirements for 934 systems — expanding capability for 760 analysts, saving an estimated 87,000 labor-hours, and securing communications for 374 critical intelligence missions.
 - Organized 465 volunteers across 28 community events as a professional association activity lead — raising $7.2K, distributing 568,000 lbs of food, and landscaping 21 new Habitat for Humanity home sites; also mentored 15 students one-on-one in a junior-professional development seminar.
 - Graduated as a Distinguished Graduate (top of class) from the Air Force's Noncommissioned Officer Academy leadership school; led the team to Team of the Quarter and Team of the Year honors and contributed to the organization's selection for a service-wide excellence award.
-- Authored the requirements-governance process for all modifications to the installation's classified network, solidifying intake for \$3.7M in requests covering 24 network and 350 end-user devices, and established the first formal working relationship with a partner unit operating a $780M early-warning radar system.
+- Authored the requirements-governance process for all modifications to the installation's top-secret network, solidifying intake for $3.7M in requests covering 24 network and 350 end-user devices, and established the first formal working relationship with a partner unit operating a $780M early-warning radar system.
 - Partnered with special-access-program engineers to integrate next-generation AI-enabled targeting software into core operations: managed 39 technicians and 7,000 work-hours to install a mile of fiber-optic cabling and 107 systems, expanding capability for four analysis teams.
-- Secured contract authorization to redesign a legacy aircraft radio system before its end of service: coordinated with contractors, dispatched a refresh team, and created new preventive-maintenance procedures — extending the system's life through the aircraft's retirement.
+- Secured contract authorization to redesign a legacy aircraft radio system before its end of service: coordinated with Raytheon contractors, dispatched a refresh team, and created new preventive-maintenance procedures — extending the system's life through the aircraft's retirement.
 
 ---
 
-## Sep 2021 – Nov 2022 · Kunsan AB, South Korea
+## Manager, Client Systems → (Acting) Department Lead, Cyber Operations → Manager, IT Projects (NCOIC, Client Systems Operations → Section Chief, Cyber Operations → NCOIC, IT Projects)
 
-### Manager, Client Systems → (Acting) Department Lead, Cyber Operations → Manager, IT Projects
-
-*8th Communications Squadron
-
+**Sep 2021 – Nov 2022**<br>8th Communications Squadron · Kunsan AB, South Korea
 
 As Client Systems manager, directed five front-line supervisors steering a 26-member office that resolved 2,000+ IT tickets annually across $2.4B in infrastructure. Promoted to department lead over Cyber Operations, overseeing the Client Systems, Server Operations, Vulnerability Management, and Help Desk teams — leading Tier 2 managers responsible for 50+ technicians.
 
-As Manager of IT Projects, Led installation-wide technology projects advancing a \$35M network environment and 7,200 systems for 3,100 joint-force users.
+As Manager of IT Projects, led installation-wide technology projects advancing a $35M network environment and 7,200 systems for 3,100 joint-force users.
 
 - Established an inspection-team operations center for 70 visiting evaluators: led 15 personnel and deployed 85 devices, facilitating 130 inspections across 13 departments and contributing to the organization's "Effective" rating.
 - Directed the installation's Windows 10 modernization, configuring 872 systems and eliminating 25,400 security vulnerabilities — the highest completion rate among all Pacific installations.
@@ -103,11 +94,9 @@ As Manager of IT Projects, Led installation-wide technology projects advancing a
 
 ---
 
-## Feb 2020 – Sep 2021 · Yokota AB, Japan
+## Manager, Deployments (Unit Deployment Manager)
 
-### Manager, Deployments (Unit Deployment Manager)
-
-*374th Communications Squadron · February 2020 – September 2021*
+**Feb 2020 – Sep 2021**<br>374th Communications Squadron · Yokota AB, Japan
 
 Managed deployment records, training, and availability for 250 personnel and associated cargo supporting worldwide contingency operations. Assessed unit readiness and produced executive readiness reports visible up to the Secretary of Defense; compiled resource-and-training status for 18 offices and 15 job specialties; and tracked medical readiness and worldwide-deployment qualification for the entire organization.
 
@@ -137,11 +126,9 @@ Managed deployment records, training, and availability for 250 personnel and ass
 
 ---
 
-## Jan 2019 – Feb 2020 · Yokota AB, Japan
+## Manager, IT Acquisitions & Lifecycle Management (NCOIC, Asset Management)
 
-### Manager, IT Acquisitions & Lifecycle Management
-
-*374th Communications Squadron · January 2019 – February 2020*
+**Jan 2019 – Feb 2020**<br>374th Communications Squadron · Yokota AB, Japan
 
 Supervised a six-person team (including three Japanese-national employees) managing 20,000 IT assets worth $20.6M for 30 Department of Defense agencies, plus the installation's mobile-device and land-mobile-radio programs. Served as liaison for excess-equipment disposition and reuse.
 
@@ -159,11 +146,9 @@ Supervised a six-person team (including three Japanese-national employees) manag
 
 ---
 
-## Jul 2018 – Jan 2019 · Yokota AB, Japan
+## Supervisor, IT Acquisitions & Lifecycle Management (Asset Management Supervisor)
 
-### Supervisor, IT Acquisitions & Lifecycle Management
-
-*374th Communications Squadron · July 2018 – January 2019*
+**Jul 2018 – Jan 2019**<br>374th Communications Squadron · Yokota AB, Japan
 
 Supervised two technicians directing computer network and voice support for a $55M network environment and 6,000 users; maintained 14,000 assets valued at $16.2M supporting airlift operations for 30 Department of Defense agencies.
 
@@ -183,11 +168,9 @@ Supervised two technicians directing computer network and voice support for a $5
 
 ---
 
-## Sep 2017 – Jul 2018 · Yokota AB, Japan
+## Senior IT Technician (Client Systems Supervisor)
 
-### Senior IT Technician
-
-*374th Communications Squadron · September 2017 – July 2018*
+**Sep 2017 – Jul 2018**<br>374th Communications Squadron · Yokota AB, Japan
 
 Provided client-level network and voice support for 6,000 users across 39 organizations; isolated and repaired unclassified and classified data, video, network, and encryption devices supporting 20,000 client systems valued at $20.6M; managed the trouble-ticket database and briefed status to leadership.
 
@@ -206,11 +189,9 @@ Provided client-level network and voice support for 6,000 users across 39 organi
 
 ---
 
-## Sep 2016 – Sep 2017 · Misawa AB, Japan
+## Help Desk Technician / Team Lead (Supervisor, Communications Focal Point)
 
-### Help Desk Technician / Team Lead, Communications Focal Point
-
-*35th Communications Squadron · September 2016 – September 2017*
+**Sep 2016 – Sep 2017**<br>35th Communications Squadron · Misawa AB, Japan
 
 Provided client support for a $318M network and 6,500 users; managed the IT service-desk database, assigning and tracking trouble tickets and briefing senior leadership; coordinated authorized service interruptions and reported network outages to the enterprise operations center.
 
@@ -230,11 +211,9 @@ Provided client support for a $318M network and 6,500 users; managed the IT serv
 
 ---
 
-## Oct 2015 – Sep 2016 · Misawa AB, Japan
+## IT Technician / Team Lead (Supervisor, Client Systems Team)
 
-### IT Technician / Team Lead
-
-*35th Communications Squadron · October 2015 – September 2016*
+**Oct 2015 – Sep 2016**<br>35th Communications Squadron · Misawa AB, Japan
 
 Provided desktop support for 6,000 users, responsible for PC and peripheral configuration and maintenance; managed trouble-ticket assignment and tracking; administered user accounts on unclassified and classified networks.
 
@@ -253,11 +232,9 @@ Provided desktop support for 6,000 users, responsible for PC and peripheral conf
 
 ---
 
-## Feb 2014 – Oct 2015 · Osan AB, South Korea
+## IT Technician (Client Systems / IT Asset Management Technician)
 
-### IT Technician (Client Systems / IT Asset Management)
-
-*51st Communications Squadron · February 2014 – October 2015 · technical training at Keesler AFB, Mississippi (April – September 2014); Osan AB from September 2014*
+**Feb 2014 – Oct 2015**<br>51st Communications Squadron · Osan AB, South Korea · technical training at Keesler AFB, Mississippi (Apr – Sep 2014)
 
 Operated, restored, and configured information systems and office automation equipment; installed and configured operating systems and applications; provided computer and phone support for a numbered air force headquarters, a fighter wing, 12 partner units, and five remote sites. Graduated IT technical training as the Air Education and Training Command "Top Graduate," earning the Commander's Award.
 
@@ -267,7 +244,7 @@ Operated, restored, and configured information systems and office automation equ
 - Cross-trained outside of primary specialty and single-handedly resolved 38 tickets during a wing relocation — zero mission impact across 1,500 flights.
 - Scored 92% on career-development exams against a squadron average of 81%.
 - Taught four CPR/first-aid classes for 30 personnel as a certified instructor — keeping unit readiness at 98%.
-- Led the base Honor Guard training program, tutoring 171 new members and leading nine ceremonies — earning Guardsman of the Quarter.
+- Led the base Honor Guard training program, tutoring 171 new members and leading nine ceremonies — earning Honor Guard Member of the Quarter.
 - Streamlined the standard PC-imaging training program, condensing the qualification window by 75% and bringing four technicians to full task readiness.
 - Managed a print-server upgrade, auditing 579 print sites and eliminating 12,000 critical security discrepancies — key to the base's "Excellent" rating on a major cyber-readiness inspection.
 - Supported an operations-squadron technology refresh, delivering 84 computers and migrating personnel files with zero data loss.
