@@ -22,7 +22,7 @@
 ### Systems & Architecture
 
 - Computer Architecture
-- Linux Foundations *(WGU Linux Foundations credential, 2026)*
+- Linux Foundations
 - Introduction to IT
 
 ### Data
