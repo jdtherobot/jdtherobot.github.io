@@ -70,12 +70,14 @@ Led an office of six project managers supporting a $905M intelligence data-proce
 
 ---
 
-## Manager, Client Systems → (Acting) Department Lead, Cyber Operations → Manager, IT Projects (NCOIC, Client Systems Operations → Section Chief, Cyber Operations → NCOIC, IT Projects)
+## Manager, Client Systems → (Acting) Department Lead, Cyber Operations → Manager, IT Projects
+
+## (NCOIC → (Acting) Section Chief → NCOIC)
 
 **Sep 2021 – Nov 2022**<br>8th Communications Squadron · Kunsan AB, South Korea
 
-As Client Systems manager, directed five front-line supervisors steering a 26-member office that resolved 2,000+ IT tickets annually across $2.4B in infrastructure. Promoted to department lead over Cyber Operations, overseeing the Client Systems, Server Operations, Vulnerability Management, and Help Desk teams — leading Tier 2 managers responsible for 50+ technicians.
-
+As Client Systems manager, directed five front-line supervisors steering a 26-member office that resolved 2,000+ IT tickets annually across \$2.4B in infrastructure. 
+Promoted to department lead over Cyber Operations, overseeing the Client Systems, Server Operations, Vulnerability Management, and Help Desk teams — leading Tier 2 managers responsible for 50+ technicians. 
 As Manager of IT Projects, led installation-wide technology projects advancing a $35M network environment and 7,200 systems for 3,100 joint-force users.
 
 - Established an inspection-team operations center for 70 visiting evaluators: led 15 personnel and deployed 85 devices, facilitating 130 inspections across 13 departments and contributing to the organization's "Effective" rating.
