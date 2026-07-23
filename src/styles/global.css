@@ -132,15 +132,6 @@ body.motion .rv.in {
   scrollbar-color: var(--edge) transparent;
 }
 
-/* rail runway — useRailScroll gives the runway extra height and pins this
-   block while it passes; vertical scroll maps onto the rail's travel */
-@media (min-width: 821px) {
-  .rail-pin {
-    position: sticky;
-    top: 74px;
-  }
-}
-
 /* piano entrance — cards sweep in left→right, staggered per child by JS.
    .piano-armed only ever appears when usePianoIntro is committed to running. */
 [data-piano].piano-armed > * {

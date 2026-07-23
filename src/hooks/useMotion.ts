@@ -54,68 +54,48 @@ export function useReveal(dep?: unknown) {
   }, [dep])
 }
 
-/* Sticky scroll-runway rails.
+/* Scroll-through drift for horizontal rails.
 
-   Each [data-rail-runway] gets extra height (the rail's horizontal overflow,
-   capped at 1.2 viewports); its .rail-pin child sticks while that runway
-   passes, and runway progress maps linearly onto rail.scrollLeft. Slow
-   scrolling walks the cards; a fast flick crosses the runway in a moment —
-   vertical scroll is never intercepted. Manual horizontal input (drag or
-   wheel-x) marks the rail user-owned and the auto-drive yields permanently.
-   Skipped on mobile (≤820px) and under reduced motion: the runway collapses
-   and rails stay plain swipe-scrollers. */
-export function useRailScroll(dep?: unknown) {
+   A [data-rail-drift] rail advances its own scrollLeft as the section drifts
+   past — there's no pin and no injected height, so no blank gap can form and
+   vertical scroll is never intercepted. Progress maps the rail's vertical
+   center across a band (its center travels from ENTER→EXIT down the viewport)
+   and eases with a smoothstep, so the cards glide through around mid-screen
+   and finish before the rail reaches the top: the reader is never held in
+   place. A deliberate horizontal drag or wheel-x hands the rail to the user
+   and the auto-drive yields permanently. Skipped on mobile (≤820px) and under
+   reduced motion, where the rail stays a plain swipe-scroller. */
+const DRIFT_ENTER = 0.8 // rail center this far down the viewport → progress 0
+const DRIFT_EXIT = 0.2 // …and this far down → progress 1 (fully advanced)
+
+export function useRailDrift(dep?: unknown) {
   useEffect(() => {
     if (prefersReducedMotion()) return
     let cleanup: (() => void) | undefined
     const t = setTimeout(() => {
-      const units: { runway: HTMLElement; pin: HTMLElement; rail: HTMLElement }[] = []
-      document.querySelectorAll<HTMLElement>('[data-rail-runway]').forEach((runway) => {
-        const pin = runway.querySelector<HTMLElement>('.rail-pin')
-        const rail = runway.querySelector<HTMLElement>('[data-rail]')
-        if (pin && rail) units.push({ runway, pin, rail })
-      })
-      if (!units.length) return
+      const rails = Array.from(document.querySelectorAll<HTMLElement>('[data-rail-drift]'))
+      if (!rails.length) return
 
       const wide = () => window.innerWidth > 820
-
-      const measure = () => {
-        units.forEach((u) => {
-          if (!wide()) {
-            u.runway.style.height = ''
-            return
-          }
-          const overflow = u.rail.scrollWidth - u.rail.clientWidth
-          if (overflow <= 0) {
-            u.runway.style.height = ''
-            return
-          }
-          const extra = Math.min(overflow, window.innerHeight * 1.2)
-          u.runway.style.height = `${u.pin.offsetHeight + extra}px`
-        })
-      }
+      const smooth = (p: number) => p * p * (3 - 2 * p) // smoothstep ease
 
       /* Yield only on a DELIBERATE horizontal gesture. A bare click must not
          yield, and neither may the stray sideways ticks macOS trackpads emit
          during ordinary vertical scrolling — that hair-trigger is what used to
-         kill the auto-advance the moment anyone touched the page. On yield the
-         runway collapses too, so no dead vertical scroll is left behind. */
-      const yieldTo = (u: (typeof units)[number]) => {
-        u.rail.dataset.user = '1'
-        u.rail.style.scrollSnapType = ''
-        u.runway.style.height = ''
+         kill the auto-advance the moment anyone touched the page. */
+      const yieldTo = (rail: HTMLElement) => {
+        rail.dataset.user = '1'
+        rail.style.scrollSnapType = ''
       }
-      const unbinders: Array<() => void> = []
-      units.forEach((u) => {
-        // snap fights programmatic scrollLeft — off while the runway drives
-        u.rail.style.scrollSnapType = 'none'
 
+      const unbinders: Array<() => void> = []
+      rails.forEach((rail) => {
         let wheelAccum = 0
         const wh = (e: WheelEvent) => {
-          if (u.rail.dataset.user) return
+          if (rail.dataset.user) return
           if (Math.abs(e.deltaX) > 1.5 * Math.abs(e.deltaY)) {
             wheelAccum += Math.abs(e.deltaX)
-            if (wheelAccum > 60) yieldTo(u)
+            if (wheelAccum > 60) yieldTo(rail)
           } else if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
             wheelAccum = 0
           }
@@ -126,53 +106,71 @@ export function useRailScroll(dep?: unknown) {
           dragFrom = { x: e.clientX, y: e.clientY }
         }
         const pm = (e: PointerEvent) => {
-          if (!dragFrom || u.rail.dataset.user) return
+          if (!dragFrom || rail.dataset.user) return
           const dx = e.clientX - dragFrom.x
           const dy = e.clientY - dragFrom.y
-          if (Math.abs(dx) > 12 && Math.abs(dx) > Math.abs(dy)) yieldTo(u)
+          if (Math.abs(dx) > 12 && Math.abs(dx) > Math.abs(dy)) yieldTo(rail)
         }
         const pu = () => (dragFrom = null)
 
-        u.rail.addEventListener('wheel', wh, { passive: true })
-        u.rail.addEventListener('pointerdown', pd)
-        u.rail.addEventListener('pointermove', pm)
-        u.rail.addEventListener('pointerup', pu)
-        u.rail.addEventListener('pointercancel', pu)
+        rail.addEventListener('wheel', wh, { passive: true })
+        rail.addEventListener('pointerdown', pd)
+        rail.addEventListener('pointermove', pm)
+        rail.addEventListener('pointerup', pu)
+        rail.addEventListener('pointercancel', pu)
         unbinders.push(() => {
-          u.rail.removeEventListener('wheel', wh)
-          u.rail.removeEventListener('pointerdown', pd)
-          u.rail.removeEventListener('pointermove', pm)
-          u.rail.removeEventListener('pointerup', pu)
-          u.rail.removeEventListener('pointercancel', pu)
-          u.rail.style.scrollSnapType = ''
+          rail.removeEventListener('wheel', wh)
+          rail.removeEventListener('pointerdown', pd)
+          rail.removeEventListener('pointermove', pm)
+          rail.removeEventListener('pointerup', pu)
+          rail.removeEventListener('pointercancel', pu)
+          rail.style.scrollSnapType = ''
         })
       })
 
-      // computed directly in the scroll event (cheap: two rect reads per rail);
-      // an rAF hop here would stall in tabs that aren't producing frames
-      const onScroll = () => {
-        if (!wide()) return
-        units.forEach((u) => {
-          if (u.rail.dataset.user) return
-          const max = u.rail.scrollWidth - u.rail.clientWidth
-          const track = u.runway.offsetHeight - u.pin.offsetHeight
-          if (max <= 0 || track <= 0) return
-          const r = u.runway.getBoundingClientRect()
-          const pinTop = parseFloat(getComputedStyle(u.pin).top) || 0
-          const prog = Math.max(0, Math.min(1, (pinTop - r.top) / track))
-          u.rail.scrollLeft = prog * max
+      /* Snap fights programmatic scrollLeft, so it's suppressed only while the
+         drift can actually drive — desktop, rail not yet user-owned. On mobile
+         (drift never runs) or a yielded rail, proximity snap stays on so the
+         rail behaves as a plain swipe-scroller. Re-evaluated on resize so
+         crossing the 820px line (e.g. tablet rotation) restores the right mode. */
+      const applySnap = () => {
+        const driving = wide()
+        rails.forEach((rail) => {
+          if (rail.dataset.user) return
+          rail.style.scrollSnapType = driving ? 'none' : ''
         })
       }
 
-      measure()
+      // computed directly in the scroll event (cheap: one rect read per rail);
+      // an rAF hop here would stall in tabs that aren't producing frames
+      const onScroll = () => {
+        if (!wide()) return
+        const vh = window.innerHeight
+        const span = (DRIFT_ENTER - DRIFT_EXIT) * vh
+        rails.forEach((rail) => {
+          if (rail.dataset.user) return
+          const max = rail.scrollWidth - rail.clientWidth
+          if (max <= 0) return
+          const r = rail.getBoundingClientRect()
+          const center = r.top + r.height / 2
+          const prog = Math.max(0, Math.min(1, (DRIFT_ENTER * vh - center) / span))
+          rail.scrollLeft = smooth(prog) * max
+        })
+      }
+
+      const onResize = () => {
+        applySnap()
+        onScroll()
+      }
+
+      applySnap()
       onScroll()
       window.addEventListener('scroll', onScroll, { passive: true })
-      window.addEventListener('resize', measure)
+      window.addEventListener('resize', onResize)
       cleanup = () => {
         window.removeEventListener('scroll', onScroll)
-        window.removeEventListener('resize', measure)
+        window.removeEventListener('resize', onResize)
         unbinders.forEach((fn) => fn())
-        units.forEach((u) => (u.runway.style.height = ''))
       }
     }, 60)
     return () => {

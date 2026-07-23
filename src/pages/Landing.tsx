@@ -12,7 +12,7 @@ import DashboardFigure from '../components/DashboardFigure'
 import WorkFigure from '../components/WorkFigure'
 import { PROJECTS, findProject, overviewDoc, subDocs, docSnippet } from '../content/projects'
 import { ACCOMPLISHMENTS, AWARDS } from '../content/work'
-import { useReveal, useRailScroll, usePianoIntro } from '../hooks/useMotion'
+import { useReveal, useRailDrift, usePianoIntro } from '../hooks/useMotion'
 
 const RESEARCH_TIERS = [
   {
@@ -59,7 +59,7 @@ export default function Landing() {
   // Scroll placement (top / #hash / restored offset) belongs to
   // useScrollRestoration in App — doing it here too would fight it.
   useReveal('home')
-  useRailScroll('home')
+  useRailDrift('home')
   usePianoIntro('home')
 
   const navigate = useNavigate()
@@ -182,7 +182,7 @@ export default function Landing() {
         </section>
 
         {/* WORK — puzzle-style: accomplishments rail + awards. Title → /career */}
-        <section id="sec-work" data-rail-section className="dot section">
+        <section id="sec-work" className="dot section">
           <div className="wrap">
             <div className="ey rv">Work</div>
             <h2 className="disp rv h2-lg" data-slice style={{ fontSize: 32, margin: '14px 0 8px' }}>
@@ -200,24 +200,20 @@ export default function Landing() {
               <span className="stencil">advances as you scroll · drag → to explore</span>
             </div>
           </div>
-          <div data-rail-runway>
-            <div className="rail-pin">
-              <div className="wrap">
-                <div className="rail" data-rail data-piano>
-                  {ACCOMPLISHMENTS.map((a) => (
+          <div className="wrap">
+            <div className="rail" data-rail data-rail-drift data-piano>
+              {ACCOMPLISHMENTS.map((a) => (
                 <Link
                   key={a.slug}
                   to="/career"
                   style={{ width: 300, border: '1px solid var(--edge)', padding: 18, color: 'inherit', display: 'block' }}
                 >
-                      <div className="stencil" style={{ marginBottom: 10 }}>{a.period}</div>
-                      <WorkFigure kind={a.figure} style={{ marginBottom: 14 }} />
-                      <div className="disp" style={{ fontSize: 16 }}>{a.title}</div>
-                      <p className="body" style={{ fontSize: 12.5, opacity: 0.75, margin: '8px 0 0' }}>{a.oneLine}</p>
-                    </Link>
-                  ))}
-                </div>
-              </div>
+                  <div className="stencil" style={{ marginBottom: 10 }}>{a.period}</div>
+                  <WorkFigure kind={a.figure} style={{ marginBottom: 14 }} />
+                  <div className="disp" style={{ fontSize: 16 }}>{a.title}</div>
+                  <p className="body" style={{ fontSize: 12.5, opacity: 0.75, margin: '8px 0 0' }}>{a.oneLine}</p>
+                </Link>
+              ))}
             </div>
           </div>
           <div className="wrap" style={{ marginTop: 34 }}>
@@ -239,7 +235,7 @@ export default function Landing() {
         </section>
 
         {/* PROJECTS — the puzzle/challenges block (re-themed) + code projects */}
-        <section id="sec-projects" data-rail-section className="dot section">
+        <section id="sec-projects" className="dot section">
           <div className="wrap">
             <div className="ey rv">Projects</div>
             <h2 className="disp rv h2-lg" data-slice style={{ fontSize: 32, margin: '14px 0 8px' }}>
@@ -285,23 +281,19 @@ export default function Landing() {
               </div>
             </div>
           </div>
-          <div data-rail-runway>
-            <div className="rail-pin">
-              <div className="wrap">
-                <div className="rail" data-rail data-piano>
-                  {ctfDocs.map((d) => (
-                    <Link
-                      key={d.docSlug}
-                      to={`/projects/${ctf.slug}/${d.docSlug}`}
-                      style={{ width: 300, border: '1px solid var(--edge)', padding: 18, color: 'inherit', display: 'block' }}
-                    >
-                      <Ph style={{ marginBottom: 14 }}>FIGURE</Ph>
-                      <div className="disp" style={{ fontSize: 16 }}>{d.title}</div>
-                      <p className="body" style={{ fontSize: 12.5, opacity: 0.75, margin: '8px 0 0' }}>{docSnippet(ctf.slug, d.file)}</p>
-                    </Link>
-                  ))}
-                </div>
-              </div>
+          <div className="wrap">
+            <div className="rail" data-rail data-piano>
+              {ctfDocs.map((d) => (
+                <Link
+                  key={d.docSlug}
+                  to={`/projects/${ctf.slug}/${d.docSlug}`}
+                  style={{ width: 300, border: '1px solid var(--edge)', padding: 18, color: 'inherit', display: 'block' }}
+                >
+                  <Ph style={{ marginBottom: 14 }}>FIGURE</Ph>
+                  <div className="disp" style={{ fontSize: 16 }}>{d.title}</div>
+                  <p className="body" style={{ fontSize: 12.5, opacity: 0.75, margin: '8px 0 0' }}>{docSnippet(ctf.slug, d.file)}</p>
+                </Link>
+              ))}
             </div>
           </div>
 
