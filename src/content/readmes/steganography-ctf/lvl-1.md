@@ -11,9 +11,10 @@ it's a careless human.
 ## The theme
 
 An intercepted email from "Commander, 256 AES" to "Mr. Tema" at `military.aes`, gushing about
-the squadron's shiny new **256-bit AES**. Attached: a badger photo. The gag is that they encrypted the
-flag *properly*… then wrote the password directly into the email body — "Definitely not the
-password: …".
+the squadron's shiny new **256-bit AES**. Attached: the squadron's group photo, saved as
+`badger_photo.jpeg` — no badger in frame; the only honey badger is the flag hiding in its
+metadata. The gag is that they encrypted the flag *properly*… then wrote the password directly
+into the email body — "Definitely not the password: …".
 
 ---
 
