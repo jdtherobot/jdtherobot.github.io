@@ -53,7 +53,9 @@ export const PROJECTS: Project[] = [
         docSlug: 'warehouse',
         title: 'Computer Architecture Warehouse',
         file: 'warehouse.md',
-        liveUrl: 'https://britt.gg/jd-ctf-environment/warehouse-game/',
+        // opens the challenge in the lab (sim embedded on challenge 04) rather
+        // than the standalone full-screen game
+        liveUrl: 'https://britt.gg/jd-ctf-environment/browser-lab/workbench.html#04-computer-architecture-warehouse',
         liveLabel: 'Launch warehouse sim →',
       },
       { docSlug: 'steganography-lvl-1', title: 'Steganography lvl 1', file: 'lvl-1.md' },
