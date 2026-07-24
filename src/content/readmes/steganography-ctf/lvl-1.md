@@ -1,28 +1,22 @@
 # Steganography lvl 1
 
-**Techniques:** EXIF metadata · OpenSSL AES · a password hiding in plain sight
+The simplest challenge in the set, and the one the rest grew out of. It was my first pass at hiding a
+flag in an image: the flag sits in the photo's metadata, and the password to decrypt it is written
+right into the email the photo came attached to. If you know to check metadata, it's a quick one.
+
+**File:** `email.eml`
 **Flag:** `Flag{H0NeyB4d6er10OKinG0OD!!!}`
+**Tools:** `exiftool`, `openssl`
 
-The gentle opener, and the one that sets the tone for the whole set: the puzzle isn't broken crypto,
-it's a careless human.
+## How it works
 
----
+The email is an intercepted message from "Commander, 256 AES" to "Mr. Tema," with a photo attached.
+The flag was encrypted with OpenSSL (AES-256-CBC), base64-encoded, and written into the JPEG's EXIF
+`Comment` field. The password, `honeybadger4lyfe`, is in the body of the email, half-heartedly
+disguised as "definitely not the password."
 
-## The theme
-
-An intercepted email from "Commander, 256 AES" to "Mr. Tema" at `military.aes`, gushing about
-the squadron's shiny new **256-bit AES**. Attached: the squadron's group photo, saved as
-`badger_photo.jpeg` — no badger in frame; the only honey badger is the flag hiding in its
-metadata. The gag is that they encrypted the flag *properly*… then wrote the password directly
-into the email body — "Definitely not the password: …".
-
----
-
-## The mechanics
-
-The flag was encrypted with OpenSSL and the ciphertext tucked into the JPEG's EXIF `Comment` field as
-base64. So the solve is: parse the email, pull the attachment, read the EXIF comment, and decrypt with
-the password that's sitting in the message the attachment came with.
+So the solve is: pull the attachment out of the email, read its EXIF comment, and decrypt that blob
+with the password from the message.
 
 ```mermaid
 flowchart LR
@@ -35,14 +29,10 @@ flowchart LR
 ```
 
 ```bash
-exiftool -Comment -b attachment.jpeg > c.b64
+exiftool -Comment -b badger_photo.jpeg > c.b64
 openssl enc -aes-256-cbc -d -pbkdf2 -k honeybadger4lyfe -a -in c.b64
 # → Flag{H0NeyB4d6er10OKinG0OD!!!}
 ```
 
----
-
-## The lesson
-
-Metadata is data. Running `exiftool` on anything interesting is free reconnaissance — and a "secure"
-pipeline is only ever as strong as the human who narrates the password into the transcript.
+The one thing to take from it: metadata is data. Running `exiftool` on anything interesting is free
+reconnaissance.

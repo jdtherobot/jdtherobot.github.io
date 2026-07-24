@@ -1,19 +1,20 @@
 # Steganography lvl 2
 
-**Techniques:** steghide · wordlist cracking · load-bearing "noise"
+A file is hidden inside the image with `steghide`, behind a passphrase. I set the passphrase to
+something weak and guessable — `password123` — on purpose. The point of this one isn't cracking a
+hard password; it's recognizing that an image can carry a password-protected payload, and getting
+familiar with the tools that pull it back out (`steghide`, and a cracker like `stegseek` or
+`stegcracker`).
+
+**File:** `stego_badger.jpeg`
 **Flag:** `Flag{DanG 7hat'S @ cUTe HOnEY b@D9eR}`
+**Tools:** `steghide`, plus `stegseek` or `stegcracker` and a wordlist (`rockyou`)
 
-The set's first actual badger — a honey badger in a stegosaurus costume — carrying a genuinely
-hidden file embedded by **steghide**. The passphrase is weak on purpose; the challenge is really
-about *knowing* that images can carry password-protected payloads and reaching for a wordlist.
+## How it works
 
----
-
-## The mechanics
-
-`stegseek` (or `stegcracker`) rips through `rockyou` and finds the passphrase almost instantly;
-`steghide extract` then pulls out a 202-line document. Line 1 is the flag. Lines 2–202 look like decoy
-24-character strings — except they're not *all* decoys.
+`stegseek` (or `stegcracker`) runs a wordlist like `rockyou` against the image and recovers the
+passphrase in seconds — or you can just guess `password123`. `steghide extract` then pulls out a
+202-line document. Line 1 is the flag; the rest looks like filler.
 
 ```mermaid
 flowchart LR
@@ -29,15 +30,9 @@ stegseek --crack stego_badger.jpeg rockyou.txt
 steghide extract -sf stego_badger.jpeg -p password123
 ```
 
----
+## Where it leads
 
-## The twist
-
-**Line 9** of that document is the four-square ciphertext you'll need for the **Warehouse**, and the
-whole 201-string block reappears as the key material behind **Steganography lvl 3**. What looks like
-noise is load-bearing.
-
-## The lesson
-
-When a stego payload is *mostly* junk, ask what the junk is for. Here it's a field of red herrings
-with two real needles hidden in it.
+The filler isn't all filler. **Line 9** of that document is the ciphertext the Computer Architecture
+Warehouse needs, and the full block of 201 twenty-four-character strings comes back as the key
+material behind Steganography lvl 3. Keep the document and you're already holding pieces of two other
+challenges.

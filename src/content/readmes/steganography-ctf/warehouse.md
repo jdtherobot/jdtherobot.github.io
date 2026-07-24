@@ -1,19 +1,19 @@
-# Computer Architecture Warehouse — a page-table walk you can walk through
+# Computer Architecture Warehouse
 
-**Techniques:** x86-64 virtual memory · page-table translation · four-square cipher
+Probably the most fun challenge in the set, and the one that pulls in the widest mix of things — some
+computer architecture, a little geography, and a cipher at the end. You're cast as the MMU: you're
+handed a virtual address and no shortcuts, so you have to do a page-table walk by hand to turn it into
+a physical location. If you already know what that means, it's quick. If you don't, you end up
+learning how virtual memory and address translation actually work in order to solve it.
+
+**Given:** the virtual address `0x0000_0100_4040_1005`
 **Flag:** `Flag{TOMHANKSAINTGOTSHITONME}`
-
-The centerpiece of the set, and the reason there's a warehouse game. You play a CPU's
-memory-management unit: your TLB is empty, so you must **walk a page table** to resolve a virtual
-address into a physical location — except "physical memory" is a warehouse, and the "physical address"
-is a shelf you walk to and read a note off of.
-
----
+**Tools:** pen and paper, and a four-square cipher tool (e.g. dcode.fr)
 
 ## The walk
 
 A 48-bit x86-64 virtual address splits into four 9-bit table indices and a 12-bit offset. The
-warehouse is organized to match, one-to-one:
+warehouse is laid out to match, one-to-one:
 
 ```mermaid
 flowchart TD
@@ -24,9 +24,9 @@ flowchart TD
   MAP --> NOTE["the box holds a field note"]
 ```
 
-Convert the address to binary, chop it into `[9][9][9][9][12]`, and each field is a coordinate. No
-lookups, no page-table base registers to chase — the address *is* the route. That is the whole trick:
-the exercise looks like a scavenger hunt but is really "can you do a four-level page walk by hand?"
+Convert the address to binary, chop it into `[9][9][9][9][12]`, and each field is a coordinate — no
+page-table base registers to chase, the address *is* the route. It looks like a scavenger hunt but
+it's really a four-level page walk done by hand.
 
 ---
 
@@ -42,9 +42,9 @@ At **Row 2 · Shelf 1 · Bay 2 · Subsection 1 · Box 5**, you find a hand-drawn
    Heck              Yeah
 ```
 
-Four corner keywords, a nod to the **four-square cipher** (dCode is the tool), and a pointer back to
-**line 9 of the Steganography lvl 2 document** — the 24-character string you carried out of the
-steghide challenge.
+Four corner keywords, a pointer to the four-square cipher (dCode is the tool), and "Line #9" — line 9
+of the Steganography lvl 2 document, the 24-character string you carried out of the steghide
+challenge.
 
 ---
 
@@ -59,21 +59,13 @@ flowchart LR
   PT -->|"strip the Z padding"| FLAG["Flag{TOMHANKSAINTGOTSHITONME}"]
 ```
 
-> **Reconstruction note.** The archive's Warehouse folder was empty — no flag file survived. The
-> plaintext `TOMHANKSAINTGOTSHITONME` is verified ground truth: it's the *unique* four-square decode of
-> the surviving ciphertext, confirmed by an exhaustive 2,401-configuration search over every
-> corner/keyword arrangement. So `Flag{TOMHANKSAINTGOTSHITONME}` is a documented reconstructed default
-> in the `Flag{…}` house style.
-
 ---
 
-## The game
+## The warehouse
 
-In the original run this was a real, physical warehouse. The
-[warehouse game](https://github.com/jdtherobot/jd-ctf-environment) recreates it: a top-down space of
-**10 rows × 3 shelf levels × 2 bays × 8 subsections × 7 boxes — 3,360 locations**. Every wrong box
-says "Nothing here"; the one correct box hands you the field note. It's an immersion layer, not a lock
-— the coordinates live in shipped JavaScript — so the *real* gate is understanding the page-table walk.
-
-**The lesson.** Computer-architecture fluency, disguised as a scavenger hunt. If you've ever drawn a
-four-level page-table walk on a whiteboard, you already knew where the box was.
+The original ran in a real, physical warehouse — I put up my own row labels and left the field note
+in an actual box for people to walk to and find. The
+[warehouse game](https://github.com/jdtherobot/jd-ctf-environment) recreates that: a top-down space
+of **10 rows × 3 shelf levels × 2 bays × 8 subsections × 7 boxes — 3,360 locations**. Every wrong box
+says "Nothing here"; the right one hands you the note. It's an immersion layer, not a lock — the
+coordinates live in the shipped JavaScript — so the real gate is the page-table walk, not the search.

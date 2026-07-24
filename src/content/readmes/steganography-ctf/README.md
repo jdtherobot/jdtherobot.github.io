@@ -1,17 +1,20 @@
 # Steganography CTF Challenges — Overview
 
-A four-challenge capture-the-flag I authored around one running joke: a military comms unit that is
-extremely good at hiding things and extremely bad at keeping secrets. Players pull ciphertext out of
-photo metadata, crack a hidden message, walk a virtual address through a warehouse the way a CPU walks
-page tables, and peel a single JPEG apart into six stacked payloads. Every flag looks like `Flag{…}`.
+Four challenges I built for a capture-the-flag. The first one was the seed: I wanted to hide a flag
+in an image the easiest way I could think of, ended up putting it in the file's metadata, and the
+rest of the set grew from there. The running joke — a comms unit that's very good at hiding things
+and very bad at keeping secrets — came out of that, not the other way around. Across the four you
+pull ciphertext out of photo metadata, crack a hidden message, walk a virtual address through a
+warehouse the way a CPU walks page tables, and take one JPEG apart into the files stacked behind it.
+Every flag looks like `Flag{…}`.
 
 > These are **writeups** — they explain how each challenge works, including the solutions. If you'd
 > rather play first, the challenge files live in
 > [participant/](https://github.com/jdtherobot/steganography-ctf/tree/main/participant), and you can
 > **Launch challenges** to run them in the browser.
 
-Everything is author-created and author-owned, and runs entirely on supplied local files — no
-third-party systems, live services, or real credentials involved.
+Everything here is created and owned by me, and each challenge is self-contained — it runs on its
+own files, and nothing reaches out to a third-party system, a live service, or a real credential.
 
 ---
 
@@ -96,27 +99,20 @@ automated `solve_test.sh` that solves from the player files and asserts the exac
 
 ## How it was built
 
-These challenges were **reconstructed** from an original event's working archive — a messy pile of
-finished files, intermediate builds, duplicate folders, and conflicting revisions — treated as
-immutable evidence:
+I originally co-designed and ran this set as a live CTF in October 2025, hosted on CTFd. Bringing it
+here meant going back through the original files, refreshing myself on how every piece fit together,
+and rewriting the documentation so it stands on its own on a website instead of behind a CTFd
+instance.
 
-- **Inventory & canonicalize.** All ~280 archived files were hashed; byte-identical duplicates grouped;
-  conflicting revisions compared by *solvability*, not by which looked newest.
-- **Repair, don't fake.** Steganography lvl 3 ships as a faithful rebuild of the author's original
-  carrier with exactly one correction — the digits in the bundle's hint-file name were reordered to
-  `STEGO_KEY_368.txt`, matching the true 3 → 6 → 8 record order — and the whole carve-and-decrypt
-  chain re-validated end to end. An earlier reconstruction had misread the weak layer as a wordlist
-  crack; the corrected build restores the author's reasoned-password design.
-- **Prove it.** Every challenge has an automated `solve_test.sh`; all four solve from the player
-  files alone and assert the exact flag. A
-  [secret-scan gate](https://github.com/jdtherobot/steganography-ctf/tree/main/build/secret-scan)
-  guarantees no flag or creator-only key leaks into the player bundle.
-- **Make it playable anywhere.** The environment repo hosts a client-side 32-bit Linux lab (v86) so a
-  player solves everything in a browser tab — no install — plus the warehouse game. The toolchain was
-  proven by solving lvl 2 and lvl 3 inside a real 32-bit container.
+The bigger lift was the environment. To host the whole thing on GitHub Pages — tight file-size
+limits, no server — I built a client-side lab so the challenges run in a browser tab instead of
+needing a real Linux box. I also wrote a solve script for each challenge that solves it end to end
+from the player files, both to prove everything still works and so anyone running this in the future
+has a reference solution on hand. And a secret-scan check runs over the player bundle to make sure no
+flag or answer key ever ships in the files a participant downloads.
 
 ---
 
-*Author-created steganography CTF. Full content:
+*My steganography CTF. Full content on GitHub:
 [steganography-ctf](https://github.com/jdtherobot/steganography-ctf) ·
 [jd-ctf-environment](https://github.com/jdtherobot/jd-ctf-environment).*
