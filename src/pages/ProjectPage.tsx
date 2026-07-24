@@ -3,7 +3,6 @@ import Nav from '../components/Nav'
 import Tag from '../components/Tag'
 import Button from '../components/Button'
 import Markdown from '../components/Markdown'
-import FlagCheck from '../components/FlagCheck'
 import { findProject, getDocRaw, overviewDoc } from '../content/projects'
 import { useReveal } from '../hooks/useMotion'
 import { canGoBack } from '../hooks/useScrollRestoration'
@@ -118,7 +117,6 @@ export default function ProjectPage() {
 
         {/* body */}
         <div className="wrap" style={{ maxWidth: 900, paddingTop: 20, paddingBottom: 72 }}>
-          {project.flags && <FlagCheck flags={project.flags} storageKey={project.slug} />}
           {/* No .rv here: the wrapper is the whole rendered README (8–25k px tall),
               so a reveal on it is invisible anyway — and it used to trap the page
               at opacity 0 on short viewports. The header above still reveals. */}
