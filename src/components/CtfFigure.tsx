@@ -1,19 +1,40 @@
-import type { CSSProperties, ReactNode } from 'react'
+import { useState, useEffect, type CSSProperties, type ReactNode } from 'react'
 
 /* CtfFigure — original, SPOILER-FREE vignettes for the steganography-ctf boxes.
    These are cover art, not walkthroughs: they evoke each challenge's domain in
    the site's stencil-and-hairline language (cream washes on the --screen ground,
    material gold for one accent) without printing a single flag, key, filename,
    command, cipher name, address, or resolved location. If a figure would help a
-   player *win*, it does not belong here. */
+   player *win*, it does not belong here.
+
+   The flagship is a slideshow that cross-fades through three takes on
+   "steganography overall" — a loupe over hidden data, a bit-plane peel, and a
+   signal buried in noise — every 4s (paused under prefers-reduced-motion). */
 
 export type CtfFigureKind = 'flagship' | 'warehouse' | 'lvl1' | 'lvl2' | 'lvl3'
 
 const MONO = 'var(--font-mono)'
 const GOLD = 'var(--gold)'
+const G10 = 'var(--gold-10)'
+const G40 = 'var(--gold-40)'
+const G72 = 'var(--gold-72)'
 const C28 = 'var(--cream-28)'
 const C50 = 'var(--cream-50)'
 const C70 = 'var(--cream-70)'
+// cream shades between the named tokens; the --screen ground is dark in both
+// themes, so these literals read the same in light and dark.
+const C22 = 'rgba(236,226,198,0.22)'
+const C45 = 'rgba(236,226,198,0.45)'
+const C55 = 'rgba(236,226,198,0.55)'
+
+// deterministic RNG so the binary glyphs are stable across re-renders/fades
+function makeRng(seed: number) {
+  let s = seed >>> 0
+  return () => {
+    s = (Math.imul(s, 1103515245) + 12345) & 0x7fffffff
+    return s / 0x7fffffff
+  }
+}
 
 function Frame({ caption, children }: { caption: string; children: ReactNode }) {
   return (
@@ -27,6 +48,23 @@ function Frame({ caption, children }: { caption: string; children: ReactNode }) 
         <text x={306} y={190} fontFamily={MONO} fontSize={7} letterSpacing=".1em" fill={C28} textAnchor="end">
           {caption}
         </text>
+      </svg>
+    </div>
+  )
+}
+
+/* flagship frame: a domain tagline bottom-left + the STEGANOGRAPHY CTF stamp */
+function FlagFrame({ tagline, children }: { tagline: string; children: ReactNode }) {
+  return (
+    <div
+      className="ctf-fig"
+      style={{ position: 'relative', width: '100%', aspectRatio: '16 / 10', background: 'var(--screen)', overflow: 'hidden' }}
+    >
+      <svg viewBox="0 0 320 200" preserveAspectRatio="xMidYMid meet" aria-hidden="true" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}>
+        <rect x={6} y={6} width={308} height={188} fill="none" stroke="var(--gold-25)" strokeWidth={1} />
+        {children}
+        <text x={14} y={185} fontFamily={MONO} fontSize={8} letterSpacing=".16em" fill={C55}>{tagline}</text>
+        <text x={306} y={185} fontFamily={MONO} fontSize={7} letterSpacing=".11em" fill={C28} textAnchor="end">STEGANOGRAPHY CTF</text>
       </svg>
     </div>
   )
@@ -56,31 +94,121 @@ function Picture({ x, y, w, h, stroke = C50 }: { x: number; y: number; w: number
   )
 }
 
-/* FLAGSHIP — the overall steganography emblem: a carrier image with its corner
-   peeled back to reveal a hidden layer of data underneath. Iconic to the whole
-   set (things concealed inside other things) and gives nothing away. */
-function Flagship() {
-  const bits: Array<[number, number]> = [
-    [248, 156], [260, 156], [272, 150], [256, 146], [278, 140],
-    [266, 134], [282, 128], [250, 144], [270, 160],
-  ]
+// ---- flagship slide B · LOUPE — a photo that resolves into data under a lens
+const LOUPE_CX = 176
+const LOUPE_CY = 116
+const LOUPE_R = 40
+const loupeGrid = (() => {
+  const rng = makeRng(7788)
+  const cells: { x: number; y: number; ch: string; on: boolean }[] = []
+  for (let r = 0; r < 7; r++)
+    for (let c = 0; c < 9; c++) {
+      const x = LOUPE_CX - 32 + c * 8
+      const y = LOUPE_CY - 26 + r * 8
+      const dx = x - LOUPE_CX
+      const dy = y - LOUPE_CY
+      if (dx * dx + dy * dy > (LOUPE_R - 6) * (LOUPE_R - 6)) continue
+      const on = rng() > 0.5
+      cells.push({ x, y, ch: on ? '1' : '0', on })
+    }
+  return cells
+})()
+
+function Loupe() {
+  // handle: collinear with the lens center at 45° down-right, so it reads as a
+  // real magnifying glass instead of leaving the rim at an angle
+  const u = Math.SQRT1_2 // cos/sin 45°
+  const hx1 = LOUPE_CX + (LOUPE_R - 4) * u
+  const hy1 = LOUPE_CY + (LOUPE_R - 4) * u
+  const hx2 = LOUPE_CX + (LOUPE_R + 34) * u
+  const hy2 = LOUPE_CY + (LOUPE_R + 34) * u
   return (
-    <Frame caption="STEGANOGRAPHY CTF">
-      {/* the carrier image */}
-      <rect x={30} y={26} width={260} height={140} fill="none" stroke={C50} strokeWidth={1.25} />
-      <Picture x={30} y={26} w={220} h={140} />
-      {/* revealed underlayer at the peeled corner */}
-      <polygon points="228,166 290,166 290,108" fill="var(--gold-08)" />
-      {bits.map(([bx, by], i) => (
-        <rect key={i} x={bx} y={by} width={3} height={3} fill={GOLD} opacity={0.85} />
+    <FlagFrame tagline="LOOK CLOSER — IT’S DATA">
+      <rect x={34} y={34} width={176} height={118} fill="none" stroke={C55} strokeWidth={1.25} />
+      <Picture x={34} y={34} w={176} h={118} stroke={C28} />
+      <clipPath id="ctf-lens">
+        <circle cx={LOUPE_CX} cy={LOUPE_CY} r={LOUPE_R - 3} />
+      </clipPath>
+      <circle cx={LOUPE_CX} cy={LOUPE_CY} r={LOUPE_R - 3} fill="#0b0a0d" />
+      <g clipPath="url(#ctf-lens)">
+        {loupeGrid.map((c, i) => (
+          <text key={i} x={c.x} y={c.y} fontFamily={MONO} fontSize={8} fill={c.on ? G72 : C45}>{c.ch}</text>
+        ))}
+      </g>
+      {/* handle first, rim on top so the join is capped cleanly */}
+      <line x1={hx1} y1={hy1} x2={hx2} y2={hy2} stroke={GOLD} strokeWidth={6} strokeLinecap="round" />
+      <circle cx={LOUPE_CX} cy={LOUPE_CY} r={LOUPE_R} fill="none" stroke={GOLD} strokeWidth={2.5} />
+    </FlagFrame>
+  )
+}
+
+// ---- flagship slide C · BITS — the photo peels into bit-layers; the lowest carries a message
+const BITS_ON = [3, 4, 9, 10, 11, 16, 17, 22]
+function Bits() {
+  return (
+    <FlagFrame tagline="HIDDEN IN THE BITS">
+      <Picture x={60} y={30} w={150} h={24} stroke={C55} />
+      <rect x={60} y={30} width={150} height={24} fill="none" stroke={C55} strokeWidth={1.1} />
+      {Array.from({ length: 6 }, (_, i) => (
+        <rect key={i} x={60} y={42 + i * 9} width={150} height={5} fill="none" stroke={`rgba(236,226,198,${(0.5 - i * 0.06).toFixed(2)})`} strokeWidth={1} />
       ))}
-      {/* the fold crease + a hint of the lifted flap */}
-      <line x1={228} y1={166} x2={290} y2={108} stroke={GOLD} strokeWidth={1.25} />
-      <polyline points="228,166 240,150 290,108" fill="none" stroke={GOLD} strokeWidth={0.6} opacity={0.7} />
-      <text x={30} y={186} fontFamily={MONO} fontSize={7.5} letterSpacing=".12em" fill={C50}>
-        HIDDEN IN PLAIN SIGHT
-      </text>
-    </Frame>
+      <path d="M 210,93 C 240,96 240,116 214,120" fill="none" stroke={G40} strokeWidth={1} strokeDasharray="3 3" />
+      <rect x={58} y={116} width={152} height={13} fill={G10} stroke={G40} strokeWidth={1} />
+      {Array.from({ length: 24 }, (_, c) => (
+        <rect key={c} x={62 + c * 6} y={120} width={4} height={5} fill={BITS_ON.includes(c) ? GOLD : C28} />
+      ))}
+      <text x={60} y={146} fontFamily={MONO} fontSize={7.5} letterSpacing=".08em" fill={G72}>the lowest bits carry a message</text>
+    </FlagFrame>
+  )
+}
+
+// ---- flagship slide E · SIGNAL — a gold signal threads through a field of static
+const signalField = (() => {
+  const rng = makeRng(4242)
+  const cells: { x: number; y: number; ch: string; on: boolean }[] = []
+  for (let r = 0; r < 12; r++)
+    for (let c = 0; c < 30; c++) {
+      const x = 18 + c * 9.6
+      const y = 30 + r * 11
+      const wave = 96 + Math.sin((x / 320) * Math.PI * 3) * 34
+      const on = Math.abs(y - wave) < 6
+      cells.push({ x: +x.toFixed(1), y, ch: rng() > 0.5 ? '1' : '0', on })
+    }
+  return cells
+})()
+
+function Signal() {
+  return (
+    <FlagFrame tagline="A SIGNAL IN THE NOISE">
+      {signalField.map((c, i) => (
+        <text key={i} x={c.x} y={c.y} fontFamily={MONO} fontSize={8} fill={c.on ? G72 : C22}>{c.ch}</text>
+      ))}
+    </FlagFrame>
+  )
+}
+
+/* FLAGSHIP — cross-fading slideshow: loupe → bit-planes → signal, 4s each. */
+const FLAGSHIP_SLIDES = [Loupe, Bits, Signal]
+function Flagship() {
+  const [i, setI] = useState(0)
+  useEffect(() => {
+    const mq = typeof window !== 'undefined' && window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null
+    if (mq && mq.matches) return // honor reduced motion: hold on the first slide
+    const id = window.setInterval(() => setI((n) => (n + 1) % FLAGSHIP_SLIDES.length), 4000)
+    return () => window.clearInterval(id)
+  }, [])
+  return (
+    <div style={{ position: 'relative', width: '100%', aspectRatio: '16 / 10' }}>
+      {FLAGSHIP_SLIDES.map((Slide, idx) => (
+        <div
+          key={idx}
+          aria-hidden={idx !== i}
+          style={{ position: 'absolute', inset: 0, opacity: idx === i ? 1 : 0, transition: 'opacity .8s ease' }}
+        >
+          <Slide />
+        </div>
+      ))}
+    </div>
   )
 }
 
@@ -129,7 +257,7 @@ function Lvl1() {
       {/* metadata fields trailing off the image — unlabeled, unreadable */}
       <rect x={182} y={48} width={116} height={84} fill="none" stroke={C28} strokeWidth={1} />
       {[62, 76, 90, 104, 118].map((y, i) => (
-        <line key={i} x1={194} y1={y} x2={i === 2 ? 250 : 286} y2={y} stroke={i === 2 ? GOLD : C28} strokeWidth={i === 2 ? 2 : 2} opacity={i === 2 ? 0.9 : 0.5} />
+        <line key={i} x1={194} y1={y} x2={i === 2 ? 250 : 286} y2={y} stroke={i === 2 ? GOLD : C28} strokeWidth={2} opacity={i === 2 ? 0.9 : 0.5} />
       ))}
       <text x={182} y={148} fontFamily={MONO} fontSize={7} letterSpacing=".1em" fill={C28}>
         A PICTURE IS DATA TOO
