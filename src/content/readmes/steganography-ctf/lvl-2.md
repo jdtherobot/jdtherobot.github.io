@@ -1,4 +1,4 @@
-# Steganography lvl 2 — Stegosaurus 1
+# Steganography lvl 2
 
 **Techniques:** steghide · wordlist cracking · load-bearing "noise"
 **Flag:** `Flag{DanG 7hat'S @ cUTe HOnEY b@D9eR}`
