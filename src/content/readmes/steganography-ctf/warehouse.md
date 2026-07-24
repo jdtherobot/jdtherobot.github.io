@@ -1,4 +1,4 @@
-# Warehouse — a page-table walk you can walk through
+# Computer Architecture Warehouse — a page-table walk you can walk through
 
 **Techniques:** x86-64 virtual memory · page-table translation · four-square cipher
 **Flag:** `Flag{TOMHANKSAINTGOTSHITONME}`

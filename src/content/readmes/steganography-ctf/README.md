@@ -51,7 +51,7 @@ challenges, they can do with standard local tools or inside the browser lab.
 
 | Challenge | Techniques | The one-liner |
 |---|---|---|
-| **Warehouse** | x86-64 page tables · four-square cipher | Resolve a virtual address to a physical shelf, then decode the note you find. |
+| **Computer Architecture Warehouse** | x86-64 page tables · four-square cipher | Resolve a virtual address to a physical shelf, then decode the note you find. |
 | **Steganography lvl 1** | EXIF metadata · OpenSSL AES | The flag is encrypted in a photo's metadata — and the password is in the email body. |
 | **Steganography lvl 2** | steghide · wordlist cracking | A message is hidden in an image behind a crackable passphrase. |
 | **Steganography lvl 3** | binwalk carving · JPEG quantization-table stego · nested AES | One JPEG, six stacked payloads, three layers of encryption, a hidden key. |
@@ -62,7 +62,7 @@ They're mostly independent, with one hard dependency and one wink:
 flowchart LR
   L1["Steganography lvl 1<br/>EXIF + OpenSSL"]
   L2["Steganography lvl 2<br/>steghide"]
-  WH["Warehouse<br/>page tables + four-square"]
+  WH["Computer Architecture Warehouse<br/>page tables + four-square"]
   L3["Steganography lvl 3<br/>multi-payload carve"]
   L2 -->|"line 9 of its hidden doc<br/>is the Warehouse's ciphertext"| WH
   L2 -.->|"its 24-char strings are<br/>lvl 3's key material"| L3
