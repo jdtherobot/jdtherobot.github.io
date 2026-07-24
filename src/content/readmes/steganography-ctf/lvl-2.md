@@ -3,9 +3,9 @@
 **Techniques:** steghide · wordlist cracking · load-bearing "noise"
 **Flag:** `Flag{DanG 7hat'S @ cUTe HOnEY b@D9eR}`
 
-A second badger photo — this time with a genuinely hidden file embedded by **steghide**. The
-passphrase is weak on purpose; the challenge is really about *knowing* that images can carry
-password-protected payloads and reaching for a wordlist.
+The set's first actual badger — a honey badger in a stegosaurus costume — carrying a genuinely
+hidden file embedded by **steghide**. The passphrase is weak on purpose; the challenge is really
+about *knowing* that images can carry password-protected payloads and reaching for a wordlist.
 
 ---
 
