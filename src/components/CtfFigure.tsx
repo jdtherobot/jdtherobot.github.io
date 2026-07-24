@@ -7,9 +7,11 @@ import { useState, useEffect, type CSSProperties, type ReactNode } from 'react'
    command, cipher name, address, or resolved location. If a figure would help a
    player *win*, it does not belong here.
 
-   The flagship is a slideshow that cross-fades through three takes on
-   "steganography overall" — a loupe over hidden data, a bit-plane peel, and a
-   signal buried in noise — every 4s (paused under prefers-reduced-motion). */
+   The flagship is a slideshow that cross-fades through three real techniques
+   from the set — EXIF metadata (loupe), JPEG quantization-table stego
+   (bit-planes), and a binwalk carve (signal in noise) — every 4s (paused under
+   prefers-reduced-motion). These name techniques the overview already lists
+   openly; they still reveal no flag, key, password, or the four-square cipher. */
 
 export type CtfFigureKind = 'flagship' | 'warehouse' | 'lvl1' | 'lvl2' | 'lvl3'
 
@@ -123,7 +125,7 @@ function Loupe() {
   const hx2 = LOUPE_CX + (LOUPE_R + 34) * u
   const hy2 = LOUPE_CY + (LOUPE_R + 34) * u
   return (
-    <FlagFrame tagline="LOOK CLOSER — IT’S DATA">
+    <FlagFrame tagline="IT’S IN THE EXIF METADATA">
       <rect x={34} y={34} width={176} height={118} fill="none" stroke={C55} strokeWidth={1.25} />
       <Picture x={34} y={34} w={176} h={118} stroke={C28} />
       <clipPath id="ctf-lens">
@@ -142,11 +144,11 @@ function Loupe() {
   )
 }
 
-// ---- flagship slide C · BITS — the photo peels into bit-layers; the lowest carries a message
+// ---- flagship slide C · BITS — the photo peels into layers; the payload rides the JPEG's quantization tables
 const BITS_ON = [3, 4, 9, 10, 11, 16, 17, 22]
 function Bits() {
   return (
-    <FlagFrame tagline="HIDDEN IN THE BITS">
+    <FlagFrame tagline="IN THE QUANTIZATION TABLES">
       <Picture x={60} y={30} w={150} h={24} stroke={C55} />
       <rect x={60} y={30} width={150} height={24} fill="none" stroke={C55} strokeWidth={1.1} />
       {Array.from({ length: 6 }, (_, i) => (
@@ -157,7 +159,7 @@ function Bits() {
       {Array.from({ length: 24 }, (_, c) => (
         <rect key={c} x={62 + c * 6} y={120} width={4} height={5} fill={BITS_ON.includes(c) ? GOLD : C28} />
       ))}
-      <text x={60} y={146} fontFamily={MONO} fontSize={7.5} letterSpacing=".08em" fill={G72}>the lowest bits carry a message</text>
+      <text x={60} y={146} fontFamily={MONO} fontSize={7.5} letterSpacing=".08em" fill={G72}>data tucked in the quant tables</text>
     </FlagFrame>
   )
 }
@@ -179,7 +181,7 @@ const signalField = (() => {
 
 function Signal() {
   return (
-    <FlagFrame tagline="A SIGNAL IN THE NOISE">
+    <FlagFrame tagline="CARVED OUT WITH BINWALK">
       {signalField.map((c, i) => (
         <text key={i} x={c.x} y={c.y} fontFamily={MONO} fontSize={8} fill={c.on ? G72 : C22}>{c.ch}</text>
       ))}
