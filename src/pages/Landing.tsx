@@ -10,6 +10,7 @@ import PrimaryExits from '../components/PrimaryExits'
 import CodeFigure from '../components/CodeFigure'
 import DashboardFigure from '../components/DashboardFigure'
 import WorkFigure from '../components/WorkFigure'
+import CtfFigure, { type CtfFigureKind } from '../components/CtfFigure'
 import { PROJECTS, findProject, overviewDoc, subDocs, docSnippet } from '../content/projects'
 import { ACCOMPLISHMENTS, AWARDS } from '../content/work'
 import { useReveal, useRailDrift, usePianoIntro } from '../hooks/useMotion'
@@ -21,7 +22,7 @@ const RESEARCH_TIERS = [
     eyebrow: 'Adaptive Learning',
     question: 'How can a system adapt continually without erasing what it already knows?',
     tagline: 'Continual learning without catastrophic forgetting — brain-inspired algorithms as the lens.',
-    tag: 'Adaptive Learning',
+    tag: 'Theory',
   },
   {
     tier: 'branch',
@@ -29,7 +30,7 @@ const RESEARCH_TIERS = [
     eyebrow: 'Computer Systems',
     question: 'How should learning, memory, runtime, and hardware be co-designed under limited resources?',
     tagline: 'Neuromorphic and embedded constraints as a design input, not an afterthought.',
-    tag: 'Computer Systems',
+    tag: 'Implementation',
   },
   {
     tier: 'dissolve',
@@ -37,7 +38,7 @@ const RESEARCH_TIERS = [
     eyebrow: 'Neurotechnology',
     question: 'Can adaptive methods improve neural-signal decoding and other real-time closed-loop systems?',
     tagline: 'Real-time decoding for BCIs — where latency, drift, and noise are the problem.',
-    tag: 'Neurotechnology',
+    tag: 'Application',
   },
 ] as const
 
@@ -46,6 +47,14 @@ const BG_ROWS = [
   { stencil: 'Academics', title: 'Full-time CS undergrad', to: '/background/academics' },
   { stencil: 'Personal development', title: 'Projects, books, certifications', to: '/background/personal-development' },
 ]
+
+/* landing-rail doc slug → drawn challenge vignette */
+const CTF_FIGS: Record<string, CtfFigureKind> = {
+  warehouse: 'warehouse',
+  'steganography-lvl-1': 'lvl1',
+  'steganography-lvl-2': 'lvl2',
+  'steganography-lvl-3': 'lvl3',
+}
 
 function Ph({ children, ratio = '16/10', style }: { children: React.ReactNode; ratio?: string; style?: React.CSSProperties }) {
   return (
@@ -167,13 +176,20 @@ export default function Landing() {
             <div className="research-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 20 }}>
               {RESEARCH_TIERS.map((t) => (
                 <div className="rv" key={t.stencil}>
-                  <Card tier={t.tier} stencil={t.stencil} innerStyle={{ padding: 20 }}>
+                  <Card
+                    tier={t.tier}
+                    stencil={t.stencil}
+                    innerStyle={{ padding: 20, height: '100%', boxSizing: 'border-box', display: 'flex', flexDirection: 'column' }}
+                  >
                     <Eyebrow on="panel">{t.eyebrow}</Eyebrow>
                     <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 600, lineHeight: 1.3, fontSize: 17, margin: '10px 0' }}>
                       {t.question}
                     </h3>
                     <p className="body" style={{ fontSize: 13.5, opacity: 0.8, margin: '0 0 14px' }}>{t.tagline}</p>
-                    <Tag on="panel">{t.tag}</Tag>
+                    {/* pinned so all three tags sit the same distance off the bottom border */}
+                    <div style={{ marginTop: 'auto' }}>
+                      <Tag on="panel">{t.tag}</Tag>
+                    </div>
                   </Card>
                 </div>
               ))}
@@ -257,7 +273,7 @@ export default function Landing() {
               style={{ display: 'grid', gridTemplateColumns: '1.1fr 1fr', gap: 28, alignItems: 'center', border: '1px solid var(--edge)', padding: 24, marginBottom: 26 }}
             >
               <Link to={`/projects/${ctf.slug}/overview`} style={{ display: 'block', color: 'inherit' }}>
-                <Ph>FLAGSHIP FIGURE<br />steganography ctf challenges</Ph>
+                <CtfFigure kind="flagship" />
               </Link>
               <div>
                 <Eyebrow>Featured · Steganography</Eyebrow>
@@ -294,7 +310,11 @@ export default function Landing() {
                     to={`/projects/${ctf.slug}/${d.docSlug}`}
                     style={{ flex: 1, color: 'inherit', display: 'block' }}
                   >
-                    <Ph style={{ marginBottom: 14 }}>FIGURE</Ph>
+                    {CTF_FIGS[d.docSlug] ? (
+                      <CtfFigure kind={CTF_FIGS[d.docSlug]} style={{ marginBottom: 14 }} />
+                    ) : (
+                      <Ph style={{ marginBottom: 14 }}>FIGURE</Ph>
+                    )}
                     <div className="disp" style={{ fontSize: 16 }}>{d.title}</div>
                     <p className="body" style={{ fontSize: 12.5, opacity: 0.75, margin: '8px 0 0' }}>{docSnippet(ctf.slug, d.file)}</p>
                   </Link>
