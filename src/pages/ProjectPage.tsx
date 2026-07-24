@@ -81,8 +81,7 @@ export default function ProjectPage() {
                   ))}
                 </div>
               )}
-              {/* doc-specific launcher (e.g. the warehouse sim) navigates in the
-                  same tab on purpose; the project-wide launcher keeps a new tab. */}
+              {/* both launchers navigate in the same tab — the app replaces this window */}
               {activeDoc?.liveUrl && (
                 <Button href={activeDoc.liveUrl} variant="primary" style={{ marginLeft: 'auto' }}>
                   {activeDoc.liveLabel ?? 'Launch →'}
@@ -92,8 +91,6 @@ export default function ProjectPage() {
                 <Button
                   href={project.liveUrl}
                   variant="primary"
-                  target="_blank"
-                  rel="noreferrer noopener"
                   style={activeDoc?.liveUrl ? undefined : { marginLeft: 'auto' }}
                 >
                   {project.liveLabel ?? 'Launch app →'}

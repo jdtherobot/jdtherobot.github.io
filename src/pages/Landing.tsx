@@ -289,7 +289,7 @@ export default function Landing() {
                     Read the writeup →
                   </Button>
                   {ctf.liveUrl && (
-                    <Button href={ctf.liveUrl} variant="primary" target="_blank" rel="noreferrer noopener">
+                    <Button href={ctf.liveUrl} variant="primary">
                       {ctf.liveLabel ?? 'Launch app →'}
                     </Button>
                   )}
@@ -371,8 +371,6 @@ export default function Landing() {
                       <Button
                         href={p.liveUrl}
                         variant="primary"
-                        target="_blank"
-                        rel="noreferrer noopener"
                         style={{ fontSize: 10, letterSpacing: '0.14em', textTransform: 'uppercase', padding: '9px 16px' }}
                       >
                         Launch app →
