@@ -73,11 +73,32 @@ export default function Markdown({ source }: { source: string }) {
       return `<div class="mermaid-slot" data-mmd-idx="${blocks.length - 1}"></div>`
     })
     const raw = marked.parse(withSlots, { async: false }) as string
-    const clean = DOMPurify.sanitize(raw, { ADD_ATTR: ['target', 'rel'] }).replace(
-      /<a /g,
-      '<a target="_blank" rel="noreferrer noopener" '
-    )
-    return { html: clean, diagrams: blocks }
+    const clean = DOMPurify.sanitize(raw, { ADD_ATTR: ['target', 'rel'] })
+    // External links open in a new tab; same-origin links — e.g. a writeup's
+    // "Launch the app" pointing at a britt.gg app — navigate in the current tab.
+    let html = clean
+    try {
+      const origin = window.location.origin
+      const doc = new DOMParser().parseFromString(clean, 'text/html')
+      doc.querySelectorAll('a[href]').forEach((a) => {
+        let external = false
+        try {
+          external = new URL(a.getAttribute('href') || '', origin).origin !== origin
+        } catch {
+          external = false
+        }
+        if (external) {
+          a.setAttribute('target', '_blank')
+          a.setAttribute('rel', 'noreferrer noopener')
+        } else {
+          a.removeAttribute('target')
+        }
+      })
+      html = doc.body.innerHTML
+    } catch {
+      /* no DOMParser (shouldn't happen client-side) → leave links as sanitized */
+    }
+    return { html, diagrams: blocks }
   }, [source])
 
   // Render diagrams (and re-render on day/night flips).
