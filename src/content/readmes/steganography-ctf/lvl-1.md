@@ -1,4 +1,4 @@
-# Steganography lvl 1 — Photo Day
+# Steganography lvl 1
 
 **Techniques:** EXIF metadata · OpenSSL AES · a password hiding in plain sight
 **Flag:** `Flag{H0NeyB4d6er10OKinG0OD!!!}`
@@ -10,7 +10,7 @@ it's a careless human.
 
 ## The theme
 
-An intercepted email from "Secretary of Watermelon" to "Mr. Tema" at `military.signal`, gushing about
+An intercepted email from "Commander, 256 AES" to "Mr. Tema" at `military.aes`, gushing about
 the squadron's shiny new **256-bit AES**. Attached: a badger photo. The gag is that they encrypted the
 flag *properly*… then wrote the password directly into the email body — "Definitely not the
 password: …".
