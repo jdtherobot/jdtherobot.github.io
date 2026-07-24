@@ -283,16 +283,27 @@ export default function Landing() {
           </div>
           <div className="wrap">
             <div className="rail" data-rail data-piano>
+              {/* each rail child is a wrapper so a doc's launch button can sit
+                  under its box without nesting an <a> inside the card link */}
               {ctfDocs.map((d) => (
-                <Link
-                  key={d.docSlug}
-                  to={`/projects/${ctf.slug}/${d.docSlug}`}
-                  style={{ width: 300, border: '1px solid var(--edge)', padding: 18, color: 'inherit', display: 'block' }}
-                >
-                  <Ph style={{ marginBottom: 14 }}>FIGURE</Ph>
-                  <div className="disp" style={{ fontSize: 16 }}>{d.title}</div>
-                  <p className="body" style={{ fontSize: 12.5, opacity: 0.75, margin: '8px 0 0' }}>{docSnippet(ctf.slug, d.file)}</p>
-                </Link>
+                <div key={d.docSlug} style={{ width: 300, display: 'flex', flexDirection: 'column' }}>
+                  <Link
+                    to={`/projects/${ctf.slug}/${d.docSlug}`}
+                    style={{ flex: 1, border: '1px solid var(--edge)', padding: 18, color: 'inherit', display: 'block' }}
+                  >
+                    <Ph style={{ marginBottom: 14 }}>FIGURE</Ph>
+                    <div className="disp" style={{ fontSize: 16 }}>{d.title}</div>
+                    <p className="body" style={{ fontSize: 12.5, opacity: 0.75, margin: '8px 0 0' }}>{docSnippet(ctf.slug, d.file)}</p>
+                  </Link>
+                  {d.liveUrl && (
+                    <div style={{ marginTop: 10 }}>
+                      {/* same-tab on purpose — the sim replaces this window */}
+                      <Button href={d.liveUrl} variant="primary">
+                        {d.liveLabel ?? 'Launch →'}
+                      </Button>
+                    </div>
+                  )}
+                </div>
               ))}
             </div>
           </div>

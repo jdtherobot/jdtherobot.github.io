@@ -17,6 +17,14 @@ export type ProjectDoc = {
   title: string
   file: string // filename under readmes/<slug>/
   figure?: FigureData // code-window preview for the landing course box
+  liveUrl?: string // doc-specific launch button (gold, same-tab) on landing + doc page
+  liveLabel?: string // label for the doc-specific button
+}
+
+export type ProjectFlag = {
+  id: string // stable key for localStorage
+  label: string // challenge name shown on the chip
+  sha256: string // hex SHA-256 of the exact Flag{…} string
 }
 
 export type Project = {
@@ -28,6 +36,7 @@ export type Project = {
   liveLabel?: string // label for the liveUrl button (default "Launch app →")
   tags: string[]
   docs: ProjectDoc[]
+  flags?: ProjectFlag[] // CTF flags; enables the FlagCheck panel on the project page
   featured?: boolean // rendered as a flagship block on the landing
   figure?: FigureData // code-window preview for the landing card / flagship
   dashboardFigure?: boolean // render the themed dashboard preview instead of a code window
@@ -47,10 +56,40 @@ export const PROJECTS: Project[] = [
     // Docs order = tab order = cycle order: overview, then Warehouse first, then the levels.
     docs: [
       { docSlug: 'overview', title: 'Overview', file: 'README.md' },
-      { docSlug: 'warehouse', title: 'Warehouse Scavenger Hunt', file: 'warehouse.md' },
+      {
+        docSlug: 'warehouse',
+        title: 'Computer Architecture Warehouse',
+        file: 'warehouse.md',
+        liveUrl: 'https://britt.gg/jd-ctf-environment/warehouse-game/',
+        liveLabel: 'Launch warehouse sim →',
+      },
       { docSlug: 'steganography-lvl-1', title: 'Steganography lvl 1', file: 'lvl-1.md' },
       { docSlug: 'steganography-lvl-2', title: 'Steganography lvl 2', file: 'lvl-2.md' },
       { docSlug: 'steganography-lvl-3', title: 'Steganography lvl 3', file: 'lvl-3.md' },
+    ],
+    // SHA-256 of the exact Flag{…} strings. FlagCheck hashes input locally and
+    // compares — no network, no plaintext beyond what the writeups already print.
+    flags: [
+      {
+        id: 'warehouse',
+        label: 'Computer Architecture Warehouse',
+        sha256: '81223d18eaf595d4324aa3a8f7f23598ec769a20c12812cc15fec534da2b4d71',
+      },
+      {
+        id: 'steganography-lvl-1',
+        label: 'Steganography lvl 1',
+        sha256: 'd95e39d16dcf40a6705a49c39a6820c33dc3296896abd98d29f691002dc01e13',
+      },
+      {
+        id: 'steganography-lvl-2',
+        label: 'Steganography lvl 2',
+        sha256: '061f3d2d27c3b9ce8e55596494670fa93e6fa56e6f3ba76ae3b8776d0a309a74',
+      },
+      {
+        id: 'steganography-lvl-3',
+        label: 'Steganography lvl 3',
+        sha256: '43f9a331935218745b0f3ae6ecdede8777e04068865bb9f580ed09b1c1dcc4f8',
+      },
     ],
   },
   {
