@@ -20,11 +20,14 @@ flowchart TD
   VA["VA = 0x0000_0100_4040_1005"]
   VA --> SPLIT["48 bits split into<br/>PML4·9 / PDPT·9 / PD·9 / PT·9 / offset·12"]
   SPLIT --> IDX["indices → 2 · 1 · 2 · 1 · 5"]
-  IDX --> MAP["PML4 = 2 → row 2<br/>PDPT = 1 → shelf level 1 (bottom)<br/>PD = 2 → bay 2 (back)<br/>PT = 1 → subsection 1<br/>offset = 5 → box 5"]
+  IDX --> MAP["L1 / PT = 1 → row 1<br/>L2 / PD = 2 → bay 2 (back)<br/>L3 / PDPT = 1 → shelf level 1 (bottom)<br/>L4 / PML4 = 2 → subsection 2<br/>offset = 5 → box 5"]
   MAP --> NOTE["the box holds a field note"]
 ```
 
-Convert the address to binary, chop it into `[9][9][9][9][12]`, and each field is a coordinate — no
+Convert the address to binary, chop it into `[9][9][9][9][12]`, and name the fields the way x86
+does — Level 4 (PML4) is the top 9 bits, down to Level 1 (PT) just above the offset. Each level
+*number* is then a warehouse coordinate — L1 → row, L2 → bay (front/back), L3 → shelf level,
+L4 → subsection, offset → box — so you walk the floor L1 → L4, big structure to small. No
 page-table base registers to chase, the address *is* the route. It looks like a scavenger hunt but
 it's really a four-level page walk done by hand.
 
@@ -32,7 +35,7 @@ it's really a four-level page walk done by hand.
 
 ## The note
 
-At **Row 2 · Shelf 1 · Bay 2 · Subsection 1 · Box 5**, you find a hand-drawn card:
+At **Row 1 · Bay 2 (back) · Shelf 1 (bottom) · Subsection 2 · Box 5**, you find a hand-drawn card:
 
 ```
    Honey            Badger
