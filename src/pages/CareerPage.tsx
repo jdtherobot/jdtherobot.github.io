@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Nav from '../components/Nav'
 import { ACCOMPLISHMENTS } from '../content/work'
 import { useReveal } from '../hooks/useMotion'
@@ -32,17 +32,29 @@ export default function CareerPage() {
 
         <header className="dot" style={{ padding: '56px 0 40px' }}>
           <div className="wrap" style={{ maxWidth: 820 }}>
+            {/* The three résumé surfaces link to each other: these highlights, the
+                full work record, and the PDF. Both links group on the right so
+                space-between keeps the eyebrow alone on the left. */}
             <div className="rv" style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: 12, flexWrap: 'wrap' }}>
-              <div className="ey">Career résumé</div>
-              <a
-                href="/resume/JD-Britt-Resume.pdf"
-                target="_blank"
-                rel="noreferrer noopener"
-                className="stencil"
-                style={{ color: 'var(--label-on-bg)', textDecoration: 'none' }}
-              >
-                Full résumé ↓
-              </a>
+              <div className="ey">Résumé</div>
+              <div style={{ display: 'flex', alignItems: 'baseline', gap: 18, flexWrap: 'wrap' }}>
+                <Link
+                  to="/background/occupation"
+                  className="stencil"
+                  style={{ color: 'var(--label-on-bg)', textDecoration: 'none' }}
+                >
+                  Work experience →
+                </Link>
+                <a
+                  href="/resume/JD-Britt-Resume.pdf"
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  className="stencil"
+                  style={{ color: 'var(--label-on-bg)', textDecoration: 'none' }}
+                >
+                  Full résumé ↓
+                </a>
+              </div>
             </div>
             <h1 className="disp rv page-h1" data-slice style={{ fontSize: 42, margin: '14px 0 0' }}>
               Highlights

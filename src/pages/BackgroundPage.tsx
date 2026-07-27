@@ -3,7 +3,7 @@ import Nav from '../components/Nav'
 import Eyebrow from '../components/Eyebrow'
 import Markdown from '../components/Markdown'
 import NotFound from './NotFound'
-import { getBackgroundRaw, CERTIFICATIONS, EXTRACURRICULARS } from '../content/background'
+import { getBackgroundRaw, CERTIFICATIONS } from '../content/background'
 import { PROJECTS, findProject, subDocs, docSnippet } from '../content/projects'
 import { useReveal } from '../hooks/useMotion'
 import { usePageMeta } from '../hooks/usePageMeta'
@@ -132,19 +132,12 @@ function PersonalDevelopment() {
         <ProjectIndex />
       </section>
 
-      {/* 3 · Extracurriculars */}
+      {/* 3 · Extracurriculars — the volunteer record, in the same doc card
+             /background/occupation uses, since it is the same kind of document. */}
       <section className="rv">
         <Eyebrow>Extracurriculars</Eyebrow>
-        <div style={{ borderTop: '1px solid var(--edge)', marginTop: 14 }}>
-          {EXTRACURRICULARS.map((e) => (
-            <div key={e.title} style={{ padding: '14px 0', borderBottom: '1px solid var(--edge)' }}>
-              <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: 14, flexWrap: 'wrap' }}>
-                <span className="disp" style={{ fontSize: 15 }}>{e.title}</span>
-                <span className="stencil" style={{ flex: 'none' }}>{e.meta}</span>
-              </div>
-              <p className="body" style={{ fontSize: 13, opacity: 0.75, margin: '4px 0 0', maxWidth: 680 }}>{e.line}</p>
-            </div>
-          ))}
+        <div className="doc-card" style={{ marginTop: 16 }}>
+          <Markdown source={getBackgroundRaw('extracurriculars.md') ?? ''} />
         </div>
       </section>
     </>
