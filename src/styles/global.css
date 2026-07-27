@@ -105,28 +105,29 @@ a:hover {
   padding: var(--figure-pad, 8px);
 }
 
-/* Hero portrait — a small, deliberately de-emphasized accent (the page is not
-   about the photo). Muted to greyscale by default; reveals full colour on
-   hover/focus. Sized small on desktop and smaller still on mobile. */
+/* Hero portrait — the shipped image is pre-graded to the palette (carbon → gold
+   mids → cream) so it belongs to the page rather than competing with it. The
+   untouched original sits underneath and is revealed on hover/focus. */
 .hero-figure {
-  width: 160px;
-  max-width: 100%;
-  justify-self: end;
-  align-self: center;
+  position: relative;
+}
+.hero-figure::before {
+  content: '';
+  position: absolute;
+  inset: var(--figure-pad, 8px);
+  background: url('/hero-figure/portrait.jpeg') center / cover no-repeat;
 }
 .hero-figure img {
+  position: relative;
   width: 100%;
   aspect-ratio: 1 / 1;
   object-fit: cover;
   display: block;
-  filter: grayscale(1);
-  opacity: 0.78;
-  transition: filter 0.35s ease, opacity 0.35s ease;
+  transition: opacity 0.4s ease;
 }
 .hero-figure:hover img,
 .hero-figure:focus-within img {
-  filter: grayscale(0);
-  opacity: 1;
+  opacity: 0;
 }
 @media (prefers-reduced-motion: reduce) {
   .hero-figure img {
@@ -613,8 +614,6 @@ body.motion .rv.in {
   }
   .hero-figure {
     order: 2;
-    width: 112px;
-    justify-self: start;
   }
   /* the 34px inner padding cost a third of a 375px screen's reading measure */
   .doc-card {

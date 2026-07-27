@@ -90,7 +90,7 @@ export default function Landing() {
         <section className="dot" style={{ padding: '76px 0 60px' }}>
           <div
             className="wrap hero-grid"
-            style={{ display: 'grid', gridTemplateColumns: '1fr auto', gap: 48, alignItems: 'center' }}
+            style={{ display: 'grid', gridTemplateColumns: '1fr .8fr', gap: 48, alignItems: 'center' }}
           >
             <div>
               <div className="ey rv">USAF • Senior IT &amp; Cyber Leader • Computer Science B.S. Candidate</div>
@@ -110,7 +110,7 @@ export default function Landing() {
               </div>
             </div>
             <div className="frame rv hero-figure">
-              <img src="/hero-figure/portrait.jpeg" alt="JD Britt" />
+              <img src="/hero-figure/portrait-toned.jpeg" alt="JD Britt" />
             </div>
           </div>
         </section>
