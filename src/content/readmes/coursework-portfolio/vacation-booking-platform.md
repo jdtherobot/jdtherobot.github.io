@@ -1,6 +1,6 @@
 # Vacation Booking Platform
 
-**Repository:** `wgu-spring-boot-vacation-booking-backend` *(private — access on request)* .\
+**Repository:** `wgu-spring-boot-vacation-booking-backend` *(private — access on request)*.\
 **Stack:** Java 17 · Spring Boot · Spring Data JPA · Spring Data REST · MySQL · Lombok · Bean Validation · Angular 14 *(provided client)*
 
 A full-stack e-commerce application for booking vacation packages and add-on excursions. A Spring

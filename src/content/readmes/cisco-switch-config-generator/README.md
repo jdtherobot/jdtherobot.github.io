@@ -102,7 +102,3 @@ Named ranges (maintained by `EnsureNamedRanges`): `Model_List` → `Reference!D`
 ## License
 
 [MIT](LICENSE)
-
----
-
-*Author: JD Britt.*

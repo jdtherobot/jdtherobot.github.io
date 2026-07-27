@@ -1,6 +1,6 @@
 # Hotel Reservation Platform — i18n · Multithreading · Docker
 
-**Repository:** `wgu-hotel-reservation-i18n-docker` *(private — access on request)* .\
+**Repository:** `wgu-hotel-reservation-i18n-docker` *(private — access on request)*.\
 **Stack:** Java 17 · Spring Boot · Spring Data JPA · Bean Validation · Jackson (JSR-310) · Angular · Docker (eclipse-temurin) · AWS (deployment design)
 
 A full-stack hotel reservation application (the "Landon Hotel") that I extended with
@@ -78,13 +78,13 @@ worked within that structure to add the features above.
 
 ## Screenshots
 
-**Landon Hotel — bilingual (EN/FR) welcome and ET/MT/UTC presentation times, served from my multithreaded endpoint** .\
+**Landon Hotel — bilingual (EN/FR) welcome and ET/MT/UTC presentation times, served from my multithreaded endpoint**.\
 ![Landon Hotel splash with i18n welcome and timezones](https://raw.githubusercontent.com/jdtherobot/coursework-portfolio/main/assets/screenshots/hotel-welcome-i18n-splash.jpg)
 
-**Room availability with my multi-currency pricing (USD / CAD / EUR)** .\
+**Room availability with my multi-currency pricing (USD / CAD / EUR)**.\
 ![Available rooms in three currencies](https://raw.githubusercontent.com/jdtherobot/coursework-portfolio/main/assets/screenshots/hotel-rooms-multicurrency.jpg)
 
-**The app running inside the Docker container I packaged** .\
+**The app running inside the Docker container I packaged**.\
 ![Dockerized app running — 1](https://raw.githubusercontent.com/jdtherobot/coursework-portfolio/main/assets/screenshots/hotel-reservation-docker-1.jpg)
 
 ![Dockerized app running — 2](https://raw.githubusercontent.com/jdtherobot/coursework-portfolio/main/assets/screenshots/hotel-reservation-docker-2.jpg)

@@ -79,8 +79,6 @@ flowchart TD
 **Buy-Now — failure when a product is out of stock**.\
 ![Out-of-stock purchase message](https://raw.githubusercontent.com/jdtherobot/coursework-portfolio/main/assets/screenshots/inventory-buy-now-out-of-stock.jpg)
 
-
-
 ---
 
 *Documentation of my work on this project. Source available privately on request.*
