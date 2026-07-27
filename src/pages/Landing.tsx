@@ -90,10 +90,10 @@ export default function Landing() {
         <section className="dot" style={{ padding: '76px 0 60px' }}>
           <div
             className="wrap hero-grid"
-            style={{ display: 'grid', gridTemplateColumns: '1fr .8fr', gap: 48, alignItems: 'center' }}
+            style={{ display: 'grid', gridTemplateColumns: '1fr auto', gap: 48, alignItems: 'center' }}
           >
             <div>
-              <div className="ey rv">ADAPTIVE LEARNING • COMPUTER SYSTEMS • NEUROTECHNOLOGY</div>
+              <div className="ey rv">USAF • Senior IT &amp; Cyber Leader • Computer Science B.S. Candidate</div>
               <h1 className="disp rv" data-slice style={{ fontSize: 56, margin: '16px 0 0' }}>
                 <span className="hero-h1" style={{ fontSize: 'inherit' }}>JD Britt</span>
               </h1>
@@ -110,11 +110,7 @@ export default function Landing() {
               </div>
             </div>
             <div className="frame rv hero-figure">
-              <img
-                src="/hero-figure/portrait.jpeg"
-                alt="JD Britt"
-                style={{ width: '100%', aspectRatio: '1 / 1', objectFit: 'cover', display: 'block' }}
-              />
+              <img src="/hero-figure/portrait.jpeg" alt="JD Britt" />
             </div>
           </div>
         </section>
