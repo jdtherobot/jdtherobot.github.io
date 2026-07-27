@@ -3,8 +3,10 @@ import Nav from '../components/Nav'
 import Tag from '../components/Tag'
 import Button from '../components/Button'
 import Markdown from '../components/Markdown'
+import NotFound from './NotFound'
 import { findProject, getDocRaw, overviewDoc } from '../content/projects'
 import { useReveal } from '../hooks/useMotion'
+import { usePageMeta } from '../hooks/usePageMeta'
 import { canGoBack } from '../hooks/useScrollRestoration'
 
 /* Project page. /projects/:slug/:doc renders one writeup; multi-doc projects
@@ -16,26 +18,14 @@ export default function ProjectPage() {
   const navigate = useNavigate()
   const project = findProject(slug)
   useReveal(`${slug}/${doc ?? ''}`)
+  usePageMeta(project?.title ?? 'Not found', project?.tagline)
 
   /* Going back beats the section anchor: it lands the visitor exactly where they
      left off rather than at the top of the Projects block. Only when there is no
      history to return to (deep link, fresh tab) do we fall back to the anchor. */
   const goBack = () => (canGoBack() ? navigate(-1) : navigate('/#sec-projects'))
 
-  if (!project) {
-    return (
-      <>
-        <Nav />
-        <main className="dot" style={{ minHeight: '60vh' }}>
-          <div className="wrap" style={{ maxWidth: 820, padding: '80px 0' }}>
-            <div className="ey">Error · 404</div>
-            <h1 className="disp page-h1" style={{ fontSize: 42, margin: '14px 0 14px' }}>Project not found</h1>
-            <Link className="navlink" style={{ color: 'var(--text)', opacity: 1 }} to="/">← Back home</Link>
-          </div>
-        </main>
-      </>
-    )
-  }
+  if (!project) return <NotFound />
 
   const single = project.docs.length === 1
   const activeDoc = doc ? project.docs.find((d) => d.docSlug === doc) : project.docs[0]

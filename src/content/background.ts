@@ -18,17 +18,19 @@ export type Certification = {
   name: string
   issuer: string
   year?: string
-  /* badge image supplied later by JD (official vendor badge); until then the
-     tile renders an honest placeholder square */
-  badge?: string
+  /* short mark shown in the site-styled tile (e.g. 'A+', 'LPI'); falls back to a seal */
+  mark?: string
+  /* issuer verification URL — drop each cert's verify link/ID here to light up
+     the "Verify ↗" link on its tile (JD supplies these) */
+  verify?: string
 }
 
 export const CERTIFICATIONS: Certification[] = [
-  { name: 'CompTIA A+', issuer: 'CompTIA', year: '2014' },
-  { name: 'CompTIA Security+', issuer: 'CompTIA', year: '2016' },
-  { name: 'Linux Foundations', issuer: 'Western Governors University', year: '2026' },
-  { name: 'Designing AI Products and Services', issuer: 'MIT', year: '' },
-  { name: 'Project Management', issuer: 'U.S. Air Force', year: '2022' },
+  { name: 'CompTIA A+', issuer: 'CompTIA', year: '2014', mark: 'A+' },
+  { name: 'CompTIA Security+', issuer: 'CompTIA', year: '2016', mark: 'Sec+' },
+  { name: 'Linux Essentials', issuer: 'Linux Professional Institute (LPI)', year: '2026', mark: 'LPI' },
+  { name: 'Designing AI Products and Services', issuer: 'MIT xPRO', year: '2023', mark: 'AI' },
+  { name: 'Project Management', issuer: 'U.S. Air Force', year: '2022', mark: 'PM' },
 ]
 
 export type Extracurricular = {

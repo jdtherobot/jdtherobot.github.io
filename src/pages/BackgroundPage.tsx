@@ -1,15 +1,17 @@
-import { useParams, Link, useNavigate, Navigate } from 'react-router-dom'
+import { useParams, Link, useNavigate } from 'react-router-dom'
 import Nav from '../components/Nav'
 import Eyebrow from '../components/Eyebrow'
 import Markdown from '../components/Markdown'
+import NotFound from './NotFound'
 import { getBackgroundRaw, CERTIFICATIONS, EXTRACURRICULARS } from '../content/background'
 import { PROJECTS, findProject, subDocs, docSnippet } from '../content/projects'
 import { useReveal } from '../hooks/useMotion'
+import { usePageMeta } from '../hooks/usePageMeta'
 import { canGoBack } from '../hooks/useScrollRestoration'
 
 /* Background pages — /background/<slug>. Occupation and Academics render a
    baked markdown doc in the standard doc-card; Personal Development composes
-   certifications (badge placeholders until JD supplies vendor art), the site's
+   certifications (site-styled tiles with optional Verify links), the site's
    project index, and the extracurricular record — résumé-bottom, in order. */
 
 const PAGES: Record<string, { title: string; eyebrow: string; tagline: string; file?: string }> = {
@@ -76,25 +78,42 @@ function PersonalDevelopment() {
       {/* 1 · Certifications */}
       <section className="rv" style={{ marginBottom: 44 }}>
         <Eyebrow>Certifications</Eyebrow>
-        <p className="body" style={{ fontSize: 13.5, opacity: 0.7, margin: '8px 0 16px' }}>
-          Official vendor badges land here; placeholders hold their spots.
-        </p>
-        <div className="cert-grid">
+        <div className="cert-grid" style={{ marginTop: 16 }}>
           {CERTIFICATIONS.map((c) => (
             <div key={c.name} className="cert-tile">
-              {c.badge ? (
-                <img src={c.badge} alt={`${c.name} badge`} className="cert-badge" />
-              ) : (
-                <div className="cert-badge ph">
-                  <span>BADGE</span>
-                </div>
-              )}
+              <div
+                className="cert-badge"
+                aria-hidden="true"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  border: '1px solid var(--gold-40)',
+                  color: 'var(--gold)',
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: 15,
+                  letterSpacing: '.02em',
+                }}
+              >
+                {c.mark ?? '✦'}
+              </div>
               <div>
                 <div className="disp" style={{ fontSize: 14 }}>{c.name}</div>
                 <div className="stencil" style={{ marginTop: 4 }}>
                   {c.issuer}
                   {c.year ? ` · ${c.year}` : ''}
                 </div>
+                {c.verify && (
+                  <a
+                    className="stencil"
+                    href={c.verify}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    style={{ display: 'inline-block', marginTop: 6, color: 'var(--label-on-bg)', textDecoration: 'none' }}
+                  >
+                    Verify ↗
+                  </a>
+                )}
               </div>
             </div>
           ))}
@@ -134,8 +153,9 @@ export default function BackgroundPage() {
   const navigate = useNavigate()
   const page = PAGES[slug]
   useReveal(`background/${slug}`)
+  usePageMeta(page?.title ?? 'Not found', page?.tagline)
 
-  if (!page) return <Navigate replace to="/" />
+  if (!page) return <NotFound />
 
   const raw = page.file ? getBackgroundRaw(page.file) : undefined
   const goBack = () => (canGoBack() ? navigate(-1) : navigate('/#sec-background'))

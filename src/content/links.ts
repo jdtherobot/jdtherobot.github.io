@@ -1,6 +1,6 @@
 /* The four primary exits, repeated in Hero, the nav mark-menu, and Contact.
-   Wire all three to the same destinations. Placeholder hrefs ('#') are for JD
-   to fill later; GitHub points at the known public profile. */
+   Wire all three to the same destinations. Résumé opens the PDF at
+   public/resume/JD-Britt-Resume.pdf in a new tab (drop the file in to go live). */
 
 export type PrimaryLink = {
   label: string
@@ -11,7 +11,7 @@ export type PrimaryLink = {
 }
 
 export const PRIMARY_LINKS: PrimaryLink[] = [
-  { label: 'Résumé', arrow: '↓', href: '#', variant: 'primary' },
+  { label: 'Résumé', arrow: '↓', href: '/resume/JD-Britt-Resume.pdf', variant: 'primary', external: true },
   { label: 'GitHub', arrow: '→', href: 'https://github.com/jdtherobot', variant: 'outline', external: true },
   { label: 'LinkedIn', arrow: '→', href: 'https://www.linkedin.com/in/justinderekbritt/', variant: 'outline', external: true },
   { label: 'Email', arrow: '→', href: 'mailto:jd@britt.gg', variant: 'outline' },

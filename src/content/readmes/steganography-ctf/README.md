@@ -2,8 +2,7 @@
 
 Four challenges I built for a capture-the-flag. The first one was the seed: I wanted to hide a flag
 in an image the easiest way I could think of, ended up putting it in the file's metadata, and the
-rest of the set grew from there. The running joke — a comms unit that's very good at hiding things
-and very bad at keeping secrets — came out of that, not the other way around. Across the four you
+rest of the set grew from there. Across the four you
 pull ciphertext out of photo metadata, crack a hidden message, walk a virtual address through a
 warehouse the way a CPU walks page tables, and take one JPEG apart into the files stacked behind it.
 Every flag looks like `Flag{…}`.

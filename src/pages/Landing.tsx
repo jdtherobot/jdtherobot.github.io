@@ -14,6 +14,7 @@ import CtfFigure, { type CtfFigureKind } from '../components/CtfFigure'
 import { PROJECTS, findProject, overviewDoc, subDocs, docSnippet } from '../content/projects'
 import { ACCOMPLISHMENTS, AWARDS } from '../content/work'
 import { useReveal, useRailDrift, usePianoIntro } from '../hooks/useMotion'
+import { usePageMeta } from '../hooks/usePageMeta'
 
 const RESEARCH_TIERS = [
   {
@@ -45,7 +46,7 @@ const RESEARCH_TIERS = [
 const BG_ROWS = [
   { stencil: 'Occupation', title: 'Full-time U.S. Air Force IT professional', to: '/background/occupation' },
   { stencil: 'Academics', title: 'Full-time CS undergrad', to: '/background/academics' },
-  { stencil: 'Personal development', title: 'Projects, books, certifications', to: '/background/personal-development' },
+  { stencil: 'Personal development', title: 'Projects, certifications, extracurriculars', to: '/background/personal-development' },
 ]
 
 /* landing-rail doc slug → drawn challenge vignette */
@@ -70,6 +71,7 @@ export default function Landing() {
   useReveal('home')
   useRailDrift('home')
   usePianoIntro('home')
+  usePageMeta()
 
   const navigate = useNavigate()
   const ctf = findProject('steganography-ctf')!
@@ -209,7 +211,7 @@ export default function Landing() {
             <p className="body rv" style={{ fontSize: 15, opacity: 0.82, maxWidth: 620, margin: '0 0 8px' }}>
               Throughout my career, I&rsquo;ve been the Air Force&rsquo;s geek squad, helpdesk, asset
               management, team lead, supervisor, project manager, section and flight leader… among
-              other things — and that&rsquo;s only the work stuff. Here&rsquo;s some tidbits.
+              other things — and that&rsquo;s only the work stuff. Here are a few highlights.
             </p>
             <div className="rv" style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', margin: '18px 0 14px' }}>
               <span className="ey">Accomplishments</span>
@@ -265,7 +267,7 @@ export default function Landing() {
             <div className="rv" style={{ marginBottom: 14 }}>
               <Eyebrow>Challenges I’ve built</Eyebrow>
               <p className="body" style={{ fontSize: 14, opacity: 0.75, margin: '8px 0 0', maxWidth: 640 }}>
-                [The best way to learn it to teach! Or, write a CTF challenge!]
+                [The best way to learn is to teach.]
               </p>
             </div>
             <div

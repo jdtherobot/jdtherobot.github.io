@@ -1,16 +1,17 @@
 import { useNavigate } from 'react-router-dom'
 import Nav from '../components/Nav'
-import Eyebrow from '../components/Eyebrow'
 import { ACCOMPLISHMENTS } from '../content/work'
 import { useReveal } from '../hooks/useMotion'
+import { usePageMeta } from '../hooks/usePageMeta'
 import { canGoBack } from '../hooks/useScrollRestoration'
 
-/* Full career résumé — distinct from the standard résumé. A chronological
-   account of a 12-year career. Placeholder for now; JD fills the entries. */
+/* Career highlights — a chronological one-line-per-role timeline. The full
+   one-page résumé lives at /resume/JD-Britt-Resume.pdf (linked from the header). */
 
 export default function CareerPage() {
   const navigate = useNavigate()
   useReveal('career')
+  usePageMeta('Career résumé', 'Twelve years of U.S. Air Force IT leadership — a chronological highlights timeline.')
 
   return (
     <>
@@ -31,14 +32,21 @@ export default function CareerPage() {
 
         <header className="dot" style={{ padding: '56px 0 40px' }}>
           <div className="wrap" style={{ maxWidth: 820 }}>
-            <div className="ey rv">Career résumé</div>
-            <h1 className="disp rv page-h1" data-slice style={{ fontSize: 42, margin: '14px 0 14px' }}>
-              Twelve years, in full
+            <div className="rv" style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: 12, flexWrap: 'wrap' }}>
+              <div className="ey">Career résumé</div>
+              <a
+                href="/resume/JD-Britt-Resume.pdf"
+                target="_blank"
+                rel="noreferrer noopener"
+                className="stencil"
+                style={{ color: 'var(--label-on-bg)', textDecoration: 'none' }}
+              >
+                Full résumé ↓
+              </a>
+            </div>
+            <h1 className="disp rv page-h1" data-slice style={{ fontSize: 42, margin: '14px 0 0' }}>
+              Highlights
             </h1>
-            <p className="body rv" style={{ fontSize: 17, opacity: 0.9, maxWidth: 640, margin: 0 }}>
-              [The complete career narrative — assignments, scope, and results across a 12-year span.
-              This is the long-form counterpart to the one-page résumé. Placeholder until JD writes it.]
-            </p>
           </div>
         </header>
 
@@ -52,12 +60,6 @@ export default function CareerPage() {
               </div>
             </div>
           ))}
-          <div className="rv" style={{ marginTop: 34 }}>
-            <Eyebrow>More to come</Eyebrow>
-            <p className="body" style={{ fontSize: 14, opacity: 0.7, marginTop: 10 }}>
-              [Additional detail — education, certifications, and the full assignment history — lands here.]
-            </p>
-          </div>
         </article>
       </main>
     </>
