@@ -75,6 +75,6 @@ figure slots) pending real content.
 
 ## Reference
 
-`design_handoff_landing_page 3/` holds the original design handoff (prototype +
+`design-reference/` holds the original design handoff (prototype +
 offline design-system bundle). It is reference only and is excluded from the
 built site.
