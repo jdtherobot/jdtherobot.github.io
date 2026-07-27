@@ -109,8 +109,12 @@ export default function Landing() {
                 <PrimaryExits />
               </div>
             </div>
-            <div className="frame rv hero-figure">
-              <img src="/hero-figure/portrait-toned.jpeg" alt="JD Britt" />
+            {/* the cell stretches to the row (sized by the copy beside it); the
+                frame is absolute inside it, so the photo never drives the row */}
+            <div className="hero-figure-cell">
+              <div className="frame rv hero-figure">
+                <img src="/hero-figure/portrait-toned.jpeg" alt="JD Britt" />
+              </div>
             </div>
           </div>
         </section>

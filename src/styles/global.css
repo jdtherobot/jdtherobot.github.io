@@ -126,13 +126,22 @@ a:hover {
   display: block;
   transition: opacity 0.4s ease;
 }
-/* Desktop: the portrait tops and tails with the hero copy beside it — the frame
-   stretches to the row height (set by the left column) and takes its width from
-   that, staying square and uncropped, pinned to the right edge. */
+/* Desktop: the portrait tops and tails with the hero copy beside it. The cell
+   stretches to the row — whose height the copy alone sets, because the frame is
+   absolutely positioned and so contributes nothing — and the frame fills that
+   height, taking its width from it (square, uncropped) against the right edge. */
 @media (min-width: 821px) {
-  .hero-figure {
+  .hero-figure-cell {
+    position: relative;
     align-self: stretch;
-    justify-self: end;
+    min-height: 0;
+  }
+  .hero-figure-cell .hero-figure {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: auto;
     aspect-ratio: 1 / 1;
     max-width: 100%;
   }
@@ -624,7 +633,8 @@ body.motion .rv.in {
   .page-h1 {
     font-size: 28px !important;
   }
-  .hero-figure {
+  /* the cell is the grid item, so it carries the stacking order */
+  .hero-figure-cell {
     order: 2;
   }
   /* the 34px inner padding cost a third of a 375px screen's reading measure */
