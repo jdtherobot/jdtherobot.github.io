@@ -34,7 +34,8 @@ Push to `main` → the Actions workflow builds and publishes `dist/` to Pages.
   never be dropped by the build. Do not move or delete it.
 - `public/.nojekyll` disables Jekyll processing.
 - `public/404.html` is an SPA fallback so deep links (e.g.
-  `/challenges/warehouse-scavenger-hunt`) resolve on refresh.
+  `/projects/steganography-ctf`) resolve on refresh.
+- `public/robots.txt` disallows all crawlers — the site is noindex (direct-link only).
 
 ## Sections
 

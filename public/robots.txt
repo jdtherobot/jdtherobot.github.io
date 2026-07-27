@@ -1,0 +1,3 @@
+# britt.gg — not indexed. Reachable by direct link only.
+User-agent: *
+Disallow: /

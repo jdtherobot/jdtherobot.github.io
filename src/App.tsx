@@ -3,6 +3,7 @@ import Landing from './pages/Landing'
 import ProjectPage from './pages/ProjectPage'
 import CareerPage from './pages/CareerPage'
 import BackgroundPage from './pages/BackgroundPage'
+import NotFound from './pages/NotFound'
 import useScrollRestoration from './hooks/useScrollRestoration'
 import { useGlitchSlice, useScreenStatic, useGoldShimmer } from './hooks/useGlitch'
 
@@ -37,7 +38,7 @@ export default function App() {
         <Route path="/background/:slug" element={<BackgroundPage />} />
         <Route path="/projects/:slug" element={<ProjectPage />} />
         <Route path="/projects/:slug/:doc" element={<ProjectPage />} />
-        <Route path="*" element={<Landing />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </>
   )
