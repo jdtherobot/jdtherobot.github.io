@@ -34,7 +34,7 @@ export const ACCOMPLISHMENTS: Accomplishment[] = [
     period: '2024',
     title: 'Division Lead, Plans & Requirements',
     oneLine:
-      'Directed cyber planning, cybersecurity, data management, and logistics at Beale AFB — while starting a full-time CS degree.',
+      'Directed the plans and requirements division at Beale: the organization’s share of a $162M classified-network migration, plus the Flight Chief role over 29 personnel in seven specialties.',
     figure: 'plans',
   },
   {

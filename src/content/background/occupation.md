@@ -2,7 +2,7 @@
 
 **Oct 2025 – Present**<br>48th Intelligence Support Squadron · Beale AFB, California
 
-Leads the organization's training and evaluation function, managing 62 organizational programs. Directs training through a locally developed communications academy and organization-wide master training plans, and serves as a planner, advisor, and inspector for enterprise- and command-directed exercises — work that directly supports a $905M intelligence data-processing enterprise and its 760 on-site analysts. *(Current position — further accomplishments pending the next evaluation cycle.)*
+Leads the organization's training and evaluation function, managing 62 organizational programs. Directs training through a locally developed communications academy and organization-wide master training plans, and serves as a planner, advisor, and inspector for enterprise- and command-directed exercises — work that directly supports a $905M intelligence data-processing enterprise and its 760 on-site analysts. *(Current position.)*
 
 ---
 
@@ -10,10 +10,9 @@ Leads the organization's training and evaluation function, managing 62 organizat
 
 **Apr 2025 – Oct 2025**<br>Expeditionary Communications Squadron · Deployed, Undisclosed Location
 
-Directed four departments — cyber planning, cybersecurity, data management, and logistics — for a deployed multinational air operation supporting aircraft from five nations flying 24,000 annual flights, with $1.7B in aircraft assets, at a hub handling 60% of the region's air cargo.
+Directed four departments — cyber planning, cybersecurity, data management, and logistics — for a deployed multinational air operation supporting aircraft from five nations flying 24,000 annual flights, with $1.7B in aircraft assets, at a hub handling 60% of the region's air cargo. Managed a $10M communications and cybersecurity project portfolio spanning four installations.
 
-- Managed a $10M communications and cybersecurity project portfolio spanning four installations, overseeing infrastructure programs that delivered three secure, hardened telecommunications networks and improved resiliency across the region.
-- Directed a $10M network modernization program, synchronizing design, engineering, and operations teams across outside-plant, inside-plant, and backbone workstreams for nine secure network builds — completing three and laying the foundation for a hardened, redundant network mesh.
+- Directed a $10M program standing up new information transport nodes (ITNs): synchronized design, engineering, and operations teams across outside-plant, inside-plant, and backbone workstreams for nine secure network builds — delivering three secure, hardened telecommunications networks, improving resiliency across the region, and laying the foundation for a redundant network mesh.
 - Revived the organization's #1 leadership priority: a $1.5M backup command-and-control operations center that had sat dormant since 2019. Identified seven missing capabilities, built them out, and briefed executive leadership through delivery — restoring continuity-of-operations capability for the entire organization.
 - Took ownership of a multimillion-dollar network engineering project with less than a week of lead time, rapidly absorbing new technical content, coordinating across engineering and stakeholder teams, and resolving ambiguity through focused analysis and creative problem solving.
 - Built an Excel/VBA configuration generator for Cisco 9300 switches: reverse-engineered existing configuration files with a senior network engineer, then developed a GUI-driven tool that takes port counts and VLAN assignments as input and outputs ready-to-deploy configuration files — standardizing builds and eliminating manual provisioning errors.

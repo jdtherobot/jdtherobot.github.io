@@ -154,7 +154,7 @@ export default function Landing() {
               {/* Sums of documented figures across performance reports — see
                   /background/occupation for the underlying line items. */}
               <Stat value="250+ · $35M" label="Projects led · documented value" />
-              <Stat value="38K+" label="Security vulnerabilities eliminated" />
+              <Stat value="37K+" label="Security vulnerabilities eliminated" />
               <Stat value="95K+" label="Labor-hours saved" />
             </div>
           </div>
