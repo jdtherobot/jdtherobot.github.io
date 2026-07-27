@@ -1,7 +1,3 @@
-*A record of sustained service outside primary duties, 2014 – present: ceremonial Honor Guard, the Air Force Sergeants Association, community volunteering, mentorship, and peer education. Organized by activity, newest involvement first.*
-
----
-
 ## Computer Science Club — Founder & Facilitator
 
 **Apr 2025 – Oct 2025**<br>Deployed, Undisclosed Location

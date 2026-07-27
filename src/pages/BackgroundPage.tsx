@@ -14,12 +14,12 @@ import { canGoBack } from '../hooks/useScrollRestoration'
    certifications (site-styled tiles with optional Verify links), the site's
    project index, and the extracurricular record — résumé-bottom, in order. */
 
-const PAGES: Record<string, { title: string; eyebrow: string; tagline: string; file?: string }> = {
+/* tagline is optional — a page can lead straight from the H1 into its content. */
+const PAGES: Record<string, { title: string; eyebrow: string; tagline?: string; file?: string }> = {
   occupation: {
     title: 'Work Experience',
     eyebrow: 'Background · Occupation',
-    tagline:
-      'Twelve years of U.S. Air Force IT, translated from performance reports into plain English — every position, newest first.',
+    tagline: 'Twelve years of Air Force IT',
     file: 'occupation.md',
   },
   academics: {
@@ -31,8 +31,6 @@ const PAGES: Record<string, { title: string; eyebrow: string; tagline: string; f
   'personal-development': {
     title: 'Personal Development',
     eyebrow: 'Background · Personal development',
-    tagline:
-      'The résumé-bottom section, expanded: certifications, the projects on this site, and the extracurricular record behind them.',
   },
 }
 
@@ -174,12 +172,14 @@ export default function BackgroundPage() {
         <header className="dot" style={{ padding: '56px 0 40px' }}>
           <div className="wrap" style={{ maxWidth: 900 }}>
             <div className="ey rv">{page.eyebrow}</div>
-            <h1 className="disp rv page-h1" data-slice style={{ fontSize: 42, margin: '14px 0 14px' }}>
+            <h1 className="disp rv page-h1" data-slice style={{ fontSize: 42, margin: page.tagline ? '14px 0 14px' : '14px 0 0' }}>
               {page.title}
             </h1>
-            <p className="body rv" style={{ fontSize: 17, opacity: 0.9, maxWidth: 640, margin: 0 }}>
-              {page.tagline}
-            </p>
+            {page.tagline && (
+              <p className="body rv" style={{ fontSize: 17, opacity: 0.9, maxWidth: 640, margin: 0 }}>
+                {page.tagline}
+              </p>
+            )}
           </div>
         </header>
 
