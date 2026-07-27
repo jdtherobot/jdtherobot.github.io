@@ -103,6 +103,9 @@ function PersonalDevelopment() {
                   {c.issuer}
                   {c.year ? ` · ${c.year}` : ''}
                 </div>
+                {c.credId && (
+                  <div className="stencil" style={{ marginTop: 3, opacity: 0.6 }}>ID · {c.credId}</div>
+                )}
                 {c.verify && (
                   <a
                     className="stencil"

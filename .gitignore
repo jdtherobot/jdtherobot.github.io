@@ -6,3 +6,5 @@ dist
 career-context/
 .idea/
 .claude/
+# résumé: publish the PDF only, never the editable Word source
+public/resume/*.docx

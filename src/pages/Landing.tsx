@@ -109,14 +109,12 @@ export default function Landing() {
                 <PrimaryExits />
               </div>
             </div>
-            <div className="frame rv hero-figure" style={{ alignSelf: 'stretch', display: 'flex' }}>
-              <Ph ratio="5/4" style={{ flex: 1 }}>
-                SECONDARY FIGURE
-                <br />
-                portrait / key schematic
-                <br />
-                supplied later
-              </Ph>
+            <div className="frame rv hero-figure">
+              <img
+                src="/hero-figure/portrait.jpeg"
+                alt="JD Britt"
+                style={{ width: '100%', aspectRatio: '1 / 1', objectFit: 'cover', display: 'block' }}
+              />
             </div>
           </div>
         </section>

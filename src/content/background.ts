@@ -20,16 +20,18 @@ export type Certification = {
   year?: string
   /* short mark shown in the site-styled tile (e.g. 'A+', 'LPI'); falls back to a seal */
   mark?: string
-  /* issuer verification URL — drop each cert's verify link/ID here to light up
-     the "Verify ↗" link on its tile (JD supplies these) */
+  /* credential / verification ID, shown on the tile so a visitor can confirm it */
+  credId?: string
+  /* issuer verification page (or a direct credential URL where one exists) */
   verify?: string
 }
 
 export const CERTIFICATIONS: Certification[] = [
-  { name: 'CompTIA A+', issuer: 'CompTIA', year: '2014', mark: 'A+' },
-  { name: 'CompTIA Security+', issuer: 'CompTIA', year: '2016', mark: 'Sec+' },
-  { name: 'Linux Essentials', issuer: 'Linux Professional Institute (LPI)', year: '2026', mark: 'LPI' },
-  { name: 'Designing AI Products and Services', issuer: 'MIT xPRO', year: '2023', mark: 'AI' },
+  { name: 'CISSP', issuer: 'ISC2', mark: 'CISSP', credId: '3120559', verify: 'https://www.isc2.org/verify' },
+  { name: 'CompTIA Security+', issuer: 'CompTIA', year: '2016', mark: 'Sec+', credId: '5W37E4LMFDQ419R1', verify: 'https://verify.comptia.org' },
+  { name: 'CompTIA A+', issuer: 'CompTIA', year: '2014', mark: 'A+', credId: '2K9CBW6E3KVESYK8', verify: 'https://verify.comptia.org' },
+  { name: 'Linux Essentials', issuer: 'Linux Professional Institute (LPI)', year: '2026', mark: 'LPI', credId: 'LPI000681445', verify: 'https://cs.lpi.org/caf/Xamman/certification' },
+  { name: 'Designing AI Products and Services', issuer: 'MIT xPRO', year: '2023', mark: 'AI', credId: '798495' },
   { name: 'Project Management', issuer: 'U.S. Air Force', year: '2022', mark: 'PM' },
 ]
 
