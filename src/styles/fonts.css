@@ -1,7 +1,16 @@
 /* CYBERNETIC PREMIUM — WEBFONTS
-   Three faces, no more. All are Google Fonts (no substitution required):
+   Three faces, no more, self-hosted via @fontsource so the site has no
+   third-party runtime dependency — on networks that block font CDNs the
+   typography survives intact, and there is no render-blocking fetch chain.
+   Vite resolves these package imports and bundles the woff2 files:
    - Rajdhani 500/600/700  — display / headings (UPPERCASE, tight tracking)
    - Space Grotesk 400/500/700 — body copy (proportional; never mono body)
-   - JetBrains Mono 400/500 — eyebrows, labels, data, stencil, nav, buttons
-   Consumers get these @import lines; the CSS2 endpoint serves the @font-face rules. */
-@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap');
+   - JetBrains Mono 400/500 — eyebrows, labels, data, stencil, nav, buttons */
+@import '@fontsource/rajdhani/500.css';
+@import '@fontsource/rajdhani/600.css';
+@import '@fontsource/rajdhani/700.css';
+@import '@fontsource/space-grotesk/400.css';
+@import '@fontsource/space-grotesk/500.css';
+@import '@fontsource/space-grotesk/700.css';
+@import '@fontsource/jetbrains-mono/400.css';
+@import '@fontsource/jetbrains-mono/500.css';
