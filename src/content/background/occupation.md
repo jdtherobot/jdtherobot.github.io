@@ -10,10 +10,10 @@ Leads the organization's training and evaluation function, managing 62 organizat
 
 **Apr 2025 – Oct 2025**<br>Expeditionary Communications Squadron · Deployed, Undisclosed Location
 
-Directed four departments — cyber planning, cybersecurity, data management, and logistics — for a deployed multinational air operation supporting aircraft from five nations flying 24,000 annual flights, with $1.7B in aircraft assets, at a hub handling 60% of the region's air cargo. Managed a $10M communications and cybersecurity project portfolio spanning four installations.
+Directed four departments — cyber planning, cybersecurity, data management, and logistics — for a deployed multinational air operation at a major regional hub. Managed a $10M communications and cybersecurity project portfolio spanning four installations.
 
-- Directed a $10M program standing up new information transport nodes (ITNs): synchronized design, engineering, and operations teams across outside-plant, inside-plant, and backbone workstreams for nine secure network builds — delivering three secure, hardened telecommunications networks, improving resiliency across the region, and laying the foundation for a redundant network mesh.
-- Revived the organization's #1 leadership priority: a $1.5M backup command-and-control operations center that had sat dormant since 2019. Identified seven missing capabilities, built them out, and briefed executive leadership through delivery — restoring continuity-of-operations capability for the entire organization.
+- Directed a $10M program standing up new information transport nodes (ITNs): synchronized design, engineering, and operations teams across outside-plant, inside-plant, and backbone workstreams for nine secure network builds — delivering three secure, hardened telecommunications networks and improving resiliency across the region.
+- Revived the organization's #1 leadership priority: restored a $1.5M backup command-and-control operations center to full operational capability, briefing executive leadership through delivery — returning continuity-of-operations capability to the entire organization.
 - Took ownership of a multimillion-dollar network engineering project with less than a week of lead time, rapidly absorbing new technical content, coordinating across engineering and stakeholder teams, and resolving ambiguity through focused analysis and creative problem solving.
 - Built an Excel/VBA configuration generator for Cisco 9300 switches: reverse-engineered existing configuration files with a senior network engineer, then developed a GUI-driven tool that takes port counts and VLAN assignments as input and outputs ready-to-deploy configuration files — standardizing builds and eliminating manual provisioning errors.
 - Founded and led a Computer Science Club for deployed service members — authoring hands-on curriculum in Linux administration, shell scripting, Python, penetration-testing fundamentals, and embedded systems, and co-designing an internal capture-the-flag (CTF) training environment with a red-team-experienced cybersecurity officer. (Off-duty technical initiative; detailed under [Personal Development](/background/personal-development).)
@@ -46,13 +46,13 @@ Led an office of six project managers supporting a $905M intelligence data-proce
 #### 2023–2024 highlights
 
 - Improved the department's delivery by authoring new requirements-intake guidance and steering 84 projects valued at $3.7M.
-- Took on data-center management duties: provided network engineering support for $152K in upgrades and worked with the National Security Agency to remove 37 end-of-life devices — updating servers and closing a security vulnerability that had stood open for two years.
+- Took on data-center management duties: provided network engineering support for $152K in upgrades and worked with the National Security Agency to remove 37 end-of-life devices — updating servers and closing a long-standing security finding.
 - Spearheaded an out-of-cycle physical inventory of the campus — 6,000 devices worth $6M — then developed and implemented the enterprise's first four-year lifecycle management plan, standardizing annual IT budgeting and acquisition.
 - Standardized training across five business units for the acquisition, installation, and secure disposal of $1.5M in communications equipment annually.
 - Led a major consolidation initiative relocating eight departments and merging three partner organizations: directly managed a $2.5M infrastructure package, relocated four command suites, and installed 118 systems — earning a formal commendation and avoiding $47.5M in new construction costs.
 - As acting department manager, led the team to four quarterly organization-level awards and earned the organization's Manager (NCO) of the Year award.
-- Authored the requirements-governance process for all modifications to the installation's top-secret network, solidifying intake for $3.7M in requests covering 24 network and 350 end-user devices, and established the first formal working relationship with a partner unit operating a $780M early-warning radar system.
-- Partnered with special-access-program engineers to integrate next-generation AI-enabled targeting software into core operations: managed 39 technicians and 7,000 work-hours to install a mile of fiber-optic cabling and 107 systems, expanding capability for four analysis teams.
+- Authored the requirements-governance process for all modifications to the installation's most sensitive network, solidifying intake for $3.7M in requests, and established the first formal working relationship with a partner unit operating a major early-warning system.
+- Partnered with specialized engineering teams to integrate a next-generation analysis capability into core operations: managed 39 technicians and 7,000 work-hours to install a mile of fiber-optic cabling and 107 systems, expanding capability for four analysis teams.
 - Secured contract authorization to redesign a legacy aircraft radio system before its end of service: coordinated with Raytheon contractors, dispatched a refresh team, and created new preventive-maintenance procedures — extending the system's life through the aircraft's retirement.
 
 #### 2022–2023 highlights
@@ -62,7 +62,7 @@ Led an office of six project managers supporting a $905M intelligence data-proce
 - Stepped up during a director vacancy to lead the enterprise asset-management program: partnered with four sections to execute a $910K technology refresh, installing 840 systems across five business units.
 - Revamped the enterprise's $3.4M asset-management program, benchmarking best practices across 16 accounts and directing the secure disposition of 4,200 devices — saving $1.9M.
 - Drove a $2M space-utilization project, collaborating with nine stakeholder organizations to design a mission-integration strategy and authoring IT accountability requirements for 934 systems — expanding capability for 760 analysts, saving an estimated 87,000 labor-hours, and securing communications for 374 critical intelligence missions.
-- Graduated Distinguished Graduate (top of class) from the Noncommissioned Officer Academy; led the team to Team of the Quarter and Team of the Year honors and contributed to the organization's selection for a service-wide excellence award.
+- Graduated Distinguished Graduate (top 10%) from the Noncommissioned Officer Academy; led the team to Team of the Quarter and Team of the Year honors and contributed to the organization's selection for a service-wide excellence award.
 
 ---
 
@@ -81,7 +81,7 @@ Across a single ~14-month Korea tour, moved through three offices as responsibil
 - Rebuilt the section's training program, creating a digital continuity library of 301 standard procedures — accelerating 12 skill-level certifications by four months.
 - Completed an intensive project-management course while managing 17 organizational initiatives — driving $4.9M in requirements.
 - Engineered two of the organization's three top-priority technical solutions, supporting operations for 4,400 flight missions — while testing out of 22 credit hours by examination (CLEP/DSST), later transferred toward a B.S. in Computer Science.
-- Led a nine-person team standing up the organization's first combat-ready joint command-post network, delivering secure network capability that consolidated command-and-control operations.
+- Led a nine-person team standing up a combat-ready joint command-post network, delivering secure network capability that consolidated command-and-control operations.
 - Performed the section chief's role (one rank up) for three months, leading a 50-person cyber operations section: cleared 2,000 tickets and 207 compliance orders at the #1 completion rate in the Pacific command — earning the 2021 Team of the Year award.
 - Directed a $2M wireless command-and-control installation with a 63-person team, delivering emergency alert capability to 4,000 personnel — recognized as a "best practice" by the regional commanding general.
 
@@ -95,12 +95,12 @@ Managed deployment records, training, and availability for 250 personnel and ass
 
 - Rebuilt the readiness training scheduler, allocating courses and certifying 147 members in chemical-defense skills — raising the organization's defense-readiness rate from 49% to 91%.
 - Managed the weapons-qualification program, prioritizing scarce range slots for deploying and relocating personnel — 61 members qualified.
-- Identified a secure-communications facility deficiency, authored the certification package, and acquired new equipment — zero security issues and a 200% increase in classified-network capacity.
+- Identified a secure-communications facility deficiency, authored the certification package, and acquired new equipment — zero security issues and significantly expanded classified-network capacity.
 - Processed 42 restricted-area credentials for the backup emergency-operations center, maintaining critical access for 250 members.
 - Standardized readiness reporting, generating recurring status reports covering 106 deployment task packages — saving 84 hours annually.
 - Delivered contingency-plan training to 231 personnel, connecting daily work to national strategic plans — directly addressing the top complaint from the organization's climate survey.
 - Built the office's first continuity program from scratch: a deployment tracker and 28 standard procedures covering 46 pre-deployment requirements — creating real-time visibility for every deployer's status and cutting new-manager onboarding from three months to two weeks.
-- Averted a U.S. Strategic Command mission stoppage by readying key personnel and $267K in equipment in under 72 hours — enabling the first overseas mobile air-operations center and strategic bomber task-force operations.
+- Averted a combatant-command mission stoppage by readying key personnel and $267K in equipment in under 72 hours — enabling a first-of-its-kind deployable air-operations capability.
 - Ran the deployment program end to end, managing taskings for $834K in equipment and missions in three theaters and two major exercises — delivering 27 personnel on target.
 - Revitalized the emergency-management program: scheduled 153 courses, equipped three buildings, and trained 245 members — passing the annual inspection with zero discrepancies.
 - Completed 58 secure-access requests, enabling emergency-operations-center installations and resolving seven security incidents — integrating seven operations cells.
@@ -226,11 +226,11 @@ Operated, restored, and configured information systems and office automation equ
 
 - Postured the installation for a $1.24M technology refresh: established data-transfer procedures and fielded 1,200 assets — strengthening a $24M network.
 - Served as point person for an operations-center system upgrade, configuring and installing 16 unclassified and classified systems in under 72 hours — commended by the unit commander.
-- Validated White House Communications Agency requirements, building a secure cable route with nine circuits to the Secretary of the Air Force's aircraft within three hours.
+- Executed a White House Communications Agency support requirement, delivering a secure communications path for a distinguished-visitor mission within three hours.
 - Cross-trained outside of primary specialty and single-handedly resolved 38 tickets during a wing relocation — zero mission impact across 1,500 flights.
 - Scored 92% on career-development exams against a squadron average of 81%.
 - Streamlined the standard PC-imaging training program, condensing the qualification window by 75% and bringing four technicians to full task readiness.
 - Managed a print-server upgrade, auditing 579 print sites and eliminating 12,000 critical security discrepancies — key to the base's "Excellent" rating on a major cyber-readiness inspection.
 - Supported an operations-squadron technology refresh, delivering 84 computers and migrating personnel files with zero data loss.
-- Engineered a classified-network lockdown: wrote the procedure and removed 47 unauthorized Wi-Fi capabilities, securing classified data ahead of inspection.
+- Engineered a network-hardening effort: wrote the procedure and remediated 47 unauthorized wireless capabilities ahead of a major inspection.
 - Supported a software "tiger team" that patched 30 non-compliant computers and pushed 1,300 security updates — achieving a 0% data-leak rate.
