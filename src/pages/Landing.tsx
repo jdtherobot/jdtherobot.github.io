@@ -160,96 +160,6 @@ export default function Landing() {
           </div>
         </section>
 
-        {/* RESEARCH DIRECTION */}
-        <section id="sec-research" className="dot section">
-          <div className="wrap">
-            <div className="ey rv">Research direction</div>
-            <h2 className="disp rv h2-lg" data-slice style={{ fontSize: 32, margin: '14px 0 8px' }}>
-              My long-term objective
-            </h2>
-            <p className="body rv" style={{ fontSize: 15, opacity: 0.82, maxWidth: 600, margin: '0 0 28px' }}>
-              Twofold: to develop fundamentally adaptive learning algorithms and to enable practical brain–computer interfaces
-              capable of lifelong operation. I believe these goals are inseparable. Realizing adaptive neurotechnology
-              will require advances not only in learning algorithms, but also in the co-design of software, computer systems,
-              and hardware that can support continuous learning.
-            </p>
-            <div className="research-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 20 }}>
-              {RESEARCH_TIERS.map((t) => (
-                <div className="rv" key={t.stencil}>
-                  <Card
-                    tier={t.tier}
-                    stencil={t.stencil}
-                    innerStyle={{ padding: 20, height: '100%', boxSizing: 'border-box', display: 'flex', flexDirection: 'column' }}
-                  >
-                    <Eyebrow on="panel">{t.eyebrow}</Eyebrow>
-                    <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 600, lineHeight: 1.3, fontSize: 17, margin: '10px 0' }}>
-                      {t.question}
-                    </h3>
-                    <p className="body" style={{ fontSize: 13.5, opacity: 0.8, margin: '0 0 14px' }}>{t.tagline}</p>
-                    {/* pinned so all three tags sit the same distance off the bottom border */}
-                    <div style={{ marginTop: 'auto' }}>
-                      <Tag on="panel">{t.tag}</Tag>
-                    </div>
-                  </Card>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* WORK — puzzle-style: accomplishments rail + awards. Title → /career */}
-        <section id="sec-work" className="dot section">
-          <div className="wrap">
-            <div className="ey rv">Work</div>
-            <h2 className="disp rv h2-lg" data-slice style={{ fontSize: 32, margin: '14px 0 8px' }}>
-              <Link to="/career" style={{ color: 'inherit', borderBottom: '2px solid var(--gold)', paddingBottom: 2 }}>
-                Twelve years of I.T. →
-              </Link>
-            </h2>
-            <p className="body rv" style={{ fontSize: 15, opacity: 0.82, maxWidth: 620, margin: '0 0 8px' }}>
-              Throughout my career, I&rsquo;ve been the Air Force&rsquo;s geek squad, helpdesk, asset
-              management, team lead, supervisor, project manager, section and flight leader… among
-              other things — and that&rsquo;s only the work stuff. Here are a few highlights.
-            </p>
-            <div className="rv" style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', margin: '18px 0 14px' }}>
-              <span className="ey">Accomplishments</span>
-              <span className="stencil">advances as you scroll · drag → to explore</span>
-            </div>
-          </div>
-          <div className="wrap">
-            <div className="rail" data-rail data-rail-drift data-piano>
-              {ACCOMPLISHMENTS.map((a) => (
-                <Link
-                  key={a.slug}
-                  to="/career"
-                  style={{ width: 300, border: '1px solid var(--edge)', padding: 18, color: 'inherit', display: 'block' }}
-                >
-                  <div className="stencil" style={{ marginBottom: 10 }}>{a.period}</div>
-                  <WorkFigure kind={a.figure} style={{ marginBottom: 14 }} />
-                  <div className="disp" style={{ fontSize: 16 }}>{a.title}</div>
-                  <p className="body" style={{ fontSize: 12.5, opacity: 0.75, margin: '8px 0 0' }}>{a.oneLine}</p>
-                </Link>
-              ))}
-            </div>
-          </div>
-          <div className="wrap" style={{ marginTop: 34 }}>
-            <div className="rv" style={{ marginBottom: 8 }}>
-              <Eyebrow>Awards</Eyebrow>
-            </div>
-            <div className="rv awards-scroll" style={{ borderTop: '1px solid var(--edge)' }}>
-              {AWARDS.map((aw, i) => (
-                <div key={i} style={{ display: 'flex', alignItems: 'baseline', gap: 18, padding: '16px 0', borderBottom: '1px solid var(--edge)' }}>
-                  <span className="stencil" style={{ width: 70, flex: 'none' }}>{aw.year}</span>
-                  <div style={{ flex: 1 }}>
-                    <div className="disp" style={{ fontSize: 15 }}>{aw.title}</div>
-                    <div className="body" style={{ fontSize: 12.5, opacity: 0.68, marginTop: 2 }}>{aw.detail}</div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
         {/* PROJECTS — the puzzle/challenges block (re-themed) + code projects */}
         <section id="sec-projects" className="dot section">
           <div className="wrap">
@@ -418,6 +328,96 @@ export default function Landing() {
                   <div className="disp" style={{ fontSize: 16 }}>{d.title}</div>
                   <p className="body" style={{ fontSize: 12.5, opacity: 0.75, margin: '8px 0 0' }}>{docSnippet(coursework.slug, d.file)}</p>
                 </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* WORK — puzzle-style: accomplishments rail + awards. Title → /career */}
+        <section id="sec-work" className="dot section">
+          <div className="wrap">
+            <div className="ey rv">Work</div>
+            <h2 className="disp rv h2-lg" data-slice style={{ fontSize: 32, margin: '14px 0 8px' }}>
+              <Link to="/career" style={{ color: 'inherit', borderBottom: '2px solid var(--gold)', paddingBottom: 2 }}>
+                Twelve years of I.T. →
+              </Link>
+            </h2>
+            <p className="body rv" style={{ fontSize: 15, opacity: 0.82, maxWidth: 620, margin: '0 0 8px' }}>
+              Throughout my career, I&rsquo;ve been the Air Force&rsquo;s geek squad, helpdesk, asset
+              management, team lead, supervisor, project manager, section and flight leader… among
+              other things — and that&rsquo;s only the work stuff. Here are a few highlights.
+            </p>
+            <div className="rv" style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', margin: '18px 0 14px' }}>
+              <span className="ey">Accomplishments</span>
+              <span className="stencil">advances as you scroll · drag → to explore</span>
+            </div>
+          </div>
+          <div className="wrap">
+            <div className="rail" data-rail data-rail-drift data-piano>
+              {ACCOMPLISHMENTS.map((a) => (
+                <Link
+                  key={a.slug}
+                  to="/career"
+                  style={{ width: 300, border: '1px solid var(--edge)', padding: 18, color: 'inherit', display: 'block' }}
+                >
+                  <div className="stencil" style={{ marginBottom: 10 }}>{a.period}</div>
+                  <WorkFigure kind={a.figure} style={{ marginBottom: 14 }} />
+                  <div className="disp" style={{ fontSize: 16 }}>{a.title}</div>
+                  <p className="body" style={{ fontSize: 12.5, opacity: 0.75, margin: '8px 0 0' }}>{a.oneLine}</p>
+                </Link>
+              ))}
+            </div>
+          </div>
+          <div className="wrap" style={{ marginTop: 34 }}>
+            <div className="rv" style={{ marginBottom: 8 }}>
+              <Eyebrow>Awards</Eyebrow>
+            </div>
+            <div className="rv awards-scroll" style={{ borderTop: '1px solid var(--edge)' }}>
+              {AWARDS.map((aw, i) => (
+                <div key={i} style={{ display: 'flex', alignItems: 'baseline', gap: 18, padding: '16px 0', borderBottom: '1px solid var(--edge)' }}>
+                  <span className="stencil" style={{ width: 70, flex: 'none' }}>{aw.year}</span>
+                  <div style={{ flex: 1 }}>
+                    <div className="disp" style={{ fontSize: 15 }}>{aw.title}</div>
+                    <div className="body" style={{ fontSize: 12.5, opacity: 0.68, marginTop: 2 }}>{aw.detail}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* RESEARCH DIRECTION */}
+        <section id="sec-research" className="dot section">
+          <div className="wrap">
+            <div className="ey rv">Research direction</div>
+            <h2 className="disp rv h2-lg" data-slice style={{ fontSize: 32, margin: '14px 0 8px' }}>
+              My long-term objective
+            </h2>
+            <p className="body rv" style={{ fontSize: 15, opacity: 0.82, maxWidth: 600, margin: '0 0 28px' }}>
+              Twofold: to develop fundamentally adaptive learning algorithms and to enable practical brain–computer interfaces
+              capable of lifelong operation. I believe these goals are inseparable. Realizing adaptive neurotechnology
+              will require advances not only in learning algorithms, but also in the co-design of software, computer systems,
+              and hardware that can support continuous learning.
+            </p>
+            <div className="research-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 20 }}>
+              {RESEARCH_TIERS.map((t) => (
+                <div className="rv" key={t.stencil}>
+                  <Card
+                    tier={t.tier}
+                    stencil={t.stencil}
+                    innerStyle={{ padding: 20, height: '100%', boxSizing: 'border-box', display: 'flex', flexDirection: 'column' }}
+                  >
+                    <Eyebrow on="panel">{t.eyebrow}</Eyebrow>
+                    <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 600, lineHeight: 1.3, fontSize: 17, margin: '10px 0' }}>
+                      {t.question}
+                    </h3>
+                    <p className="body" style={{ fontSize: 13.5, opacity: 0.8, margin: '0 0 14px' }}>{t.tagline}</p>
+                    {/* pinned so all three tags sit the same distance off the bottom border */}
+                    <div style={{ marginTop: 'auto' }}>
+                      <Tag on="panel">{t.tag}</Tag>
+                    </div>
+                  </Card>
+                </div>
               ))}
             </div>
           </div>

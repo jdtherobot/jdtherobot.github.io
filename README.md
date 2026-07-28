@@ -39,17 +39,17 @@ Push to `main` → the Actions workflow builds and publishes `dist/` to Pages.
 
 ## Sections
 
-Nav: **Background · Research Direction · Work · Projects**.
+Nav: **Background · Projects · Work · Research Direction**.
 
-- **Work** (`src/content/work.ts`) — a 12-year career as a scroll of
-  accomplishments plus an awards list; the section title links to the full
-  career résumé at `/career` (distinct from the standard résumé).
 - **Projects** (`src/content/projects.ts`) — one list covering both the
   steganography CTF "puzzle" challenges and the code projects. Each links to
   `/projects/<slug>`, which renders the repo's README(s), themed
   like a GitHub/JetBrains preview. READMEs are **baked locally** under
   `src/content/readmes/<slug>/` so the site works regardless of repo visibility;
   a repo with multiple docs shows them as clickable preview boxes.
+- **Work** (`src/content/work.ts`) — a 12-year career as a scroll of
+  accomplishments plus an awards list; the section title links to the full
+  career résumé at `/career` (distinct from the standard résumé).
 
 ## Editing content
 
