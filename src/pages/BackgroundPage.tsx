@@ -1,9 +1,10 @@
+import { useEffect, useState } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import Nav from '../components/Nav'
 import Eyebrow from '../components/Eyebrow'
 import Markdown from '../components/Markdown'
 import NotFound from './NotFound'
-import { getBackgroundRaw, CERTIFICATIONS } from '../content/background'
+import { loadBackgroundRaw, CERTIFICATIONS } from '../content/background'
 import { PROJECTS, findProject, subDocs } from '../content/projects'
 import { useReveal } from '../hooks/useMotion'
 import { usePageMeta } from '../hooks/usePageMeta'
@@ -71,6 +72,17 @@ function ProjectIndex() {
 }
 
 function PersonalDevelopment() {
+  const [extras, setExtras] = useState<string | undefined>(undefined)
+  useEffect(() => {
+    let stale = false
+    loadBackgroundRaw('extracurriculars.md').then((raw) => {
+      if (!stale) setExtras(raw)
+    })
+    return () => {
+      stale = true
+    }
+  }, [])
+
   return (
     <>
       {/* 1 · Certifications */}
@@ -131,13 +143,16 @@ function PersonalDevelopment() {
       </section>
 
       {/* 3 · Extracurriculars — the volunteer record, in the same doc card
-             /background/occupation uses, since it is the same kind of document. */}
-      <section className="rv">
-        <Eyebrow>Extracurriculars</Eyebrow>
-        <div className="doc-card" style={{ marginTop: 16 }}>
-          <Markdown source={getBackgroundRaw('extracurriculars.md') ?? ''} />
-        </div>
-      </section>
+             /background/occupation uses, since it is the same kind of document.
+             The markdown is a lazy chunk; the card renders once it arrives. */}
+      {extras && (
+        <section className="rv">
+          <Eyebrow>Extracurriculars</Eyebrow>
+          <div className="doc-card" style={{ marginTop: 16 }}>
+            <Markdown source={extras} />
+          </div>
+        </section>
+      )}
     </>
   )
 }
@@ -149,9 +164,23 @@ export default function BackgroundPage() {
   useReveal(`background/${slug}`)
   usePageMeta(page?.title ?? 'Not found', page?.tagline)
 
+  /* Page markdown is a lazy chunk. Hooks stay above the NotFound return (hook
+     order must not depend on the route); the effect guards on page/file. */
+  const [raw, setRaw] = useState<string | undefined>(undefined)
+  useEffect(() => {
+    setRaw(undefined)
+    if (!page?.file) return
+    let stale = false
+    loadBackgroundRaw(page.file).then((r) => {
+      if (!stale) setRaw(r)
+    })
+    return () => {
+      stale = true
+    }
+  }, [page])
+
   if (!page) return <NotFound />
 
-  const raw = page.file ? getBackgroundRaw(page.file) : undefined
   const goBack = () => (canGoBack() ? navigate(-1) : navigate('/#sec-background'))
 
   return (
@@ -183,12 +212,15 @@ export default function BackgroundPage() {
           </div>
         </header>
 
-        {/* body */}
+        {/* body — branch on the page shape, not the loaded state, so a doc page
+            shows a clean loading frame rather than flashing the composed page */}
         <div className="wrap" style={{ maxWidth: 900, paddingTop: 20, paddingBottom: 72 }}>
-          {raw ? (
-            <div className="doc-card">
-              <Markdown source={raw} />
-            </div>
+          {page.file ? (
+            raw && (
+              <div className="doc-card">
+                <Markdown source={raw} />
+              </div>
+            )
           ) : (
             <PersonalDevelopment />
           )}

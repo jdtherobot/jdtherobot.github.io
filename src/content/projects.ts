@@ -3,12 +3,12 @@
    works regardless of repo visibility. A repo with multiple docs shows them as
    clickable preview boxes; a single-doc repo renders directly. */
 
-// Raw markdown baked from the repos, keyed by glob path.
+// Raw markdown baked from the repos, keyed by glob path. Lazy: each doc is its
+// own chunk, fetched when its page renders — the landing ships no markdown.
 const RAW = import.meta.glob('./readmes/**/*.md', {
   query: '?raw',
   import: 'default',
-  eager: true,
-}) as Record<string, string>
+}) as Record<string, () => Promise<string>>
 
 import type { FigureData } from '../components/CodeFigure'
 
@@ -213,6 +213,7 @@ export function subDocs(project: Project): ProjectDoc[] {
   return project.docs.filter((d) => d.docSlug !== 'overview')
 }
 
-export function getDocRaw(slug: string, file: string): string | undefined {
-  return RAW[`./readmes/${slug}/${file}`]
+export function loadDocRaw(slug: string, file: string): Promise<string | undefined> {
+  const load = RAW[`./readmes/${slug}/${file}`]
+  return load ? load() : Promise.resolve(undefined)
 }
