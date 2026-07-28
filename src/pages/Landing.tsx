@@ -150,24 +150,18 @@ export default function Landing() {
                 ))}
               </div>
             </div>
-            <div className="rv stat-row">
-              {/* Sums of documented figures across performance reports — the
-                  caption below links to the underlying line items. */}
-              {/* $83M = every project/program directed (21 line items across 12
-                  years, $61.1M) plus the $21.9M Windows 10 upgrade. Excludes
-                  environments supported and savings produced. */}
+            {/* Sums of documented figures across performance reports — the whole
+                row clicks through to the underlying line items on
+                /background/occupation. 37K+ counts vulnerabilities and inspection
+                discrepancies, hence "findings". */}
+            {/* $83M = every project/program directed (21 line items across 12
+                years, $61.1M) plus the $21.9M Windows 10 upgrade. Excludes
+                environments supported and savings produced. */}
+            <Link to="/background/occupation" className="rv stat-row" style={{ color: 'inherit', textDecoration: 'none' }}>
+              <Stat value="37K+" label="Security findings eliminated" />
               <Stat value="250+ · $83M" label="Projects led · documented value" />
-              <Stat value="37K+" label="Security vulnerabilities eliminated" />
               <Stat value="95K+" label="Labor-hours saved" />
-            </div>
-            <div className="rv" style={{ marginTop: 12 }}>
-              <Link
-                to="/background/occupation"
-                style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '.08em', opacity: 0.65, color: 'inherit', textDecoration: 'none' }}
-              >
-                Summed from documented performance-report line items — full record →
-              </Link>
-            </div>
+            </Link>
           </div>
         </section>
 
