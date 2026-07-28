@@ -93,14 +93,14 @@ export default function Landing() {
             style={{ display: 'grid', gridTemplateColumns: '1fr .8fr', gap: 48, alignItems: 'center' }}
           >
             <div>
-              <div className="ey rv">USAF • Senior IT &amp; Cyber Leader • Computer Science B.S. Candidate</div>
+              <div className="ey rv">USAF · Senior IT &amp; Cyber Operations Leader · Computer Science B.S. Candidate</div>
               <h1 className="disp rv" data-slice style={{ fontSize: 56, margin: '16px 0 0' }}>
                 <span className="hero-h1" style={{ fontSize: 'inherit' }}>JD Britt</span>
               </h1>
               <p className="body rv" style={{ fontSize: 17, maxWidth: 560, opacity: 0.9, margin: '18px 0 0' }}>
-                Twelve years keeping Air Force missions online — now studying the layer where
-                hardware meets learning: adaptive algorithms, co-designed systems, and
-                brain-computer interfaces built for the real world.
+                Twelve years keeping Air Force missions online — still active duty, now pairing
+                the day job with a full-time computer science degree. The record, the projects,
+                and the writeups are below.
               </p>
               <div className="rv" style={{ margin: '26px 0 28px' }}>
                 <WaveTrace width={300} />
@@ -124,7 +124,7 @@ export default function Landing() {
           <div className="wrap">
             <div className="ey rv">Background</div>
             <h2 className="disp rv h2-lg" data-slice style={{ fontSize: 32, margin: '14px 0 6px' }}>
-              Who Am I?
+              Who I am
             </h2>
             <div
               className="bg-grid"
@@ -132,10 +132,18 @@ export default function Landing() {
             >
               <div className="rv">
                 <p className="body" style={{ fontSize: 16, opacity: 0.9, margin: 0 }}>
-                  Active-duty U.S. Air Force IT Leader &amp; Computer Science Undergrad. Experienced
-                  in operational infrastructure, software, and embedded experimentation. Preparing
-                  for research in hardware-software co-design, adaptive algorithms, and engineering
-                  next-generation brain-computer interfaces (BCIs) for real-world environments.
+                  Active-duty U.S. Air Force senior IT and cyber operations leader (CISSP);
+                  full-time computer science undergrad. Twelve years across operational
+                  infrastructure, cybersecurity, and technical project leadership — plus software
+                  built and taught on my own time. The long game: research in adaptive learning
+                  algorithms, hardware–software co-design, and brain–computer interfaces for
+                  real-world environments —{' '}
+                  <Link
+                    to="/#sec-research"
+                    style={{ color: 'inherit', textDecoration: 'none', borderBottom: '1px solid var(--gold)' }}
+                  >
+                    laid out at the end of this page
+                  </Link>.
                 </p>
               </div>
               <div className="rv" style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
@@ -151,11 +159,20 @@ export default function Landing() {
               </div>
             </div>
             <div className="rv stat-row">
-              {/* Sums of documented figures across performance reports — see
-                  /background/occupation for the underlying line items. */}
+              {/* Sums of documented figures across performance reports — the
+                  caption below links to the underlying line items. 37K+ counts
+                  vulnerabilities and inspection discrepancies, hence "findings". */}
+              <Stat value="37K+" label="Security findings eliminated" />
               <Stat value="250+ · $35M" label="Projects led · documented value" />
-              <Stat value="37K+" label="Security vulnerabilities eliminated" />
               <Stat value="95K+" label="Labor-hours saved" />
+            </div>
+            <div className="rv" style={{ marginTop: 12 }}>
+              <Link
+                to="/background/occupation"
+                style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '.08em', opacity: 0.65, color: 'inherit', textDecoration: 'none' }}
+              >
+                Summed from documented performance-report line items — full record →
+              </Link>
             </div>
           </div>
         </section>
@@ -391,13 +408,13 @@ export default function Landing() {
           <div className="wrap">
             <div className="ey rv">Research direction</div>
             <h2 className="disp rv h2-lg" data-slice style={{ fontSize: 32, margin: '14px 0 8px' }}>
-              My long-term objective
+              The long game
             </h2>
             <p className="body rv" style={{ fontSize: 15, opacity: 0.82, maxWidth: 600, margin: '0 0 28px' }}>
-              Twofold: to develop fundamentally adaptive learning algorithms and to enable practical brain–computer interfaces
-              capable of lifelong operation. I believe these goals are inseparable. Realizing adaptive neurotechnology
-              will require advances not only in learning algorithms, but also in the co-design of software, computer systems,
-              and hardware that can support continuous learning.
+              The objective is twofold: develop fundamentally adaptive learning algorithms, and enable practical
+              brain–computer interfaces capable of lifelong operation. These goals are inseparable — realizing
+              adaptive neurotechnology requires advances not only in learning algorithms, but in the co-design
+              of software, computer systems, and hardware that can support continuous learning.
             </p>
             <div className="research-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 20 }}>
               {RESEARCH_TIERS.map((t) => (
