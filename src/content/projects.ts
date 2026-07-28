@@ -181,11 +181,13 @@ interface GigabitEthernet1/0/1
     liveUrl: 'https://britt.gg/career-plan-app/',
     tags: ['React', 'TypeScript', 'Pyodide'],
     dashboardFigure: true,
-    // Both docs are verbatim copies of the files in the career-plan-app repo.
-    // They are baked at build time (see the glob above), so edits there do NOT
-    // propagate — re-copy both after changing either. Their screenshots use
-    // absolute raw.githubusercontent.com URLs so the same file renders here and
-    // on GitHub without path rewriting.
+    // Both docs originate in the career-plan-app repo but the baked copies
+    // carry deliberate site-side edits (ENGINEERING.md's "Why it exists" is
+    // reframed around the modeling problem and omits the Phase 1 income
+    // screenshot). Do NOT blind re-copy from the repo — port changes in
+    // whichever direction keeps those edits. Screenshots use absolute
+    // raw.githubusercontent.com URLs so the same file renders here and on
+    // GitHub without path rewriting.
     docs: [
       { docSlug: 'overview', title: 'Overview', file: 'README.md' },
       {

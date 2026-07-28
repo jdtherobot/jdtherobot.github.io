@@ -16,25 +16,21 @@ For what the application does and how to run it, see [README.md](README.md).
 ## Why it exists
 
 The project began in early 2025 as an ordinary budgeting spreadsheet. It became
-an application because the decision it was meant to inform could not be
+an application because the class of decision it was meant to inform could not be
 represented in a spreadsheet.
 
-I am an active-duty Air Force service member. Entered service February 2014,
-which puts me a little over twelve years in as of 2026, at a point where several
-viable paths diverge:
-
-- remain on active duty to a 20-year military retirement in 2034, then complete
-  a PhD and enter research;
-- separate in November 2027 and move directly into a computer science or
-  technology role; or
-- separate, take a gap year, complete a PhD earlier, and enter research sooner.
-
-Each path changes the timing and value of salary, military retirement, VA
+I am an active-duty Air Force service member, a little over twelve years in as
+of 2026. Long-horizon planning from that position is a genuinely hard modeling
+problem: the career paths worth comparing — a full military career to a 20-year
+retirement followed by graduate school, a direct move into a technology role, a
+front-loaded PhD — differ not just in salary but in *sequence*, and each
+ordering changes the timing and value of salary, military retirement, VA
 disability compensation, GI Bill entitlement, healthcare, taxes, retirement
-contributions, and investment growth — and those effects compound for fifty
-years. A generic retirement calculator cannot express "military pension *plus*
-GI Bill housing allowance *plus* a PhD stipend for three of five years, then a
-research salary, with Medicare replacing civilian premiums at 65."
+contributions, and investment growth. Those effects compound for fifty years,
+and benefit eligibility gates many of them. A generic retirement calculator
+cannot express "military pension *plus* GI Bill housing allowance *plus* a PhD
+stipend for three of five years, then a research salary, with Medicare replacing
+civilian premiums at 65."
 
 The objective was never to predict one exact future. It was to build a model
 detailed and transparent enough to show which assumptions drive the result, how
@@ -84,9 +80,8 @@ for the application that replaced it.
 ### Phase 1 — Budgeting and current position
 
 The first workbook answered standard personal-finance questions: monthly income
-after deductions, spending capacity, savings, net worth.
-
-![The INCOME sheet of the original spending-plan workbook, showing entitlements, deductions, and monthly totals, with the current position beside projected alternatives](https://raw.githubusercontent.com/jdtherobot/career-plan-app/main/docs/artifacts/screenshots/phase1-income-sheet.jpg)
+after deductions, spending capacity, savings, net worth. (Its unpopulated
+template ships in `docs/artifacts/`; the populated original stays private.)
 
 Useful for establishing a starting point, but structurally unable to represent a
 decision in which order and timing matter. A present-state budget cannot show
