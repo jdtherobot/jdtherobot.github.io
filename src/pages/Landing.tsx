@@ -11,7 +11,7 @@ import CodeFigure from '../components/CodeFigure'
 import DashboardFigure from '../components/DashboardFigure'
 import WorkFigure from '../components/WorkFigure'
 import CtfFigure, { type CtfFigureKind } from '../components/CtfFigure'
-import { PROJECTS, findProject, overviewDoc, subDocs, docSnippet } from '../content/projects'
+import { PROJECTS, findProject, overviewDoc, subDocs } from '../content/projects'
 import { ACCOMPLISHMENTS, AWARDS } from '../content/work'
 import { useReveal, useRailDrift, usePianoIntro } from '../hooks/useMotion'
 import { usePageMeta } from '../hooks/usePageMeta'
@@ -185,14 +185,16 @@ export default function Landing() {
               Things I’ve built
             </h2>
             <p className="body rv" style={{ fontSize: 15, opacity: 0.82, maxWidth: 620, margin: '0 0 30px' }}>
-              [Just some things I thought were neat. Each writeup opens its own page.]
+              Security challenges, working tools, and full-stack coursework — built end to end,
+              each with a full writeup on its own page.
             </p>
 
             {/* Challenges sub-block (re-themed: follows day/night, black figure boxes kept) */}
             <div className="rv" style={{ marginBottom: 14 }}>
               <Eyebrow>Challenges I’ve built</Eyebrow>
               <p className="body" style={{ fontSize: 14, opacity: 0.75, margin: '8px 0 0', maxWidth: 640 }}>
-                [The best way to learn is to teach.]
+                The best way to learn is to teach — these four ran as a live CTF for the computer
+                science club I founded while forward-deployed. Every writeup includes the complete solve.
               </p>
             </div>
             <div
@@ -243,7 +245,7 @@ export default function Landing() {
                       <Ph style={{ marginBottom: 14 }}>FIGURE</Ph>
                     )}
                     <div className="disp" style={{ fontSize: 16 }}>{d.title}</div>
-                    <p className="body" style={{ fontSize: 12.5, opacity: 0.75, margin: '8px 0 0' }}>{docSnippet(ctf.slug, d.file)}</p>
+                    <p className="body" style={{ fontSize: 12.5, opacity: 0.75, margin: '8px 0 0' }}>{d.snippet}</p>
                   </Link>
                   {d.liveUrl && (
                     <div style={{ marginTop: 14 }}>
@@ -343,7 +345,7 @@ export default function Landing() {
                 >
                   {d.figure && <CodeFigure data={d.figure} style={{ marginBottom: 14 }} />}
                   <div className="disp" style={{ fontSize: 16 }}>{d.title}</div>
-                  <p className="body" style={{ fontSize: 12.5, opacity: 0.75, margin: '8px 0 0' }}>{docSnippet(coursework.slug, d.file)}</p>
+                  <p className="body" style={{ fontSize: 12.5, opacity: 0.75, margin: '8px 0 0' }}>{d.snippet}</p>
                 </Link>
               ))}
             </div>

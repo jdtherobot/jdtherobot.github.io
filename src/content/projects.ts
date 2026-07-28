@@ -16,6 +16,7 @@ export type ProjectDoc = {
   docSlug: string // URL segment; 'overview' for the root README
   title: string
   file: string // filename under readmes/<slug>/
+  snippet?: string // hand-authored card one-liner paraphrasing the doc's opening — review when re-baking the README
   figure?: FigureData // code-window preview for the landing course box
   liveUrl?: string // doc-specific launch button (gold, same-tab) on landing + doc page
   liveLabel?: string // label for the doc-specific button
@@ -40,27 +41,49 @@ export const PROJECTS: Project[] = [
     slug: 'steganography-ctf',
     title: 'Steganography CTF Challenges',
     tagline:
-      'A four-challenge steganography CTF — photo-metadata crypto, steghide, a page-table warehouse hunt, and a nested-payload carve.',
+      'Four challenges in file-format internals, payload carving, applied crypto, and address translation — playable in a 32-bit Linux lab that runs in the browser, with an automated solver per challenge that re-derives the flag from the player files.',
     github: 'https://github.com/jdtherobot/steganography-ctf',
     liveUrl: 'https://britt.gg/jd-ctf-environment/browser-lab/workbench.html',
     liveLabel: 'Launch challenges →',
     tags: ['Steganography', 'Cryptography', 'Computer architecture'],
     featured: true,
-    // Docs order = tab order = cycle order: overview, then Warehouse first, then the levels.
+    // Docs order = tab order = cycle order: overview, then strength-first —
+    // Warehouse, then the levels hardest → simplest (play order is stated in
+    // the overview; these are writeups).
     docs: [
       { docSlug: 'overview', title: 'Overview', file: 'README.md' },
       {
         docSlug: 'warehouse',
         title: 'Computer Architecture Warehouse',
         file: 'warehouse.md',
+        snippet:
+          "You're cast as the MMU: handed a virtual address and no shortcuts, you resolve it level by level to find one box on a warehouse floor.",
         // opens the challenge in the lab (sim embedded on challenge 04) rather
         // than the standalone full-screen game
         liveUrl: 'https://britt.gg/jd-ctf-environment/browser-lab/workbench.html#04-computer-architecture-warehouse',
         liveLabel: 'Launch warehouse sim →',
       },
-      { docSlug: 'steganography-lvl-1', title: 'Steganography lvl 1', file: 'lvl-1.md' },
-      { docSlug: 'steganography-lvl-2', title: 'Steganography lvl 2', file: 'lvl-2.md' },
-      { docSlug: 'steganography-lvl-3', title: 'Steganography lvl 3', file: 'lvl-3.md' },
+      {
+        docSlug: 'steganography-lvl-3',
+        title: 'Steganography lvl 3',
+        file: 'lvl-3.md',
+        snippet:
+          'The hardest of the set: one JPEG hiding six payloads — carve them apart, derive the outer password from the brief, pull a key from quantization tables, unwind to the flag.',
+      },
+      {
+        docSlug: 'steganography-lvl-2',
+        title: 'Steganography lvl 2',
+        file: 'lvl-2.md',
+        snippet:
+          'A payload hidden in an image with steghide behind a deliberately weak passphrase — the lesson is spotting the payload, recovering it, and catching the pivot it hands you.',
+      },
+      {
+        docSlug: 'steganography-lvl-1',
+        title: 'Steganography lvl 1',
+        file: 'lvl-1.md',
+        snippet:
+          "The one the set grew out of — an AES-encrypted flag parked in a photo's EXIF comment, with the password sitting in plain sight in the email it arrived with.",
+      },
     ],
   },
   {
@@ -86,6 +109,8 @@ List<String> welcome() {   // EN + FR on 2 threads
         docSlug: 'hotel-reservation-platform',
         title: 'Hotel Reservation Platform',
         file: 'hotel-reservation-platform.md',
+        snippet:
+          'A full-stack hotel reservation app extended with i18n, multithreaded resource loading, timezone and currency handling, and a single-image Docker build.',
         figure: {
           filename: 'TimeController.java',
           code: `// live-presentation time: ET / MT / UTC
@@ -97,6 +122,8 @@ ZonedDateTime.now(ZoneId.of("America/Denver"))
         docSlug: 'inventory-management-system',
         title: 'Inventory Management System',
         file: 'inventory-management-system.md',
+        snippet:
+          'A server-rendered Spring MVC inventory app extended with enforced min/max inventory invariants, cross-entity validation, and a lightweight purchase flow.',
         figure: {
           filename: 'Part.java',
           code: `// min <= inventory <= max, enforced
@@ -110,6 +137,8 @@ class Part {
         docSlug: 'vacation-booking-platform',
         title: 'Vacation Booking Platform',
         file: 'vacation-booking-platform.md',
+        snippet:
+          'A Spring Boot e-commerce backend built from the ground up — domain model to checkout service — behind the course-provided Angular client, which consumes it unmodified.',
         figure: {
           filename: 'checkout.flow',
           code: `NG --REST/JSON--> CheckoutController
@@ -183,31 +212,4 @@ export function subDocs(project: Project): ProjectDoc[] {
 
 export function getDocRaw(slug: string, file: string): string | undefined {
   return RAW[`./readmes/${slug}/${file}`]
-}
-
-/** First meaningful paragraph of a markdown doc, for preview snippets. */
-export function docSnippet(slug: string, file: string, max = 160): string {
-  const raw = getDocRaw(slug, file)
-  if (!raw) return ''
-  const line = raw
-    .split('\n')
-    .map((l) => l.trim())
-    .find(
-      (l) =>
-        l.length > 24 &&
-        !l.startsWith('#') &&
-        !l.startsWith('![') &&
-        !l.startsWith('|') &&
-        !l.startsWith('```') &&
-        !l.startsWith('>') &&
-        !l.startsWith('<') &&
-        !l.startsWith('[') &&
-        !l.startsWith('- ') &&
-        !l.startsWith('* ') &&
-        !/https?:\/\//.test(l) &&
-        !/^\*\*[^*]+:\*\*/.test(l)
-    )
-  if (!line) return ''
-  const clean = line.replace(/[*_`>[\]()]/g, '').replace(/\s+/g, ' ').trim()
-  return clean.length > max ? clean.slice(0, max).replace(/\s\S*$/, '') + '…' : clean
 }

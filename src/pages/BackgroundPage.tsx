@@ -4,7 +4,7 @@ import Eyebrow from '../components/Eyebrow'
 import Markdown from '../components/Markdown'
 import NotFound from './NotFound'
 import { getBackgroundRaw, CERTIFICATIONS } from '../content/background'
-import { PROJECTS, findProject, subDocs, docSnippet } from '../content/projects'
+import { PROJECTS, findProject, subDocs } from '../content/projects'
 import { useReveal } from '../hooks/useMotion'
 import { usePageMeta } from '../hooks/usePageMeta'
 import { canGoBack } from '../hooks/useScrollRestoration'
@@ -42,7 +42,7 @@ function ProjectIndex() {
       ? subDocs(coursework).map((d) => ({
           to: `/projects/${coursework.slug}/${d.docSlug}`,
           title: `Coursework · ${d.title}`,
-          line: docSnippet(coursework.slug, d.file),
+          line: d.snippet ?? '',
         }))
       : []),
   ]
