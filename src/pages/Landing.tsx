@@ -293,7 +293,7 @@ export default function Landing() {
                     </div>
                   </Link>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12, marginTop: 14 }}>
-                    <Link to={`/projects/${p.slug}`} className="stencil" style={{ textDecoration: 'none' }}>
+                    <Link to={`/projects/${p.slug}`} className="navlink" style={{ color: 'var(--text)', opacity: 1 }}>
                       Read the writeup →
                     </Link>
                     {p.liveUrl && (
