@@ -153,7 +153,10 @@ export default function Landing() {
             <div className="rv stat-row">
               {/* Sums of documented figures across performance reports — see
                   /background/occupation for the underlying line items. */}
-              <Stat value="250+ · $35M" label="Projects led · documented value" />
+              {/* $83M = every project/program directed (21 line items across 12
+                  years, $61.1M) plus the $21.9M Windows 10 upgrade. Excludes
+                  environments supported and savings produced. */}
+              <Stat value="250+ · $83M" label="Projects led · documented value" />
               <Stat value="37K+" label="Security vulnerabilities eliminated" />
               <Stat value="95K+" label="Labor-hours saved" />
             </div>
