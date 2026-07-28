@@ -1,10 +1,10 @@
 # Computer Architecture Warehouse
 
-Probably the most fun challenge in the set, and the one that pulls in the widest mix of things — some
-computer architecture, a little geography, and a cipher at the end. You're cast as the MMU: you're
-handed a virtual address and no shortcuts, so you have to do a page-table walk by hand to turn it into
-a physical location. If you already know what that means, it's quick. If you don't, you end up
-learning how virtual memory and address translation actually work in order to solve it.
+You're cast as the MMU: you're handed a virtual address and no shortcuts, so you have to do a
+page-table walk by hand to turn it into a physical location. If you already know what that means,
+it's quick. If you don't, you end up learning how virtual memory and address translation actually
+work in order to solve it. It's probably the most fun challenge in the set, and the one that pulls
+in the widest mix of things — some computer architecture, a little geography, and a cipher at the end.
 
 **Given:** the virtual address `0x0000_0100_4040_1005`
 **Flag:** `Flag{TOMHANKSAINTGOTSHITONME}`
@@ -13,7 +13,8 @@ learning how virtual memory and address translation actually work in order to so
 ## The walk
 
 A 48-bit x86-64 virtual address splits into four 9-bit table indices and a 12-bit offset. The
-warehouse is laid out to match, one-to-one:
+warehouse is shaped to match — each field becomes a floor coordinate, with the ranges cut down to
+floor-plan size (a real 9-bit index runs 0–511; the floor has 10 rows):
 
 ```mermaid
 flowchart TD
@@ -27,9 +28,17 @@ flowchart TD
 Convert the address to binary, chop it into `[9][9][9][9][12]`, and name the fields the way x86
 does — Level 4 (PML4) is the top 9 bits, down to Level 1 (PT) just above the offset. Each level
 *number* is then a warehouse coordinate — L1 → row, L2 → bay (front/back), L3 → shelf level,
-L4 → subsection, offset → box — so you walk the floor L1 → L4, big structure to small. No
-page-table base registers to chase, the address *is* the route. It looks like a scavenger hunt but
-it's really a four-level page walk done by hand.
+L4 → subsection, offset → box.
+
+To be precise about scope: this is the address *decoding*, not a faithful hardware walk. Real
+translation runs top-down — CR3 hands you the PML4's base, each level's entry is dereferenced to
+find the next table, and present/permission bits gate every step — so hardware goes big structure
+to small, PML4 down to PT. The warehouse deliberately drops all of that (no base registers, no
+entries to chase), and its floor plan hangs the largest structure — a row — off L1, so the floor is
+walked fine-to-coarse relative to hardware order. What survives intact is the part the challenge is
+about: carving a 48-bit address into its fields and resolving them, level by level, to exactly one
+physical location. The address *is* the route. It looks like a scavenger hunt but it's really the
+arithmetic of a four-level page walk done by hand.
 
 ---
 

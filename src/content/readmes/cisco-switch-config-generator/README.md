@@ -2,6 +2,8 @@
 
 An Excel-based (VBA) tool that builds ready-to-deploy Cisco switch configurations from a handful of simple inputs. Pick a **Model**, **Port Count**, **Node**, and **Building #** on one sheet, and the workbook auto-generates a per-port VLAN table with sensible defaults, renders a complete switch config, and exports it to a plain-text `.txt` file — on both **Windows and macOS**.
 
+It wasn't built as an exercise. Working alongside a senior network engineer, I reverse-engineered our existing Cisco 9300 configuration files to extract the pattern, then built this generator so real switch builds came out standardized instead of hand-typed — eliminating manual provisioning errors on operational network projects.
+
 > **Note on this repository:** the runnable tool is the macro-enabled workbook in [`workbook/`](workbook/). Because that file is a binary, the VBA source is also committed in plain text under [`src/`](src/) so the actual code is browsable and diffable here on GitHub. The files in `src/` are exact exports of the code inside the workbook — they are documentation of the source, not a separate build.
 
 ## What it does

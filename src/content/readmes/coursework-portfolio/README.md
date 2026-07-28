@@ -22,7 +22,7 @@ provided and my work was the backend and REST contract behind it.
   mapped through JPA/Hibernate, verified directly against the database.
 - **Input validation & invariants** — custom validators and constraint annotations that reject bad
   state (inventory bounds, referential rules) with actionable error messages.
-- **Concurrency & internationalization** — parallel resource-bundle loading on separate threads;
+- **Multithreading & internationalization** — resource-bundle loading on separate threads;
   timezone conversion with `ZonedDateTime`/`ZoneId`.
 - **Reproducible delivery** — containerized builds (Docker, `eclipse-temurin`) and a documented
   cloud-deployment path.
@@ -34,9 +34,9 @@ provided and my work was the backend and REST contract behind it.
 
 | Project | Stack | What I built | Repository                                                                                                                                  |
 |---|---|---|---------------------------------------------------------------------------------------------------------------------------------------------|
-| [Inventory Management System](https://github.com/jdtherobot/coursework-portfolio/blob/main/projects/inventory-management-system.md) | Java · Spring Boot · Thymeleaf · JPA | Min/max inventory invariants, cross-entity validation, purchase flow, unit tests | *[wgu-spring-boot-inventory-manager](https://github.com/jdtherobot/wgu-spring-boot-inventory-manager)*  *(private)*                         |
-| [Vacation Booking Platform](https://github.com/jdtherobot/coursework-portfolio/blob/main/projects/vacation-booking-platform.md) | Java · Spring Boot · Spring Data REST · MySQL · Angular (provided client) | Entire Spring Boot REST **backend** over a relational schema — domain model, checkout service, validation — consumed by a provided, unmodified Angular client | *[wgu-spring-boot-vacation-booking-backend](https://github.com/jdtherobot/wgu-spring-boot-vacation-booking-backend)*  *(private)* |
-| [Hotel Reservation Platform](https://github.com/jdtherobot/coursework-portfolio/blob/main/projects/hotel-reservation-platform.md) | Java · Spring Boot · JPA · Angular · Docker | i18n + **multithreaded** message loading, timezone/currency logic, Docker packaging, cloud-deploy design | *[wgu-hotel-reservation-i18n-docker](https://github.com/jdtherobot/wgu-hotel-reservation-i18n-docker)* *(private)*                          |
+| [Inventory Management System](https://github.com/jdtherobot/coursework-portfolio/blob/main/projects/inventory-management-system.md) | Java · Spring Boot · Thymeleaf · JPA | Min/max inventory invariants, cross-entity validation, purchase flow, unit tests | `wgu-spring-boot-inventory-manager` *(private — access on request)*                         |
+| [Vacation Booking Platform](https://github.com/jdtherobot/coursework-portfolio/blob/main/projects/vacation-booking-platform.md) | Java · Spring Boot · Spring Data REST · MySQL · Angular (provided client) | Entire Spring Boot REST **backend** over a relational schema — domain model, checkout service, validation — consumed by a provided, unmodified Angular client | `wgu-spring-boot-vacation-booking-backend` *(private — access on request)* |
+| [Hotel Reservation Platform](https://github.com/jdtherobot/coursework-portfolio/blob/main/projects/hotel-reservation-platform.md) | Java · Spring Boot · JPA · Angular · Docker | i18n + **multithreaded** message loading, timezone/currency logic, Docker packaging, cloud-deploy design | `wgu-hotel-reservation-i18n-docker` *(private — access on request)*                          |
 
 ---
 

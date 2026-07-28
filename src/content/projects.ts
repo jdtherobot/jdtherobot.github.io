@@ -100,7 +100,8 @@ export const PROJECTS: Project[] = [
 @GetMapping("/room/reservation/v1/welcome")
 List<String> welcome() {   // EN + FR on 2 threads
   return CompletableFuture.allOf(en, fr)
-    .thenApply(v -> List.of(en.join(), fr.join()));
+    .thenApply(v -> List.of(en.join(), fr.join()))
+    .join();
 }`,
     },
     docs: [
