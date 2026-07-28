@@ -146,5 +146,5 @@ export const AWARDS: Award[] = [
   { year: '2016', title: '35 CS Airman of the Quarter', detail: 'Misawa AB, Japan' },
   { year: '2015', title: 'Team Osan Honor Guardsman of the Quarter', detail: 'Osan AB, South Korea' },
   { year: '2015', title: '51 CS Airman of the Quarter', detail: 'Osan AB, South Korea' },
-  { year: '2014', title: 'AETC “Top Graduate” Commander’s Award', detail: 'Keesler AFB, Mississippi' },
+  { year: '2014', title: 'AETC “Top Graduate” — Commander’s Award', detail: 'Keesler AFB, Mississippi' },
 ]

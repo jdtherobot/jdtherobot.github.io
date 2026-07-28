@@ -57,14 +57,6 @@ const CTF_FIGS: Record<string, CtfFigureKind> = {
   'steganography-lvl-3': 'lvl3',
 }
 
-function Ph({ children, ratio = '16/10', style }: { children: React.ReactNode; ratio?: string; style?: React.CSSProperties }) {
-  return (
-    <div className="ph" style={{ aspectRatio: ratio, ...style }}>
-      <span>{children}</span>
-    </div>
-  )
-}
-
 export default function Landing() {
   // Scroll placement (top / #hash / restored offset) belongs to
   // useScrollRestoration in App — doing it here too would fight it.
@@ -239,11 +231,9 @@ export default function Landing() {
                     to={`/projects/${ctf.slug}/${d.docSlug}`}
                     style={{ flex: 1, color: 'inherit', display: 'block' }}
                   >
-                    {CTF_FIGS[d.docSlug] ? (
-                      <CtfFigure kind={CTF_FIGS[d.docSlug]} style={{ marginBottom: 14 }} />
-                    ) : (
-                      <Ph style={{ marginBottom: 14 }}>FIGURE</Ph>
-                    )}
+                    {/* unmapped future doc slugs fall back to the flagship art —
+                        never a literal placeholder box */}
+                    <CtfFigure kind={CTF_FIGS[d.docSlug] ?? 'flagship'} style={{ marginBottom: 14 }} />
                     <div className="disp" style={{ fontSize: 16 }}>{d.title}</div>
                     <p className="body" style={{ fontSize: 12.5, opacity: 0.75, margin: '8px 0 0' }}>{d.snippet}</p>
                   </Link>
@@ -316,7 +306,7 @@ export default function Landing() {
             <div className="rv" style={{ marginBottom: 14 }}>
               <Eyebrow>Coursework</Eyebrow>
               <p className="body" style={{ fontSize: 14, opacity: 0.75, margin: '8px 0 0', maxWidth: 640 }}>
-                Software engineering coursework across the stack
+                Software engineering coursework across the stack.
               </p>
             </div>
             <Link
@@ -457,7 +447,7 @@ export default function Landing() {
                 <MarkSpike size={16} />
                 JD BRITT
               </span>
-              <span className="stencil">SEC.09 · REV 2026.07</span>
+              <span className="stencil">REV 2026.07</span>
             </div>
           </div>
         </section>

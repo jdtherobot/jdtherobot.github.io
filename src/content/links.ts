@@ -1,6 +1,6 @@
 /* The four primary exits, repeated in Hero, the nav mark-menu, and Contact.
    Wire all three to the same destinations. Résumé opens the PDF at
-   public/resume/JD-Britt-Resume.pdf in a new tab (drop the file in to go live). */
+   public/resume/JD-Britt-Resume.pdf in a new tab. */
 
 export type PrimaryLink = {
   label: string

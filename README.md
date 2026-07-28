@@ -8,8 +8,9 @@ Mono). Live at **https://britt.gg**.
 ## Stack
 
 - **React + Vite + TypeScript**, no runtime UI libraries.
-- **react-router-dom** — a single-scroll landing page plus a detail page per
-  project at `/:section/:slug`.
+- **react-router-dom** — a single-scroll landing page plus writeup pages at
+  `/projects/:slug/:doc`, background pages at `/background/:slug`, and career
+  highlights at `/career`.
 - Design system re-authored from the handoff bundle as TSX components
   (`src/components/`) consuming the token CSS in `src/styles/`
   (`colors/typography/spacing/fonts.css`, copied verbatim from the design
@@ -48,8 +49,9 @@ Nav: **Background · Projects · Work · Research Direction**.
   `src/content/readmes/<slug>/` so the site works regardless of repo visibility;
   a repo with multiple docs shows them as clickable preview boxes.
 - **Work** (`src/content/work.ts`) — a 12-year career as a scroll of
-  accomplishments plus an awards list; the section title links to the full
-  career résumé at `/career` (distinct from the standard résumé).
+  accomplishments plus an awards list; the section title links to the career
+  highlights timeline at `/career` (the deep record is
+  `/background/occupation`; the PDF résumé is `public/resume/`).
 
 ## Editing content
 
@@ -59,9 +61,10 @@ Nav: **Background · Projects · Work · Research Direction**.
 - Work accomplishments + awards → `src/content/work.ts`
 - Primary links (Résumé / GitHub / LinkedIn / Email) → `src/content/links.ts`
 
-Most copy is now real — the baked project READMEs are the actual repo docs, and
-several embed real screenshots. Still pending: the résumé PDF, the landing hero
-figure, the long-form career page, and certification badges.
+All copy is real. Landing project-card snippets are hand-authored `snippet`
+fields in `src/content/projects.ts` — review them whenever a baked README is
+refreshed, since they paraphrase each doc's opening. Doc markdown is
+lazy-loaded (each writeup is its own chunk); the landing ships no raw markdown.
 
 ## Notes
 
@@ -73,8 +76,6 @@ figure, the long-form career page, and certification badges.
   from this build at JD's request. Project cards now render themed code/figure
   previews, and several writeups embed real screenshots. No stock or third-party
   product photography.
-- Custom email on `britt.gg` (via Tuta) is a separate, owner-only task and is not
-  part of this repo.
 
 ## Reference
 

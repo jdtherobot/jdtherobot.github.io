@@ -20,7 +20,7 @@ const PAGES: Record<string, { title: string; eyebrow: string; tagline?: string; 
   occupation: {
     title: 'Work Experience',
     eyebrow: 'Background · Occupation',
-    tagline: 'Twelve years of Air Force IT',
+    tagline: 'Twelve years of Air Force IT.',
     file: 'occupation.md',
   },
   academics: {
@@ -236,7 +236,7 @@ export default function BackgroundPage() {
               ← Background
             </Link>
             <Link className="navlink" style={{ color: 'var(--text)', opacity: 1 }} to="/career">
-              Full career résumé →
+              Career highlights →
             </Link>
           </div>
         </footer>
