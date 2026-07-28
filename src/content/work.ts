@@ -28,13 +28,13 @@ export const ACCOMPLISHMENTS: Accomplishment[] = [
     period: 'Now',
     title: 'Section Chief, Training & Evaluations',
     oneLine:
-      'Leads the squadron’s training and evaluation flight — 62 programs supporting a $905M intelligence data-processing enterprise and its 760 on-site analysts.',
+      'Leads the squadron’s training and evaluation flight — 62 programs supporting a $905M intelligence weapon system and its 760 on-site analysts.',
     figure: 'checklist',
   },
   {
     slug: '2025-deployed-comms',
     period: '2025',
-    title: 'Sr Project Manager, Deployed Communications',
+    title: 'Senior Project Manager, Deployed Communications',
     oneLine:
       'Deployed to an undisclosed location directing cyber planning, cybersecurity, data management, and logistics offices.',
     figure: 'deployed-comms',
@@ -84,7 +84,7 @@ export const ACCOMPLISHMENTS: Accomplishment[] = [
     period: '2019',
     title: 'Manager, IT Acquisitions & Lifecycle',
     oneLine:
-      'Ran acquisitions and lifecycle management for the airlift wing at Yokota — and took NCO Technician of the Quarter doing it.',
+      'Ran acquisitions and lifecycle management for the airlift wing at Yokota — 20K IT assets worth $20.6M — and earned NCO Technician of the Quarter.',
     figure: 'lifecycle',
   },
   {
@@ -98,7 +98,7 @@ export const ACCOMPLISHMENTS: Accomplishment[] = [
   {
     slug: '2017-sr-technician',
     period: '2017',
-    title: 'Sr IT Technician',
+    title: 'Senior IT Technician',
     oneLine:
       'Senior technician for the 374th at Yokota — closing out a Misawa tour that earned 35 CS Team of the Year.',
     figure: 'bench-trace',
@@ -108,7 +108,7 @@ export const ACCOMPLISHMENTS: Accomplishment[] = [
     period: '2016',
     title: 'Cyber Systems Airman of the Year',
     oneLine:
-      '35 CS Information Dominance Award at Misawa — earned running help desk operations and the deployment office as team lead.',
+      '35 CS Information Dominance Award at Misawa — earned running help desk operations as team lead.',
     figure: 'ticket-queue',
   },
   {
