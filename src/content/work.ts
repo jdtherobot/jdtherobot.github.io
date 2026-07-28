@@ -1,10 +1,13 @@
 import type { WorkFigureKind } from '../components/WorkFigure'
 
 /* Work — a 12-year career told as a left→right scroll of accomplishments, plus
-   the individual awards list. One card per year, newest first, each carrying
-   the most impactful role or accomplishment of that year (sourced from the
-   master résumé). The section title links to the full career résumé (/career).
-   AWARDS holds individual recognition only — team awards stay off this list. */
+   the individual awards list. A leading "Now" card carries the current role so
+   the rail never ends on a past job; after it, one card per year, newest
+   first, each carrying the most impactful role or accomplishment of that year
+   (sourced from the master résumé — one-liners stay base-name-free; units,
+   bases, and dates live in /background/occupation and the awards list). The
+   section title links to the career highlights page (/career). AWARDS holds
+   individual recognition only — team awards stay off this list. */
 
 export type Accomplishment = {
   slug: string
@@ -22,9 +25,17 @@ export type Award = {
 
 export const ACCOMPLISHMENTS: Accomplishment[] = [
   {
+    slug: 'now-training-evaluations',
+    period: 'Now',
+    title: 'Section Chief, Training & Evaluations',
+    oneLine:
+      'Leads the squadron’s training and evaluation flight — 62 programs supporting a $905M intelligence data-processing enterprise and its 760 on-site analysts.',
+    figure: 'checklist',
+  },
+  {
     slug: '2025-deployed-comms',
     period: '2025',
-    title: 'Sr Project Manager, Deployed Communications',
+    title: 'Senior Project Manager, Deployed Communications',
     oneLine:
       'Deployed to an undisclosed location directing cyber planning, cybersecurity, data management, and logistics offices.',
     figure: 'deployed-comms',
@@ -34,7 +45,7 @@ export const ACCOMPLISHMENTS: Accomplishment[] = [
     period: '2024',
     title: 'Division Lead, Plans & Requirements',
     oneLine:
-      'Directed the plans and requirements division at Beale: the organization’s share of a $162M classified-network migration, plus the Flight Chief role over 29 personnel in seven specialties.',
+      'Directed the plans and requirements division: the organization’s share of a $162M classified-network migration, plus the Flight Chief role over 29 personnel in seven specialties.',
     figure: 'plans',
   },
   {
@@ -42,7 +53,7 @@ export const ACCOMPLISHMENTS: Accomplishment[] = [
     period: '2023',
     title: 'Department Lead, Project Management',
     oneLine:
-      'Led 6 project managers supporting a $905M weapon system — tech refreshes across 5 enclaves, 3.2K devices, 760 intel analysts.',
+      'Led 6 project managers supporting a $905M intelligence data-processing enterprise — tech refreshes across 5 enclaves, 3.2K devices, 760 intel analysts.',
     figure: 'gantt',
   },
   {
@@ -50,7 +61,7 @@ export const ACCOMPLISHMENTS: Accomplishment[] = [
     period: '2022',
     title: 'Manager, IT Projects',
     oneLine:
-      'Ran base-wide cyber projects at Kunsan: a $35M enclave and 7.2K systems supporting 3.1K joint-force users and 7K yearly sorties.',
+      'Ran base-wide cyber projects: a $35M enclave and 7.2K systems supporting 3.1K joint-force users and 4,400 flight missions.',
     figure: 'enclave',
   },
   {
@@ -66,7 +77,7 @@ export const ACCOMPLISHMENTS: Accomplishment[] = [
     period: '2020',
     title: 'Manager, Deployments',
     oneLine:
-      'Owned deployment records, training, and readiness for 250 members and 1K lbs of mission cargo supporting Pacific OPLANs.',
+      'Owned deployment records, training, and readiness for 250 members supporting worldwide contingency operations — defense-readiness qualification from 49% to 91%.',
     figure: 'globe-route',
   },
   {
@@ -74,7 +85,7 @@ export const ACCOMPLISHMENTS: Accomplishment[] = [
     period: '2019',
     title: 'Manager, IT Acquisitions & Lifecycle',
     oneLine:
-      'Ran acquisitions and lifecycle management for the airlift wing at Yokota — and took NCO Technician of the Quarter doing it.',
+      'Ran acquisitions and lifecycle management for the airlift wing — 20K IT assets worth $20.6M — and earned NCO Technician of the Quarter.',
     figure: 'lifecycle',
   },
   {
@@ -88,9 +99,9 @@ export const ACCOMPLISHMENTS: Accomplishment[] = [
   {
     slug: '2017-sr-technician',
     period: '2017',
-    title: 'Sr IT Technician',
+    title: 'Senior IT Technician',
     oneLine:
-      'Senior technician for the 374th at Yokota — closing out a Misawa tour that earned 35 CS Team of the Year.',
+      'Senior technician for the 374th — network and desktop support for 6,000 users and 20K client systems across 39 units.',
     figure: 'bench-trace',
   },
   {
@@ -98,7 +109,7 @@ export const ACCOMPLISHMENTS: Accomplishment[] = [
     period: '2016',
     title: 'Cyber Systems Airman of the Year',
     oneLine:
-      '35 CS Information Dominance Award at Misawa — earned running help desk operations and the deployment office as team lead.',
+      '35 CS Information Dominance Award — earned running the base help-desk queue as team lead, at the squadron’s best open-to-close ratio.',
     figure: 'ticket-queue',
   },
   {
@@ -106,7 +117,7 @@ export const ACCOMPLISHMENTS: Accomplishment[] = [
     period: '2015',
     title: 'IT Technician / Team Lead',
     oneLine:
-      'Airman of the Quarter and Honor Guardsman of the Quarter at Osan — then on to Misawa as a team lead within the year.',
+      'Airman of the Quarter and Honor Guardsman of the Quarter in the first assignment — then a team lead at the next station within the year.',
     figure: 'rack',
   },
   {
@@ -114,7 +125,7 @@ export const ACCOMPLISHMENTS: Accomplishment[] = [
     period: '2014',
     title: 'AETC “Top Graduate” — Commander’s Award',
     oneLine:
-      'Graduated top of technical training at Keesler, then straight to the first assignment: IT technician at Osan AB, South Korea.',
+      'Graduated top of Air Force IT technical training, then straight into the first assignment as an IT technician.',
     figure: 'top-grad',
   },
 ]

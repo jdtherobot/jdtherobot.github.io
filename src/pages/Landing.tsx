@@ -358,13 +358,12 @@ export default function Landing() {
             <div className="ey rv">Work</div>
             <h2 className="disp rv h2-lg" data-slice style={{ fontSize: 32, margin: '14px 0 8px' }}>
               <Link to="/career" style={{ color: 'inherit', borderBottom: '2px solid var(--gold)', paddingBottom: 2 }}>
-                Twelve years of I.T. →
+                Twelve years of IT →
               </Link>
             </h2>
             <p className="body rv" style={{ fontSize: 15, opacity: 0.82, maxWidth: 620, margin: '0 0 8px' }}>
-              Throughout my career, I&rsquo;ve been the Air Force&rsquo;s geek squad, helpdesk, asset
-              management, team lead, supervisor, project manager, section and flight leader… among
-              other things — and that&rsquo;s only the work stuff. Here are a few highlights.
+              Every tier of the job — helpdesk, asset management, team lead, supervisor, project
+              manager, section and flight leadership. Here are a few highlights.
             </p>
             <div className="rv" style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', margin: '18px 0 14px' }}>
               <span className="ey">Accomplishments</span>
