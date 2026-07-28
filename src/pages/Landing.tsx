@@ -85,7 +85,7 @@ export default function Landing() {
             style={{ display: 'grid', gridTemplateColumns: '1fr .8fr', gap: 48, alignItems: 'center' }}
           >
             <div>
-              <div className="ey rv">USAF · Senior IT &amp; Cyber Operations Leader · Computer Science B.S. Candidate</div>
+              <div className="ey rv">Senior IT Leader · Computer Science B.S. Candidate</div>
               <h1 className="disp rv" data-slice style={{ fontSize: 56, margin: '16px 0 0' }}>
                 <span className="hero-h1" style={{ fontSize: 'inherit' }}>JD Britt</span>
               </h1>
@@ -124,7 +124,7 @@ export default function Landing() {
             >
               <div className="rv">
                 <p className="body" style={{ fontSize: 16, opacity: 0.9, margin: 0 }}>
-                  Active-duty U.S. Air Force senior IT and cyber operations leader (CISSP);
+                  Active-duty U.S. Air Force senior IT leader (CISSP);
                   full-time computer science undergrad. Twelve years across operational
                   infrastructure, cybersecurity, and technical project leadership — plus software
                   built and taught on my own time. The long game: research in adaptive learning
@@ -179,8 +179,8 @@ export default function Landing() {
               Things I’ve built
             </h2>
             <p className="body rv" style={{ fontSize: 15, opacity: 0.82, maxWidth: 620, margin: '0 0 30px' }}>
-              Security challenges, working tools, and full-stack coursework — built end to end,
-              each with a full writeup on its own page.
+              Just some things I built — security challenges, working tools, and full-stack
+              coursework, each with a full writeup on its own page.
             </p>
 
             {/* Challenges sub-block (re-themed: follows day/night, black figure boxes kept) */}
@@ -354,8 +354,9 @@ export default function Landing() {
               </Link>
             </h2>
             <p className="body rv" style={{ fontSize: 15, opacity: 0.82, maxWidth: 620, margin: '0 0 8px' }}>
-              Every tier of the job — helpdesk, asset management, team lead, supervisor, project
-              manager, section and flight leadership. Here are a few highlights.
+              Throughout my career, I&rsquo;ve been the Air Force&rsquo;s geek squad — helpdesk,
+              asset management, team lead, supervisor, project manager, section and flight
+              leadership. Here are a few highlights.
             </p>
             <div className="rv" style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', margin: '18px 0 14px' }}>
               <span className="ey">Accomplishments</span>
@@ -404,10 +405,11 @@ export default function Landing() {
               The long game
             </h2>
             <p className="body rv" style={{ fontSize: 15, opacity: 0.82, maxWidth: 600, margin: '0 0 28px' }}>
-              The objective is twofold: develop fundamentally adaptive learning algorithms, and enable practical
-              brain–computer interfaces capable of lifelong operation. These goals are inseparable — realizing
-              adaptive neurotechnology requires advances not only in learning algorithms, but in the co-design
-              of software, computer systems, and hardware that can support continuous learning.
+              Two threads I keep coming back to: fundamentally adaptive learning algorithms, and practical
+              brain–computer interfaces capable of lifelong operation. To me they look inseparable — adaptive
+              neurotechnology will need advances in learning algorithms and in the hardware–software co-design
+              beneath them. These are early ideas rather than a research agenda; the questions below are where
+              I want to start digging.
             </p>
             <div className="research-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 20 }}>
               {RESEARCH_TIERS.map((t) => (

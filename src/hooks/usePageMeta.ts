@@ -6,9 +6,9 @@ import { useEffect } from 'react'
    is for browser tabs and link-share unfurls, not search. */
 
 const SITE = 'JD Britt'
-const DEFAULT_TITLE = `${SITE} — USAF · Senior IT & Cyber Operations Leader · Computer Science B.S. Candidate`
+const DEFAULT_TITLE = `${SITE} — Senior IT Leader · Computer Science B.S. Candidate`
 const DEFAULT_DESC =
-  'Active-duty U.S. Air Force senior IT & cyber operations leader and full-time computer science undergrad — twelve years keeping Air Force missions online, plus the projects and writeups to show for it.'
+  'Active-duty U.S. Air Force senior IT leader and full-time computer science undergrad. Twelve years keeping Air Force missions online — projects, writeups, and the full career record.'
 
 function setMeta(name: string, value: string, asProperty = false) {
   const attr = asProperty ? 'property' : 'name'
