@@ -151,11 +151,10 @@ export default function Landing() {
               </div>
             </div>
             <div className="rv stat-row">
-              {/* Sums of documented figures across performance reports — the
-                  caption below links to the underlying line items. 37K+ counts
-                  vulnerabilities and inspection discrepancies, hence "findings". */}
-              <Stat value="37K+" label="Security findings eliminated" />
-              <Stat value="250+ · $35M" label="Projects led · documented value" />
+              {/* Values and order set by JD from the master career documents —
+                  the caption below links to the site's underlying line items. */}
+              <Stat value="250+ · $83M" label="Projects led · documented value" />
+              <Stat value="37K+" label="Security vulnerabilities eliminated" />
               <Stat value="95K+" label="Labor-hours saved" />
             </div>
             <div className="rv" style={{ marginTop: 12 }}>
