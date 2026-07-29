@@ -183,7 +183,7 @@ export default function Landing() {
 
             {/* Challenges sub-block (re-themed: follows day/night, black figure boxes kept) */}
             <div className="rv" style={{ marginBottom: 14 }}>
-              <Eyebrow>Challenges I’ve built</Eyebrow>
+              <Eyebrow>CTF Challenges</Eyebrow>
               <p className="body" style={{ fontSize: 14, opacity: 0.75, margin: '8px 0 0', maxWidth: 640 }}>
                 The best way to learn is to teach — these four ran as a live CTF for the computer
                 science club I founded while forward-deployed. Every writeup includes the complete solve.
