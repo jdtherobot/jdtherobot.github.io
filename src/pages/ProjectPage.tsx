@@ -87,7 +87,21 @@ export default function ProjectPage() {
                   ))}
                 </div>
               )}
-              {/* both launchers navigate in the same tab — the app replaces this window */}
+            </div>
+            <h1 className="disp rv page-h1" data-slice style={{ fontSize: 42, margin: '14px 0 14px' }}>
+              {single ? project.title : activeDoc?.title ?? project.title}
+            </h1>
+            <p className="body rv" style={{ fontSize: 17, opacity: 0.9, maxWidth: 640, margin: '0 0 18px' }}>
+              {project.tagline}
+            </p>
+            <div className="rv" style={{ display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'center' }}>
+              <Button href={project.github} variant="outline" target="_blank" rel="noreferrer noopener">
+                View on GitHub →
+              </Button>
+              {project.tags.map((t) => (<Tag key={t}>{t}</Tag>))}
+              {/* primary launchers close the action row, pushed to its right edge —
+                  the standard spot on every project page. Both navigate in the same
+                  tab: an app replaces this window, a file link just downloads. */}
               {activeDoc?.liveUrl && (
                 <Button href={activeDoc.liveUrl} variant="primary" style={{ marginLeft: 'auto' }}>
                   {activeDoc.liveLabel ?? 'Launch →'}
@@ -102,18 +116,6 @@ export default function ProjectPage() {
                   {project.liveLabel ?? 'Launch app →'}
                 </Button>
               )}
-            </div>
-            <h1 className="disp rv page-h1" data-slice style={{ fontSize: 42, margin: '14px 0 14px' }}>
-              {single ? project.title : activeDoc?.title ?? project.title}
-            </h1>
-            <p className="body rv" style={{ fontSize: 17, opacity: 0.9, maxWidth: 640, margin: '0 0 18px' }}>
-              {project.tagline}
-            </p>
-            <div className="rv" style={{ display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'center' }}>
-              <Button href={project.github} variant="outline" target="_blank" rel="noreferrer noopener">
-                View on GitHub →
-              </Button>
-              {project.tags.map((t) => (<Tag key={t}>{t}</Tag>))}
             </div>
           </div>
         </header>

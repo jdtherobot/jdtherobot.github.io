@@ -27,7 +27,9 @@ export type Project = {
   title: string
   tagline: string
   github: string
-  liveUrl?: string // deployed app; renders a primary launch button in the header
+  liveUrl?: string // primary action — deployed app or a direct file (e.g. the
+  // workbook); renders the gold button at the right edge of the header action
+  // row on the project page, and on the landing card
   liveLabel?: string // label for the liveUrl button (default "Launch app →")
   tags: string[]
   docs: ProjectDoc[]
@@ -155,6 +157,12 @@ class Part {
     title: 'Cisco switch-config generator',
     tagline: 'A VBA / Excel GUI that generates Cisco switch configurations.',
     github: 'https://github.com/jdtherobot/cisco-switch-config-generator',
+    // the runnable deliverable is the macro-enabled workbook itself — hand the
+    // visitor the canonical file from the repo (raw URL → direct download).
+    // Re-point when the workbook filename version-bumps.
+    liveUrl:
+      'https://raw.githubusercontent.com/jdtherobot/cisco-switch-config-generator/main/workbook/ConfigGenerator_13%20Sep_v3.0.xlsm',
+    liveLabel: 'Open the workbook →',
     tags: ['VBA', 'Tooling', 'Networking'],
     figure: {
       filename: 'FinalConfig.txt',

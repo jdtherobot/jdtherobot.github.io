@@ -297,7 +297,7 @@ export default function Landing() {
                         variant="primary"
                         style={{ fontSize: 10, letterSpacing: '0.14em', textTransform: 'uppercase', padding: '9px 16px' }}
                       >
-                        Launch app →
+                        {p.liveLabel ?? 'Launch app →'}
                       </Button>
                     )}
                   </div>
