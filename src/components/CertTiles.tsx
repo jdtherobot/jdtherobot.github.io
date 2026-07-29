@@ -12,6 +12,30 @@ import { prefersReducedMotion } from '../hooks/useMotion'
    the old Personal Development tiles exactly. Reduced motion: instant expand,
    whole text, no typing. */
 
+/* The MIT seven-bar wordmark, traced from the official logo geometry
+   (bar width 35, pitch 57, on a 321×166 canvas). Bars inherit the badge
+   gold like every other tile mark; the I-stem keeps MIT's red — the one
+   brand color the mark is unrecognizable without. */
+const MIT_RED = '#A31F34'
+function MitMark() {
+  const bars: [x: number, y: number, w: number, h: number, red?: boolean][] = [
+    [0, 0, 35, 166], // M
+    [57, 0, 35, 113],
+    [114, 0, 35, 166],
+    [171, 0, 35, 33], // I dot
+    [171, 53, 35, 113, true], // I stem — MIT red
+    [229, 53, 35, 113], // T stem
+    [229, 0, 92, 33], // T crossbar
+  ]
+  return (
+    <svg width={34} viewBox="0 0 321 166" shapeRendering="crispEdges" aria-hidden="true">
+      {bars.map(([x, y, w, h, red], i) => (
+        <rect key={i} x={x} y={y} width={w} height={h} fill={red ? MIT_RED : 'currentColor'} />
+      ))}
+    </svg>
+  )
+}
+
 /* One detail line. The full string sits in the flow at opacity 0 — it
    reserves the final layout so nothing reflows mid-type, and it is what
    screen readers get — while an aria-hidden overlay reveals characters. */
@@ -52,12 +76,17 @@ function TypeLine({
       window.clearInterval(timer)
     }
   }, [play, text, delay])
+  /* Once typed out, collapse to a single plain-text node — the two-layer
+     trick would put an invisible duplicate of every line into copied text. */
+  const done = n >= text.length
   return (
     <div className={className} style={{ position: 'relative', ...style }}>
-      <span style={{ opacity: 0 }}>{text}</span>
-      <span aria-hidden="true" style={{ position: 'absolute', left: 0, top: 0 }}>
-        {text.slice(0, n)}
-      </span>
+      <span style={done ? undefined : { opacity: 0 }}>{text}</span>
+      {!done && (
+        <span aria-hidden="true" style={{ position: 'absolute', left: 0, top: 0, userSelect: 'none' }}>
+          {text.slice(0, n)}
+        </span>
+      )}
     </div>
   )
 }
@@ -82,7 +111,15 @@ export default function CertTiles() {
             role="button"
             tabIndex={0}
             aria-expanded={open}
-            onClick={toggle}
+            onClick={(e) => {
+              /* The details are working text — IDs get pasted into issuer
+                 verify forms — so clicks there, and any click that ends a
+                 drag-selection, must not collapse the tiles. Title, badge,
+                 and blank tile space still toggle. */
+              if ((e.target as HTMLElement).closest('a,[data-copyzone]')) return
+              if (window.getSelection()?.toString()) return
+              toggle()
+            }}
             onKeyDown={(e) => {
               if ((e.target as HTMLElement).closest('a')) return
               if (e.key === 'Enter' || e.key === ' ') {
@@ -120,7 +157,7 @@ export default function CertTiles() {
                   letterSpacing: '.02em',
                 }}
               >
-                {c.mark ?? '✦'}
+                {c.logo === 'mit' ? <MitMark /> : c.mark ?? '✦'}
               </div>
             </div>
             <div style={{ flex: 1, minWidth: 0 }}>
@@ -134,7 +171,7 @@ export default function CertTiles() {
                   transition: settle('grid-template-rows .3s var(--ease-settle)'),
                 }}
               >
-                <div style={{ overflow: 'hidden', minHeight: 0 }}>
+                <div data-copyzone style={{ overflow: 'hidden', minHeight: 0, userSelect: 'text', cursor: 'text' }}>
                   <TypeLine
                     className="stencil"
                     style={{ marginTop: 4 }}
