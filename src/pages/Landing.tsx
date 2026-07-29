@@ -90,9 +90,9 @@ export default function Landing() {
                 <span className="hero-h1" style={{ fontSize: 'inherit' }}>JD Britt</span>
               </h1>
               <p className="body rv" style={{ fontSize: 17, maxWidth: 560, opacity: 0.9, margin: '18px 0 0' }}>
-                Twelve years keeping Air Force missions online — still active duty, now pairing
-                the day job with a full-time computer science degree. The record, the projects,
-                and the writeups are below.
+                Twelve years keeping Air Force missions online — still active duty, now completing
+                a full-time computer science degree alongside the job. Record, projects, and
+                writeups below.
               </p>
               <div className="rv" style={{ margin: '26px 0 28px' }}>
                 <WaveTrace width={300} />
@@ -123,18 +123,23 @@ export default function Landing() {
               style={{ display: 'grid', gridTemplateColumns: '1.25fr 1fr', gap: 44, alignItems: 'start', marginTop: 22 }}
             >
               <div className="rv">
+                {/* Owner-authored copy — edit only at JD's direction. */}
                 <p className="body" style={{ fontSize: 16, opacity: 0.9, margin: 0 }}>
-                  Active-duty U.S. Air Force senior IT leader (CISSP);
-                  full-time computer science undergrad. Twelve years across operational
-                  infrastructure, cybersecurity, and technical project leadership — plus software
-                  built and taught on my own time. The long game: research in adaptive learning
-                  algorithms, hardware–software co-design, and brain–computer interfaces for
-                  real-world environments —{' '}
+                  Active-duty U.S. Air Force Master Sergeant (E-7), full-time computer science
+                  undergrad. I enlisted in 2014 and have experience across systems and network
+                  administration, operational infrastructure, cybersecurity, and technical project
+                  leadership, alongside software built through personal and academic projects.
+                  Near-term, I&rsquo;m looking for ways to stay in uniform while staying as
+                  technical as possible. The work that motivates me is understanding how systems
+                  work, taking on challenging problems, and building things. Long-term, I plan to
+                  enter research at the intersection of computer science and neuroscience. My
+                  framing for building across these disciplines is based on the pillars of{' '}
                   <Link
                     to="/#sec-research"
                     style={{ color: 'inherit', textDecoration: 'none', borderBottom: '1px solid var(--gold)' }}
                   >
-                    laid out at the end of this page
+                    adaptive learning algorithms, hardware–software co-design, and brain–computer
+                    interfaces
                   </Link>.
                 </p>
               </div>
