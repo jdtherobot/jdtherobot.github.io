@@ -16,24 +16,24 @@ import { canGoBack } from '../hooks/useScrollRestoration'
    project index, and the extracurricular record — résumé-bottom, in order. */
 
 /* tagline is optional — a page can lead straight from the H1 into its content. */
-const PAGES: Record<string, { title: string; eyebrow: string; tagline?: string; file?: string }> = {
+const PAGES: Record<string, { title: string; tagline?: string; file?: string }> = {
   occupation: {
     title: 'Work Experience',
-    eyebrow: 'Background · Occupation',
     tagline: 'Twelve years of Air Force IT.',
     file: 'occupation.md',
   },
   academics: {
     title: 'Coursework',
-    eyebrow: 'Background · Academics',
     tagline: 'Computer-science coursework across a B.S. in progress, an A.A.S., and transfer credit.',
     file: 'academics.md',
   },
   'personal-development': {
     title: 'Personal Development',
-    eyebrow: 'Background · Personal development',
   },
 }
+
+/* header tab order — mirrors the Background rows on the landing */
+const TAB_ORDER = ['occupation', 'academics', 'personal-development'] as const
 
 function ProjectIndex() {
   const coursework = findProject('coursework-portfolio')
@@ -155,7 +155,44 @@ export default function BackgroundPage() {
         {/* header */}
         <header className="dot" style={{ padding: '56px 0 40px' }}>
           <div className="wrap" style={{ maxWidth: 900 }}>
-            <div className="ey rv">{page.eyebrow}</div>
+            {/* The three background pages cross-link like project writeups:
+                eyebrow + tab row, the current page gold-boxed. Occupation
+                doubles as a work surface, so it alone carries the work links
+                on the row's right — mirroring the career-highlights header. */}
+            <div className="rv" style={{ display: 'flex', alignItems: 'center', gap: 14, flexWrap: 'wrap' }}>
+              <div className="ey">Background</div>
+              <div className="doc-tabs">
+                {TAB_ORDER.map((s) => (
+                  <Link
+                    key={s}
+                    to={`/background/${s}`}
+                    className={`doc-tab${s === slug ? ' is-active' : ''}`}
+                  >
+                    {PAGES[s].title}
+                  </Link>
+                ))}
+              </div>
+              {slug === 'occupation' && (
+                <div style={{ display: 'flex', alignItems: 'baseline', gap: 18, flexWrap: 'wrap', marginLeft: 'auto' }}>
+                  <Link
+                    to="/career"
+                    className="stencil"
+                    style={{ color: 'var(--label-on-bg)', textDecoration: 'none' }}
+                  >
+                    Career highlights →
+                  </Link>
+                  <a
+                    href="/resume/JD-Britt-Resume.pdf"
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    className="stencil"
+                    style={{ color: 'var(--label-on-bg)', textDecoration: 'none' }}
+                  >
+                    Full résumé ↓
+                  </a>
+                </div>
+              )}
+            </div>
             <h1 className="disp rv page-h1" data-slice style={{ fontSize: 42, margin: page.tagline ? '14px 0 14px' : '14px 0 0' }}>
               {page.title}
             </h1>
