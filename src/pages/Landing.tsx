@@ -91,7 +91,7 @@ export default function Landing() {
                 <span className="hero-h1" style={{ fontSize: 'inherit' }}>JD Britt</span>
               </h1>
               <p className="body rv" style={{ fontSize: 17, maxWidth: 560, opacity: 0.9, margin: '18px 0 0' }}>
-                Twelve years keeping Air Force missions online — still active duty, now completing
+                Twelve years keeping Air Force missions online. Currently active duty, now completing
                 a full-time computer science degree alongside the job. Record, projects, and
                 writeups below.
               </p>
