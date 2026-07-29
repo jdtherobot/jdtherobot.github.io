@@ -183,7 +183,7 @@ export default function Landing() {
 
             {/* Challenges sub-block (re-themed: follows day/night, black figure boxes kept) */}
             <div className="rv" style={{ marginBottom: 14 }}>
-              <Eyebrow>Challenges I’ve built</Eyebrow>
+              <Eyebrow>CTF Challenges</Eyebrow>
               <p className="body" style={{ fontSize: 14, opacity: 0.75, margin: '8px 0 0', maxWidth: 640 }}>
                 The best way to learn is to teach — these four ran as a live CTF for the computer
                 science club I founded while forward-deployed. Every writeup includes the complete solve.
@@ -348,11 +348,13 @@ export default function Landing() {
             <div className="ey rv">Work</div>
             <h2 className="disp rv h2-lg" data-slice style={{ fontSize: 32, margin: '14px 0 8px' }}>
               <Link to="/career" style={{ color: 'inherit', borderBottom: '2px solid var(--gold)', paddingBottom: 2 }}>
-                Twelve years of IT →
+                {/* periods keep the initialism readable — the display face
+                    uppercases, so bare "IT" reads as the word "it" */}
+                Twelve years of I.T. →
               </Link>
             </h2>
             <p className="body rv" style={{ fontSize: 15, opacity: 0.82, maxWidth: 620, margin: '0 0 8px' }}>
-              Throughout my career, I&rsquo;ve been the Air Force&rsquo;s geek squad — helpdesk,
+              Throughout my career, I&rsquo;ve been the Air Force&rsquo;s geek squad, helpdesk,
               asset management, team lead, supervisor, project manager, section and flight
               leadership. Here are a few highlights.
             </p>
@@ -400,14 +402,20 @@ export default function Landing() {
           <div className="wrap">
             <div className="ey rv">Research direction</div>
             <h2 className="disp rv h2-lg" data-slice style={{ fontSize: 32, margin: '14px 0 8px' }}>
-              The long game
+              Long-term objective
             </h2>
+            {/* Owner-authored copy — edit only at JD's direction. */}
+            <p className="body rv" style={{ fontSize: 15, opacity: 0.82, maxWidth: 600, margin: '0 0 14px' }}>
+              My research interests are learning algorithms, adaptive intelligence, computer systems,
+              and brain–computer interfaces.
+            </p>
             <p className="body rv" style={{ fontSize: 15, opacity: 0.82, maxWidth: 600, margin: '0 0 28px' }}>
-              Two threads I keep coming back to: fundamentally adaptive learning algorithms, and practical
-              brain–computer interfaces capable of lifelong operation. To me they look inseparable — adaptive
-              neurotechnology will need advances in learning algorithms and in the hardware–software co-design
-              beneath them. These are early ideas rather than a research agenda; the questions below are where
-              I want to start digging.
+              I&rsquo;ve always been driven by understanding how things work. Maybe that&rsquo;s why my
+              first dream was to be a mathematician, where you can use objective problems and solutions
+              to show that understanding. Once I learned about physics, my curiosity focused there,
+              content with mathematics being the language that explains the inner workings of everything.
+              My interest in computer science feels like a continuation of that path, one that&rsquo;s
+              only begun to feel possible in recent years.
             </p>
             <div className="research-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 20 }}>
               {RESEARCH_TIERS.map((t) => (

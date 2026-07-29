@@ -27,12 +27,15 @@ export type Certification = {
   verify?: string
 }
 
+/* Array order is display order in the landing tiles (3 per row on desktop):
+   row 1 — CISSP · MIT AI · Linux Essentials; row 2 — A+ · Security+ · PM. */
 export const CERTIFICATIONS: Certification[] = [
   { name: 'CISSP', issuer: 'ISC2', year: '2026', mark: 'CISSP', credId: '3120559', verify: 'https://www.isc2.org/verify' },
-  { name: 'CompTIA Security+', issuer: 'CompTIA', year: '2016', mark: 'Sec+', credId: '5W37E4LMFDQ419R1', verify: 'https://verify.comptia.org' },
-  { name: 'CompTIA A+', issuer: 'CompTIA', year: '2014', mark: 'A+', credId: '2K9CBW6E3KVESYK8', verify: 'https://verify.comptia.org' },
+  // "&" not "and": the full name needs 292px, the collapsed tile gives 282px
+  { name: 'Designing/Building AI Products & Services', issuer: 'MIT xPRO', year: '2023', mark: 'AI', credId: '798495', verify: 'https://certificates.emeritus.org/7cabcb90-9cdd-494e-a09a-d994f3349113#acc.4Bmyvs8r' },
   { name: 'Linux Essentials', issuer: 'Linux Professional Institute (LPI)', year: '2026', mark: 'LPI', credId: 'LPI000681445', verify: 'https://cs.lpi.org/caf/Xamman/certification/verify/LPI000681445/tdgdblba2u' },
-  { name: 'Designing and Building AI Products and Services', issuer: 'MIT xPRO', year: '2023', mark: 'AI', credId: '798495', verify: 'https://certificates.emeritus.org/7cabcb90-9cdd-494e-a09a-d994f3349113#acc.4Bmyvs8r' },
+  { name: 'CompTIA A+', issuer: 'CompTIA', year: '2014', mark: 'A+', credId: '2K9CBW6E3KVESYK8', verify: 'https://verify.comptia.org' },
+  { name: 'CompTIA Security+', issuer: 'CompTIA', year: '2016', mark: 'Sec+', credId: '5W37E4LMFDQ419R1', verify: 'https://verify.comptia.org' },
   { name: 'Project Management', issuer: 'U.S. Air Force', year: '2022', mark: 'PM' },
 ]
 
