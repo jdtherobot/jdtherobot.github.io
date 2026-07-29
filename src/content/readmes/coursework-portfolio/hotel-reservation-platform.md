@@ -6,7 +6,8 @@
 A full-stack hotel reservation application (the "Landon Hotel") that I extended with
 internationalization, multithreaded resource loading, timezone/currency handling, and a
 containerized single-image build. This is the most systems-oriented project of the set — the work
-is in the concurrency, i18n, and reproducible delivery layered on top of an existing REST app.
+is in the multithreaded resource loading, i18n, timezone handling, and reproducible delivery
+layered on top of an existing REST app.
 
 > **My role:** The base full-stack app — the REST core (`ReservationResource`), JPA entities,
 > converter layer, repositories, HATEOAS-style response models, and the Angular UI shell — was a
@@ -49,9 +50,9 @@ flowchart TD
 
 ## What I built
 
-- **Concurrency for i18n.** Added `GET /room/reservation/v1/welcome`, which loads English and
+- **Multithreaded i18n loading.** Added `GET /room/reservation/v1/welcome`, which loads English and
   French welcome messages from Java resource bundles **on two separate threads** and returns them as
-  a list — a deliberate multithreaded design, surfaced live in the Angular UI.
+  a list, surfaced live in the Angular UI.
 - **Timezone conversion.** Wrote a Java method using `ZonedDateTime`/`ZoneId` to convert a
   live-presentation time across **ET, MT, and UTC**, exposed via
   `GET /room/reservation/v1/presentation-time` and rendered on the frontend.

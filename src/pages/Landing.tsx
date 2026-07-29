@@ -11,7 +11,8 @@ import CodeFigure from '../components/CodeFigure'
 import DashboardFigure from '../components/DashboardFigure'
 import WorkFigure from '../components/WorkFigure'
 import CtfFigure, { type CtfFigureKind } from '../components/CtfFigure'
-import { PROJECTS, findProject, overviewDoc, subDocs, docSnippet } from '../content/projects'
+import CertTiles from '../components/CertTiles'
+import { PROJECTS, findProject, overviewDoc, subDocs } from '../content/projects'
 import { ACCOMPLISHMENTS, AWARDS } from '../content/work'
 import { useReveal, useRailDrift, usePianoIntro } from '../hooks/useMotion'
 import { usePageMeta } from '../hooks/usePageMeta'
@@ -20,33 +21,33 @@ const RESEARCH_TIERS = [
   {
     tier: 'plain',
     stencil: 'Q.01',
-    eyebrow: 'Adaptive Learning',
-    question: 'How can a system adapt continually without erasing what it already knows?',
-    tagline: 'Continual learning without catastrophic forgetting — brain-inspired algorithms as the lens.',
-    tag: 'Theory',
+    eyebrow: ['Adaptive Learning', 'Adaptive Intelligence'],
+    question: 'How can a system keep learning—and use what it learns to reason and decide?',
+    tagline: 'Continual learning, memory, reasoning, and decision-making beyond static prediction.',
+    tag: 'Algorithms',
   },
   {
     tier: 'branch',
     stencil: 'Q.02',
-    eyebrow: 'Computer Systems',
-    question: 'How should learning, memory, runtime, and hardware be co-designed under limited resources?',
-    tagline: 'Neuromorphic and embedded constraints as a design input, not an afterthought.',
-    tag: 'Implementation',
+    eyebrow: ['Computer Systems'],
+    question: 'What should change when learning has to happen continuously, efficiently, and reliably?',
+    tagline: 'Embedded and neuromorphic systems, with software and hardware designed together from the start.',
+    tag: 'Systems',
   },
   {
     tier: 'dissolve',
     stencil: 'Q.03',
-    eyebrow: 'Neurotechnology',
-    question: 'Can adaptive methods improve neural-signal decoding and other real-time closed-loop systems?',
-    tagline: 'Real-time decoding for BCIs — where latency, drift, and noise are the problem.',
-    tag: 'Application',
+    eyebrow: ['Brain–Computer Interfaces'],
+    question: 'How can neural activity become a practical, bidirectional interface with the world?',
+    tagline: 'Decoding and feedback for communication, control, rehabilitation, and new forms of interaction.',
+    tag: 'Neurotechnology',
   },
 ] as const
 
 const BG_ROWS = [
   { stencil: 'Occupation', title: 'Full-time U.S. Air Force IT professional', to: '/background/occupation' },
   { stencil: 'Academics', title: 'Full-time CS undergrad', to: '/background/academics' },
-  { stencil: 'Personal development', title: 'Projects, certifications, extracurriculars', to: '/background/personal-development' },
+  { stencil: 'Personal development', title: 'Projects and extracurriculars', to: '/background/personal-development' },
 ]
 
 /* landing-rail doc slug → drawn challenge vignette */
@@ -55,14 +56,6 @@ const CTF_FIGS: Record<string, CtfFigureKind> = {
   'steganography-lvl-1': 'lvl1',
   'steganography-lvl-2': 'lvl2',
   'steganography-lvl-3': 'lvl3',
-}
-
-function Ph({ children, ratio = '16/10', style }: { children: React.ReactNode; ratio?: string; style?: React.CSSProperties }) {
-  return (
-    <div className="ph" style={{ aspectRatio: ratio, ...style }}>
-      <span>{children}</span>
-    </div>
-  )
 }
 
 export default function Landing() {
@@ -93,14 +86,14 @@ export default function Landing() {
             style={{ display: 'grid', gridTemplateColumns: '1fr .8fr', gap: 48, alignItems: 'center' }}
           >
             <div>
-              <div className="ey rv">USAF • Senior IT &amp; Cyber Leader • Computer Science B.S. Candidate</div>
+              <div className="ey rv">Senior IT Leader · Computer Science B.S. Candidate</div>
               <h1 className="disp rv" data-slice style={{ fontSize: 56, margin: '16px 0 0' }}>
                 <span className="hero-h1" style={{ fontSize: 'inherit' }}>JD Britt</span>
               </h1>
               <p className="body rv" style={{ fontSize: 17, maxWidth: 560, opacity: 0.9, margin: '18px 0 0' }}>
-                Twelve years keeping Air Force missions online — now studying the layer where
-                hardware meets learning: adaptive algorithms, co-designed systems, and
-                brain-computer interfaces built for the real world.
+                Twelve years keeping Air Force missions online — still active duty, now completing
+                a full-time computer science degree alongside the job. Record, projects, and
+                writeups below.
               </p>
               <div className="rv" style={{ margin: '26px 0 28px' }}>
                 <WaveTrace width={300} />
@@ -124,18 +117,26 @@ export default function Landing() {
           <div className="wrap">
             <div className="ey rv">Background</div>
             <h2 className="disp rv h2-lg" data-slice style={{ fontSize: 32, margin: '14px 0 6px' }}>
-              Who Am I?
+              Who I am
             </h2>
             <div
               className="bg-grid"
               style={{ display: 'grid', gridTemplateColumns: '1.25fr 1fr', gap: 44, alignItems: 'start', marginTop: 22 }}
             >
               <div className="rv">
+                {/* Owner-authored copy — edit only at JD's direction. */}
                 <p className="body" style={{ fontSize: 16, opacity: 0.9, margin: 0 }}>
-                  Active-duty U.S. Air Force IT Leader &amp; Computer Science Undergrad. Experienced
-                  in operational infrastructure, software, and embedded experimentation. Preparing
-                  for research in hardware-software co-design, adaptive algorithms, and engineering
-                  next-generation brain-computer interfaces (BCIs) for real-world environments.
+                  Active-duty U.S. Air Force Master Sergeant (E-7), full-time computer science
+                  undergrad. I enlisted in 2014 and have experience across systems and network
+                  administration, operational infrastructure, cybersecurity, and technical project
+                  leadership, alongside software built through personal and academic projects.
+                  Near-term, I&rsquo;m looking for ways to stay in uniform while staying as
+                  technical as possible. The work that motivates me is understanding how systems
+                  work, taking on challenging problems, and building things. Long-term, I plan to
+                  enter research at the intersection of computer science and neuroscience. My
+                  framing for building across these disciplines is based on the pillars of
+                  adaptive learning algorithms, hardware–software co-design, and brain–computer
+                  interfaces.
                 </p>
               </div>
               <div className="rv" style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
@@ -150,106 +151,21 @@ export default function Landing() {
                 ))}
               </div>
             </div>
-            <div className="rv stat-row">
-              {/* Sums of documented figures across performance reports — see
-                  /background/occupation for the underlying line items. */}
-              {/* $83M = every project/program directed (21 line items across 12
-                  years, $61.1M) plus the $21.9M Windows 10 upgrade. Excludes
-                  environments supported and savings produced. */}
+            {/* full cert tiles (moved from /background/personal-development):
+                collapsed titles until tapped — see CertTiles */}
+            <CertTiles />
+            {/* Sums of documented figures across performance reports — the whole
+                row clicks through to the underlying line items on
+                /background/occupation. 37K+ counts vulnerabilities and inspection
+                discrepancies, hence "findings". */}
+            {/* $83M = every project/program directed (21 line items across 12
+                years, $61.1M) plus the $21.9M Windows 10 upgrade. Excludes
+                environments supported and savings produced. */}
+            <Link to="/background/occupation" className="rv stat-row" style={{ color: 'inherit', textDecoration: 'none' }}>
+              <Stat value="37K+" label="Security findings eliminated" />
               <Stat value="250+ · $83M" label="Projects led · documented value" />
-              <Stat value="37K+" label="Security vulnerabilities eliminated" />
               <Stat value="95K+" label="Labor-hours saved" />
-            </div>
-          </div>
-        </section>
-
-        {/* RESEARCH DIRECTION */}
-        <section id="sec-research" className="dot section">
-          <div className="wrap">
-            <div className="ey rv">Research direction</div>
-            <h2 className="disp rv h2-lg" data-slice style={{ fontSize: 32, margin: '14px 0 8px' }}>
-              My long-term objective
-            </h2>
-            <p className="body rv" style={{ fontSize: 15, opacity: 0.82, maxWidth: 600, margin: '0 0 28px' }}>
-              Twofold: to develop fundamentally adaptive learning algorithms and to enable practical brain–computer interfaces
-              capable of lifelong operation. I believe these goals are inseparable. Realizing adaptive neurotechnology
-              will require advances not only in learning algorithms, but also in the co-design of software, computer systems,
-              and hardware that can support continuous learning.
-            </p>
-            <div className="research-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 20 }}>
-              {RESEARCH_TIERS.map((t) => (
-                <div className="rv" key={t.stencil}>
-                  <Card
-                    tier={t.tier}
-                    stencil={t.stencil}
-                    innerStyle={{ padding: 20, height: '100%', boxSizing: 'border-box', display: 'flex', flexDirection: 'column' }}
-                  >
-                    <Eyebrow on="panel">{t.eyebrow}</Eyebrow>
-                    <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 600, lineHeight: 1.3, fontSize: 17, margin: '10px 0' }}>
-                      {t.question}
-                    </h3>
-                    <p className="body" style={{ fontSize: 13.5, opacity: 0.8, margin: '0 0 14px' }}>{t.tagline}</p>
-                    {/* pinned so all three tags sit the same distance off the bottom border */}
-                    <div style={{ marginTop: 'auto' }}>
-                      <Tag on="panel">{t.tag}</Tag>
-                    </div>
-                  </Card>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* WORK — puzzle-style: accomplishments rail + awards. Title → /career */}
-        <section id="sec-work" className="dot section">
-          <div className="wrap">
-            <div className="ey rv">Work</div>
-            <h2 className="disp rv h2-lg" data-slice style={{ fontSize: 32, margin: '14px 0 8px' }}>
-              <Link to="/career" style={{ color: 'inherit', borderBottom: '2px solid var(--gold)', paddingBottom: 2 }}>
-                Twelve years of I.T. →
-              </Link>
-            </h2>
-            <p className="body rv" style={{ fontSize: 15, opacity: 0.82, maxWidth: 620, margin: '0 0 8px' }}>
-              Throughout my career, I&rsquo;ve been the Air Force&rsquo;s geek squad, helpdesk, asset
-              management, team lead, supervisor, project manager, section and flight leader… among
-              other things — and that&rsquo;s only the work stuff. Here are a few highlights.
-            </p>
-            <div className="rv" style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', margin: '18px 0 14px' }}>
-              <span className="ey">Accomplishments</span>
-              <span className="stencil">advances as you scroll · drag → to explore</span>
-            </div>
-          </div>
-          <div className="wrap">
-            <div className="rail" data-rail data-rail-drift data-piano>
-              {ACCOMPLISHMENTS.map((a) => (
-                <Link
-                  key={a.slug}
-                  to="/career"
-                  style={{ width: 300, border: '1px solid var(--edge)', padding: 18, color: 'inherit', display: 'block' }}
-                >
-                  <div className="stencil" style={{ marginBottom: 10 }}>{a.period}</div>
-                  <WorkFigure kind={a.figure} style={{ marginBottom: 14 }} />
-                  <div className="disp" style={{ fontSize: 16 }}>{a.title}</div>
-                  <p className="body" style={{ fontSize: 12.5, opacity: 0.75, margin: '8px 0 0' }}>{a.oneLine}</p>
-                </Link>
-              ))}
-            </div>
-          </div>
-          <div className="wrap" style={{ marginTop: 34 }}>
-            <div className="rv" style={{ marginBottom: 8 }}>
-              <Eyebrow>Awards</Eyebrow>
-            </div>
-            <div className="rv awards-scroll" style={{ borderTop: '1px solid var(--edge)' }}>
-              {AWARDS.map((aw, i) => (
-                <div key={i} style={{ display: 'flex', alignItems: 'baseline', gap: 18, padding: '16px 0', borderBottom: '1px solid var(--edge)' }}>
-                  <span className="stencil" style={{ width: 70, flex: 'none' }}>{aw.year}</span>
-                  <div style={{ flex: 1 }}>
-                    <div className="disp" style={{ fontSize: 15 }}>{aw.title}</div>
-                    <div className="body" style={{ fontSize: 12.5, opacity: 0.68, marginTop: 2 }}>{aw.detail}</div>
-                  </div>
-                </div>
-              ))}
-            </div>
+            </Link>
           </div>
         </section>
 
@@ -261,14 +177,16 @@ export default function Landing() {
               Things I’ve built
             </h2>
             <p className="body rv" style={{ fontSize: 15, opacity: 0.82, maxWidth: 620, margin: '0 0 30px' }}>
-              [Just some things I thought were neat. Each writeup opens its own page.]
+              Just some things I built — security challenges, working tools, and full-stack
+              coursework, each with a full writeup on its own page.
             </p>
 
             {/* Challenges sub-block (re-themed: follows day/night, black figure boxes kept) */}
             <div className="rv" style={{ marginBottom: 14 }}>
               <Eyebrow>Challenges I’ve built</Eyebrow>
               <p className="body" style={{ fontSize: 14, opacity: 0.75, margin: '8px 0 0', maxWidth: 640 }}>
-                [The best way to learn is to teach.]
+                The best way to learn is to teach — these four ran as a live CTF for the computer
+                science club I founded while forward-deployed. Every writeup includes the complete solve.
               </p>
             </div>
             <div
@@ -313,13 +231,11 @@ export default function Landing() {
                     to={`/projects/${ctf.slug}/${d.docSlug}`}
                     style={{ flex: 1, color: 'inherit', display: 'block' }}
                   >
-                    {CTF_FIGS[d.docSlug] ? (
-                      <CtfFigure kind={CTF_FIGS[d.docSlug]} style={{ marginBottom: 14 }} />
-                    ) : (
-                      <Ph style={{ marginBottom: 14 }}>FIGURE</Ph>
-                    )}
+                    {/* unmapped future doc slugs fall back to the flagship art —
+                        never a literal placeholder box */}
+                    <CtfFigure kind={CTF_FIGS[d.docSlug] ?? 'flagship'} style={{ marginBottom: 14 }} />
                     <div className="disp" style={{ fontSize: 16 }}>{d.title}</div>
-                    <p className="body" style={{ fontSize: 12.5, opacity: 0.75, margin: '8px 0 0' }}>{docSnippet(ctf.slug, d.file)}</p>
+                    <p className="body" style={{ fontSize: 12.5, opacity: 0.75, margin: '8px 0 0' }}>{d.snippet}</p>
                   </Link>
                   {d.liveUrl && (
                     <div style={{ marginTop: 14 }}>
@@ -367,7 +283,7 @@ export default function Landing() {
                     </div>
                   </Link>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12, marginTop: 14 }}>
-                    <Link to={`/projects/${p.slug}`} className="stencil" style={{ textDecoration: 'none' }}>
+                    <Link to={`/projects/${p.slug}`} className="navlink" style={{ color: 'var(--text)', opacity: 1 }}>
                       Read the writeup →
                     </Link>
                     {p.liveUrl && (
@@ -376,7 +292,7 @@ export default function Landing() {
                         variant="primary"
                         style={{ fontSize: 10, letterSpacing: '0.14em', textTransform: 'uppercase', padding: '9px 16px' }}
                       >
-                        Launch app →
+                        {p.liveLabel ?? 'Launch app →'}
                       </Button>
                     )}
                   </div>
@@ -390,7 +306,7 @@ export default function Landing() {
             <div className="rv" style={{ marginBottom: 14 }}>
               <Eyebrow>Coursework</Eyebrow>
               <p className="body" style={{ fontSize: 14, opacity: 0.75, margin: '8px 0 0', maxWidth: 640 }}>
-                Software engineering coursework across the stack
+                Software engineering coursework across the stack.
               </p>
             </div>
             <Link
@@ -419,8 +335,102 @@ export default function Landing() {
                 >
                   {d.figure && <CodeFigure data={d.figure} style={{ marginBottom: 14 }} />}
                   <div className="disp" style={{ fontSize: 16 }}>{d.title}</div>
-                  <p className="body" style={{ fontSize: 12.5, opacity: 0.75, margin: '8px 0 0' }}>{docSnippet(coursework.slug, d.file)}</p>
+                  <p className="body" style={{ fontSize: 12.5, opacity: 0.75, margin: '8px 0 0' }}>{d.snippet}</p>
                 </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* WORK — puzzle-style: accomplishments rail + awards. Title → /career */}
+        <section id="sec-work" className="dot section">
+          <div className="wrap">
+            <div className="ey rv">Work</div>
+            <h2 className="disp rv h2-lg" data-slice style={{ fontSize: 32, margin: '14px 0 8px' }}>
+              <Link to="/career" style={{ color: 'inherit', borderBottom: '2px solid var(--gold)', paddingBottom: 2 }}>
+                Twelve years of IT →
+              </Link>
+            </h2>
+            <p className="body rv" style={{ fontSize: 15, opacity: 0.82, maxWidth: 620, margin: '0 0 8px' }}>
+              Throughout my career, I&rsquo;ve been the Air Force&rsquo;s geek squad — helpdesk,
+              asset management, team lead, supervisor, project manager, section and flight
+              leadership. Here are a few highlights.
+            </p>
+            <div className="rv" style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', margin: '18px 0 14px' }}>
+              <span className="ey">Accomplishments</span>
+              <span className="stencil">advances as you scroll · drag → to explore</span>
+            </div>
+          </div>
+          <div className="wrap">
+            <div className="rail" data-rail data-rail-drift data-piano>
+              {ACCOMPLISHMENTS.map((a) => (
+                <Link
+                  key={a.slug}
+                  to="/career"
+                  style={{ width: 300, border: '1px solid var(--edge)', padding: 18, color: 'inherit', display: 'block' }}
+                >
+                  <div className="stencil" style={{ marginBottom: 10 }}>{a.period}</div>
+                  <WorkFigure kind={a.figure} style={{ marginBottom: 14 }} />
+                  <div className="disp" style={{ fontSize: 16 }}>{a.title}</div>
+                  <p className="body" style={{ fontSize: 12.5, opacity: 0.75, margin: '8px 0 0' }}>{a.oneLine}</p>
+                </Link>
+              ))}
+            </div>
+          </div>
+          <div className="wrap" style={{ marginTop: 34 }}>
+            <div className="rv" style={{ marginBottom: 8 }}>
+              <Eyebrow>Awards</Eyebrow>
+            </div>
+            <div className="rv awards-scroll" style={{ borderTop: '1px solid var(--edge)' }}>
+              {AWARDS.map((aw, i) => (
+                <div key={i} style={{ display: 'flex', alignItems: 'baseline', gap: 18, padding: '16px 0', borderBottom: '1px solid var(--edge)' }}>
+                  <span className="stencil" style={{ width: 70, flex: 'none' }}>{aw.year}</span>
+                  <div style={{ flex: 1 }}>
+                    <div className="disp" style={{ fontSize: 15 }}>{aw.title}</div>
+                    <div className="body" style={{ fontSize: 12.5, opacity: 0.68, marginTop: 2 }}>{aw.detail}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* RESEARCH DIRECTION */}
+        <section id="sec-research" className="dot section">
+          <div className="wrap">
+            <div className="ey rv">Research direction</div>
+            <h2 className="disp rv h2-lg" data-slice style={{ fontSize: 32, margin: '14px 0 8px' }}>
+              The long game
+            </h2>
+            <p className="body rv" style={{ fontSize: 15, opacity: 0.82, maxWidth: 600, margin: '0 0 28px' }}>
+              Two threads I keep coming back to: fundamentally adaptive learning algorithms, and practical
+              brain–computer interfaces capable of lifelong operation. To me they look inseparable — adaptive
+              neurotechnology will need advances in learning algorithms and in the hardware–software co-design
+              beneath them. These are early ideas rather than a research agenda; the questions below are where
+              I want to start digging.
+            </p>
+            <div className="research-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 20 }}>
+              {RESEARCH_TIERS.map((t) => (
+                <div className="rv" key={t.stencil}>
+                  <Card
+                    tier={t.tier}
+                    stencil={t.stencil}
+                    innerStyle={{ padding: 20, height: '100%', boxSizing: 'border-box', display: 'flex', flexDirection: 'column' }}
+                  >
+                    {/* one eyebrow row per line — card 1 carries two titles */}
+                    {t.eyebrow.map((line) => (
+                      <Eyebrow on="panel" key={line}>{line}</Eyebrow>
+                    ))}
+                    <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 600, lineHeight: 1.3, fontSize: 17, margin: '10px 0' }}>
+                      {t.question}
+                    </h3>
+                    <p className="body" style={{ fontSize: 13.5, opacity: 0.8, margin: '0 0 14px' }}>{t.tagline}</p>
+                    {/* pinned so all three tags sit the same distance off the bottom border */}
+                    <div style={{ marginTop: 'auto' }}>
+                      <Tag on="panel">{t.tag}</Tag>
+                    </div>
+                  </Card>
+                </div>
               ))}
             </div>
           </div>
@@ -442,7 +452,7 @@ export default function Landing() {
                 <MarkSpike size={16} />
                 JD BRITT
               </span>
-              <span className="stencil">SEC.09 · REV 2026.07</span>
+              <span className="stencil">REV 2026.07</span>
             </div>
           </div>
         </section>

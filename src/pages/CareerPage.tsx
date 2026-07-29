@@ -11,7 +11,7 @@ import { canGoBack } from '../hooks/useScrollRestoration'
 export default function CareerPage() {
   const navigate = useNavigate()
   useReveal('career')
-  usePageMeta('Career résumé', 'Twelve years of U.S. Air Force IT leadership — a chronological highlights timeline.')
+  usePageMeta('Career highlights', 'Twelve years of U.S. Air Force IT leadership — a chronological highlights timeline.')
 
   return (
     <>
@@ -36,7 +36,7 @@ export default function CareerPage() {
                 full work record, and the PDF. Both links group on the right so
                 space-between keeps the eyebrow alone on the left. */}
             <div className="rv" style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: 12, flexWrap: 'wrap' }}>
-              <div className="ey">Résumé</div>
+              <div className="ey">Career</div>
               <div style={{ display: 'flex', alignItems: 'baseline', gap: 18, flexWrap: 'wrap' }}>
                 <Link
                   to="/background/occupation"

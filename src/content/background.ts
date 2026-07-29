@@ -3,15 +3,16 @@
    Personal Development page is composed — certifications from the data below,
    then the site's project index, then extracurriculars.md in a doc card. */
 
-// Raw markdown baked at build time, keyed by glob path (same pattern as readmes).
+// Raw markdown baked at build time, keyed by glob path (same pattern as
+// readmes). Lazy: each doc is its own chunk, fetched when its page renders.
 const RAW = import.meta.glob('./background/*.md', {
   query: '?raw',
   import: 'default',
-  eager: true,
-}) as Record<string, string>
+}) as Record<string, () => Promise<string>>
 
-export function getBackgroundRaw(file: string): string | undefined {
-  return RAW[`./background/${file}`]
+export function loadBackgroundRaw(file: string): Promise<string | undefined> {
+  const load = RAW[`./background/${file}`]
+  return load ? load() : Promise.resolve(undefined)
 }
 
 export type Certification = {

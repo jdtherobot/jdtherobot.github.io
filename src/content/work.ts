@@ -1,10 +1,12 @@
 import type { WorkFigureKind } from '../components/WorkFigure'
 
 /* Work — a 12-year career told as a left→right scroll of accomplishments, plus
-   the individual awards list. One card per year, newest first, each carrying
-   the most impactful role or accomplishment of that year (sourced from the
-   master résumé). The section title links to the full career résumé (/career).
-   AWARDS holds individual recognition only — team awards stay off this list. */
+   the individual awards list. A leading "Now" card carries the current role so
+   the rail never ends on a past job; after it, one card per year, newest
+   first, each carrying the most impactful role or accomplishment of that year
+   (sourced from the master résumé). The section title links to the career
+   highlights page (/career). AWARDS holds individual recognition only — team
+   awards stay off this list. */
 
 export type Accomplishment = {
   slug: string
@@ -22,9 +24,17 @@ export type Award = {
 
 export const ACCOMPLISHMENTS: Accomplishment[] = [
   {
+    slug: 'now-training-evaluations',
+    period: 'Now',
+    title: 'Section Chief, Training & Evaluations',
+    oneLine:
+      'Leads the squadron’s training and evaluation flight — 62 programs supporting a $905M intelligence weapon system and its 760 on-site analysts.',
+    figure: 'checklist',
+  },
+  {
     slug: '2025-deployed-comms',
     period: '2025',
-    title: 'Sr Project Manager, Deployed Communications',
+    title: 'Senior Project Manager, Deployed Communications',
     oneLine:
       'Deployed to an undisclosed location directing cyber planning, cybersecurity, data management, and logistics offices.',
     figure: 'deployed-comms',
@@ -74,7 +84,7 @@ export const ACCOMPLISHMENTS: Accomplishment[] = [
     period: '2019',
     title: 'Manager, IT Acquisitions & Lifecycle',
     oneLine:
-      'Ran acquisitions and lifecycle management for the airlift wing at Yokota — and took NCO Technician of the Quarter doing it.',
+      'Ran acquisitions and lifecycle management for the airlift wing at Yokota — 20K IT assets worth $20.6M — and earned NCO Technician of the Quarter.',
     figure: 'lifecycle',
   },
   {
@@ -88,7 +98,7 @@ export const ACCOMPLISHMENTS: Accomplishment[] = [
   {
     slug: '2017-sr-technician',
     period: '2017',
-    title: 'Sr IT Technician',
+    title: 'Senior IT Technician',
     oneLine:
       'Senior technician for the 374th at Yokota — closing out a Misawa tour that earned 35 CS Team of the Year.',
     figure: 'bench-trace',
@@ -98,7 +108,7 @@ export const ACCOMPLISHMENTS: Accomplishment[] = [
     period: '2016',
     title: 'Cyber Systems Airman of the Year',
     oneLine:
-      '35 CS Information Dominance Award at Misawa — earned running help desk operations and the deployment office as team lead.',
+      '35 CS Information Dominance Award at Misawa — earned running help desk operations as team lead.',
     figure: 'ticket-queue',
   },
   {
@@ -135,5 +145,5 @@ export const AWARDS: Award[] = [
   { year: '2016', title: '35 CS Airman of the Quarter', detail: 'Misawa AB, Japan' },
   { year: '2015', title: 'Team Osan Honor Guardsman of the Quarter', detail: 'Osan AB, South Korea' },
   { year: '2015', title: '51 CS Airman of the Quarter', detail: 'Osan AB, South Korea' },
-  { year: '2014', title: 'AETC “Top Graduate” Commander’s Award', detail: 'Keesler AFB, Mississippi' },
+  { year: '2014', title: 'AETC “Top Graduate” — Commander’s Award', detail: 'Keesler AFB, Mississippi' },
 ]

@@ -84,9 +84,8 @@ for the application that replaced it.
 ### Phase 1 — Budgeting and current position
 
 The first workbook answered standard personal-finance questions: monthly income
-after deductions, spending capacity, savings, net worth.
-
-![The INCOME sheet of the original spending-plan workbook, showing entitlements, deductions, and monthly totals, with the current position beside projected alternatives](https://raw.githubusercontent.com/jdtherobot/career-plan-app/main/docs/artifacts/screenshots/phase1-income-sheet.jpg)
+after deductions, spending capacity, savings, net worth. (Its unpopulated
+template ships in `docs/artifacts/`; the populated original stays private.)
 
 Useful for establishing a starting point, but structurally unable to represent a
 decision in which order and timing matter. A present-state budget cannot show

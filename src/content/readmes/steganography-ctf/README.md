@@ -98,10 +98,13 @@ automated `solve_test.sh` that solves from the player files and asserts the exac
 
 ## How it was built
 
-I originally co-designed and ran this set as a live CTF in October 2025, hosted on CTFd. Bringing it
-here meant going back through the original files, refreshing myself on how every piece fit together,
-and rewriting the documentation so it stands on its own on a website instead of behind a CTFd
-instance.
+The four challenges and the writeups here are my own work. The live event they debuted at — an
+internal CTF in October 2025, hosted on CTFd — I co-designed and ran with a red-team-experienced
+cybersecurity officer. Only my own challenges are published here: the challenges other contributors
+built for that event, and the site we all built together to host it, aren't included.
+Bringing the set here meant going back through the original files, refreshing
+myself on how every piece fit together, and rewriting the documentation so it stands on its own on a
+website instead of behind a CTFd instance.
 
 The bigger lift was the environment. To host the whole thing on GitHub Pages — tight file-size
 limits, no server — I built a client-side lab so the challenges run in a browser tab instead of

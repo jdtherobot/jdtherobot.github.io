@@ -24,7 +24,9 @@ export default function ModeToggle({ showLabel = true, style = {} }: Props) {
     }
     // Canonical theme for this page is Day: respect an explicit saved choice,
     // otherwise force day (the prototype forces day when nothing is saved).
-    const initial = get() || saved || 'day'
+    // Saved choice must outrank the static data-mode="day" in index.html —
+    // the attribute is always present, so it can never be the first fallback.
+    const initial = saved || get() || 'day'
     document.documentElement.setAttribute('data-mode', initial)
     setMode(initial)
     const mo = new MutationObserver(() => setMode(get() || 'day'))

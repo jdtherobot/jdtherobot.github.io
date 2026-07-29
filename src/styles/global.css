@@ -283,6 +283,15 @@ body.motion .rv.in {
   padding: 0;
   font-size: 8px;
 }
+/* landing tiles toggle open/closed — same hover language as .linkrow */
+.cert-tile.is-toggle {
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+}
+.cert-tile.is-toggle:hover {
+  border-color: var(--gold);
+  background: var(--gold-06);
+}
 
 /* ---------- ambient glitches (driven by useGlitch.ts) ---------- */
 
@@ -502,6 +511,7 @@ body.motion .rv.in {
   border: 1px solid transparent;
   border-radius: var(--radius);
   transition: color 0.18s, border-color 0.18s, background 0.18s;
+  white-space: nowrap; /* tabs are short chips — a label never breaks mid-word */
 }
 .doc-tab:hover {
   color: var(--text);

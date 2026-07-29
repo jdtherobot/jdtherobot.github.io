@@ -1,10 +1,11 @@
+import { useEffect, useState } from 'react'
 import { useParams, Link, useNavigate, Navigate } from 'react-router-dom'
 import Nav from '../components/Nav'
 import Tag from '../components/Tag'
 import Button from '../components/Button'
 import Markdown from '../components/Markdown'
 import NotFound from './NotFound'
-import { findProject, getDocRaw, overviewDoc } from '../content/projects'
+import { findProject, loadDocRaw, overviewDoc } from '../content/projects'
 import { useReveal } from '../hooks/useMotion'
 import { usePageMeta } from '../hooks/usePageMeta'
 import { canGoBack } from '../hooks/useScrollRestoration'
@@ -25,17 +26,32 @@ export default function ProjectPage() {
      history to return to (deep link, fresh tab) do we fall back to the anchor. */
   const goBack = () => (canGoBack() ? navigate(-1) : navigate('/#sec-projects'))
 
-  if (!project) return <NotFound />
+  const single = (project?.docs.length ?? 0) === 1
+  const activeDoc = project ? (doc ? project.docs.find((d) => d.docSlug === doc) : project.docs[0]) : undefined
 
-  const single = project.docs.length === 1
-  const activeDoc = doc ? project.docs.find((d) => d.docSlug === doc) : project.docs[0]
+  /* Doc markdown is a lazy chunk. The hooks sit above the early returns (hook
+     order must not depend on the route); the effect itself guards. Clearing on
+     key change gives a clean frame instead of the previous doc's content, and
+     the stale flag drops responses that land after another switch. */
+  const [activeRaw, setActiveRaw] = useState<string | undefined>(undefined)
+  useEffect(() => {
+    setActiveRaw(undefined)
+    if (!project || !activeDoc) return
+    let stale = false
+    loadDocRaw(project.slug, activeDoc.file).then((raw) => {
+      if (!stale) setActiveRaw(raw)
+    })
+    return () => {
+      stale = true
+    }
+  }, [project, activeDoc])
+
+  if (!project) return <NotFound />
 
   // Bare multi-doc URL, or an unknown doc slug → send to the overview writeup.
   if ((!doc && !single) || (doc && !activeDoc)) {
     return <Navigate replace to={`/projects/${project.slug}/${overviewDoc(project).docSlug}`} />
   }
-
-  const activeRaw = activeDoc ? getDocRaw(project.slug, activeDoc.file) : undefined
 
   return (
     <>
@@ -66,12 +82,26 @@ export default function ProjectPage() {
                       to={`/projects/${project.slug}/${d.docSlug}`}
                       className={`doc-tab${activeDoc?.docSlug === d.docSlug ? ' is-active' : ''}`}
                     >
-                      {d.title}
+                      {d.tab ?? d.title}
                     </Link>
                   ))}
                 </div>
               )}
-              {/* both launchers navigate in the same tab — the app replaces this window */}
+            </div>
+            <h1 className="disp rv page-h1" data-slice style={{ fontSize: 42, margin: '14px 0 14px' }}>
+              {single ? project.title : activeDoc?.title ?? project.title}
+            </h1>
+            <p className="body rv" style={{ fontSize: 17, opacity: 0.9, maxWidth: 640, margin: '0 0 18px' }}>
+              {project.tagline}
+            </p>
+            <div className="rv" style={{ display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'center' }}>
+              <Button href={project.github} variant="outline" target="_blank" rel="noreferrer noopener">
+                View on GitHub →
+              </Button>
+              {project.tags.map((t) => (<Tag key={t}>{t}</Tag>))}
+              {/* primary launchers close the action row, pushed to its right edge —
+                  the standard spot on every project page. Both navigate in the same
+                  tab: an app replaces this window, a file link just downloads. */}
               {activeDoc?.liveUrl && (
                 <Button href={activeDoc.liveUrl} variant="primary" style={{ marginLeft: 'auto' }}>
                   {activeDoc.liveLabel ?? 'Launch →'}
@@ -86,18 +116,6 @@ export default function ProjectPage() {
                   {project.liveLabel ?? 'Launch app →'}
                 </Button>
               )}
-            </div>
-            <h1 className="disp rv page-h1" data-slice style={{ fontSize: 42, margin: '14px 0 14px' }}>
-              {single ? project.title : activeDoc?.title ?? project.title}
-            </h1>
-            <p className="body rv" style={{ fontSize: 17, opacity: 0.9, maxWidth: 640, margin: '0 0 18px' }}>
-              {project.tagline}
-            </p>
-            <div className="rv" style={{ display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'center' }}>
-              <Button href={project.github} variant="outline" target="_blank" rel="noreferrer noopener">
-                View on GitHub →
-              </Button>
-              {project.tags.map((t) => (<Tag key={t}>{t}</Tag>))}
             </div>
           </div>
         </header>

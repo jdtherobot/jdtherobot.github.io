@@ -4,9 +4,7 @@
 
 ## B.S., Computer Science — Western Governors University
 
-**January 2024 – Present · Expected graduation September 2027 · 51 units earned in residence, 39 in transfer**
-
-*WGU courses are competency-based and pass/fail; a pass requires the equivalent of a B (3.0) or better.*
+**January 2024 – Present · Expected graduation September 2027**
 
 ### Programming & Software Engineering
 

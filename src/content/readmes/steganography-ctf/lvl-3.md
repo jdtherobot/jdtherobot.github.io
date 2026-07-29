@@ -37,7 +37,7 @@ flowchart TD
 The weak outer layer isn't a wordlist crack — the password is spelled out in the challenge brief. The
 brief tells a rambling story about "John, back in the Desert Storm days" and his friends Aho,
 Weinberger, and Kernighan. That's the recipe: a codename, a `#`, two digits, and a three-letter
-mixed-case tag — it even writes out the mask, `?d?d?l?u?l`. Aho / Weinberger / Kernighan is `awk`,
+mixed-case tag — it even writes out the mask for the five-character tail, `?d?d?l?u?l`. Aho / Weinberger / Kernighan is `awk`,
 the nudge to concatenate the parts into one string. Build it that way and the outer layer opens. (The
 literal password stays in the facilitator notes.)
 
