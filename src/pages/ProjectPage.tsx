@@ -82,7 +82,7 @@ export default function ProjectPage() {
                       to={`/projects/${project.slug}/${d.docSlug}`}
                       className={`doc-tab${activeDoc?.docSlug === d.docSlug ? ' is-active' : ''}`}
                     >
-                      {d.title}
+                      {d.tab ?? d.title}
                     </Link>
                   ))}
                 </div>

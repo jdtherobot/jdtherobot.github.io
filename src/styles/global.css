@@ -511,6 +511,7 @@ body.motion .rv.in {
   border: 1px solid transparent;
   border-radius: var(--radius);
   transition: color 0.18s, border-color 0.18s, background 0.18s;
+  white-space: nowrap; /* tabs are short chips — a label never breaks mid-word */
 }
 .doc-tab:hover {
   color: var(--text);

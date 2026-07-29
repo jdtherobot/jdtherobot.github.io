@@ -70,24 +70,27 @@ export default function CertTiles() {
 
   return (
     <div className="rv" style={{ marginTop: 26 }}>
-      <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', margin: '0 0 14px' }}>
-        <span className="ey">Certifications</span>
-        {/* the real toggle — tiles can't be <button>s because the expanded
-            state contains the Verify anchors, and <a> may not nest in <button> */}
-        <button
-          type="button"
-          className="stencil"
-          aria-expanded={open}
-          aria-controls="cert-tiles"
-          onClick={toggle}
-          style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer', textAlign: 'right' }}
-        >
-          {open ? 'tap to collapse' : 'tap to expand · credential IDs + verification'}
-        </button>
-      </div>
+      <div className="ey" style={{ margin: '0 0 14px' }}>Certifications</div>
       <div id="cert-tiles" className="cert-grid">
         {CERTIFICATIONS.map((c, i) => (
-          <div key={c.name} className="cert-tile is-toggle" onClick={toggle}>
+          /* no visible toggle control by design — the tiles themselves are the
+             interaction: role/tabIndex/keydown keep it keyboard-accessible.
+             They can't be <button>s because the Verify anchors live inside. */
+          <div
+            key={c.name}
+            className="cert-tile is-toggle"
+            role="button"
+            tabIndex={0}
+            aria-expanded={open}
+            onClick={toggle}
+            onKeyDown={(e) => {
+              if ((e.target as HTMLElement).closest('a')) return
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault()
+                toggle()
+              }
+            }}
+          >
             {/* clipper animates the badge's footprint; the badge itself stays
                 56×56 inside so its border never renders at partial size */}
             <div

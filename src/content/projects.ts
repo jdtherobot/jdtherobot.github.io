@@ -15,6 +15,7 @@ import type { FigureData } from '../components/CodeFigure'
 export type ProjectDoc = {
   docSlug: string // URL segment; 'overview' for the root README
   title: string
+  tab?: string // short label for the writeup-page tab row (falls back to title); keeps the tabs on one line
   file: string // filename under readmes/<slug>/
   snippet?: string // hand-authored card one-liner paraphrasing the doc's opening — review when re-baking the README
   figure?: FigureData // code-window preview for the landing course box
@@ -57,6 +58,7 @@ export const PROJECTS: Project[] = [
       {
         docSlug: 'warehouse',
         title: 'Computer Architecture Warehouse',
+        tab: 'Warehouse',
         file: 'warehouse.md',
         snippet:
           "You're cast as the MMU: handed a virtual address and no shortcuts, you resolve it level by level to find one box on a warehouse floor.",
@@ -68,6 +70,7 @@ export const PROJECTS: Project[] = [
       {
         docSlug: 'steganography-lvl-3',
         title: 'Steganography lvl 3',
+        tab: 'Lvl 3',
         file: 'lvl-3.md',
         snippet:
           'The hardest of the set: one JPEG hiding six payloads — carve them apart, derive the outer password from the brief, pull a key from quantization tables, unwind to the flag.',
@@ -75,6 +78,7 @@ export const PROJECTS: Project[] = [
       {
         docSlug: 'steganography-lvl-2',
         title: 'Steganography lvl 2',
+        tab: 'Lvl 2',
         file: 'lvl-2.md',
         snippet:
           'A payload hidden in an image with steghide behind a deliberately weak passphrase — the lesson is spotting the payload, recovering it, and catching the pivot it hands you.',
@@ -82,6 +86,7 @@ export const PROJECTS: Project[] = [
       {
         docSlug: 'steganography-lvl-1',
         title: 'Steganography lvl 1',
+        tab: 'Lvl 1',
         file: 'lvl-1.md',
         snippet:
           "The one the set grew out of — an AES-encrypted flag parked in a photo's EXIF comment, with the password sitting in plain sight in the email it arrived with.",
@@ -111,6 +116,7 @@ List<String> welcome() {   // EN + FR on 2 threads
       {
         docSlug: 'hotel-reservation-platform',
         title: 'Hotel Reservation Platform',
+        tab: 'Hotel',
         file: 'hotel-reservation-platform.md',
         snippet:
           'A full-stack hotel reservation app extended with i18n, multithreaded resource loading, timezone and currency handling, and a single-image Docker build.',
@@ -124,6 +130,7 @@ ZonedDateTime.now(ZoneId.of("America/Denver"))
       {
         docSlug: 'inventory-management-system',
         title: 'Inventory Management System',
+        tab: 'Inventory',
         file: 'inventory-management-system.md',
         snippet:
           'A server-rendered Spring MVC inventory app extended with enforced min/max inventory invariants, cross-entity validation, and a lightweight purchase flow.',
@@ -139,6 +146,7 @@ class Part {
       {
         docSlug: 'vacation-booking-platform',
         title: 'Vacation Booking Platform',
+        tab: 'Vacation',
         file: 'vacation-booking-platform.md',
         snippet:
           'A Spring Boot e-commerce backend built from the ground up — domain model to checkout service — behind the course-provided Angular client, which consumes it unmodified.',
