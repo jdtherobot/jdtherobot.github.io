@@ -49,6 +49,17 @@ const BG_ROWS = [
   { stencil: 'Personal development', title: 'Projects, certifications, extracurriculars', to: '/background/personal-development' },
 ]
 
+/* Landing cert strip — display labels and order set by JD (USAF Project
+   Management intentionally omitted). Credential data, IDs, and Verify links
+   live in background.ts and render on /background/personal-development. */
+const CERT_STRIP = [
+  'CISSP',
+  'MIT: Designing and Building AI Products and Services',
+  'Linux Essentials',
+  'A+',
+  'Security+',
+]
+
 /* landing-rail doc slug → drawn challenge vignette */
 const CTF_FIGS: Record<string, CtfFigureKind> = {
   warehouse: 'warehouse',
@@ -153,6 +164,17 @@ export default function Landing() {
                     <span style={{ fontFamily: 'var(--font-mono)', fontSize: 12, opacity: 0.55 }}>→</span>
                   </Link>
                 ))}
+                {/* quiet cert strip — a footnote to the boxes, not a fourth box;
+                    the whole row opens the full tiles with IDs + Verify links */}
+                <div style={{ marginTop: 2 }}>
+                  <div className="stencil" style={{ marginBottom: 8 }}>Certifications</div>
+                  <Link
+                    to="/background/personal-development"
+                    style={{ display: 'flex', flexWrap: 'wrap', gap: 6, textDecoration: 'none' }}
+                  >
+                    {CERT_STRIP.map((c) => (<Tag key={c}>{c}</Tag>))}
+                  </Link>
+                </div>
               </div>
             </div>
             {/* Sums of documented figures across performance reports — the whole
