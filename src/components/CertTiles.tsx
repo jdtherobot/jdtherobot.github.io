@@ -80,13 +80,32 @@ function TypeLine({
      trick would put an invisible duplicate of every line into copied text. */
   const done = n >= text.length
   return (
-    <div className={className} style={{ position: 'relative', ...style }}>
-      <span style={done ? undefined : { opacity: 0 }}>{text}</span>
-      {!done && (
-        <span aria-hidden="true" style={{ position: 'absolute', left: 0, top: 0, userSelect: 'none' }}>
-          {text.slice(0, n)}
-        </span>
-      )}
+    <div className={className} style={style}>
+      {/* the copy zone hugs this line's text — an inline-block sized by the
+          glyphs plus a small grab margin (padding pulled back by negative
+          margin, so nothing shifts visually). Clicks on the blank remainder
+          of the row fall through to the tile toggle. */}
+      <span
+        data-copyzone
+        style={{
+          display: 'inline-block',
+          position: 'relative',
+          padding: '3px 6px 3px 0',
+          margin: '-3px -6px -3px 0',
+          userSelect: 'text',
+          cursor: 'text',
+        }}
+      >
+        <span style={done ? undefined : { opacity: 0 }}>{text}</span>
+        {/* right: 6 pins the overlay to the content box — without it the
+            overlay wraps against the padding box (6px wider) and long lines
+            can break one word later than the reserved text mid-type */}
+        {!done && (
+          <span aria-hidden="true" style={{ position: 'absolute', left: 0, top: 3, right: 6, userSelect: 'none' }}>
+            {text.slice(0, n)}
+          </span>
+        )}
+      </span>
     </div>
   )
 }
@@ -111,19 +130,33 @@ export default function CertTiles() {
             role="button"
             tabIndex={0}
             aria-expanded={open}
+            /* scope the accessible name to the cert title — without this the
+               button's name-from-content flattens issuer/ID/Verify into one
+               unreadable label for screen readers */
+            aria-label={c.name}
             onClick={(e) => {
               /* The details are working text — IDs get pasted into issuer
-                 verify forms — so clicks there, and any click that ends a
-                 drag-selection, must not collapse the tiles. Title, badge,
-                 and blank tile space still toggle. */
+                 verify forms — so clicks on a text line (each line's snug
+                 copy zone), and any click that ends a drag-selection, must
+                 not collapse the tiles. Everything else — title, badge,
+                 blank tile space, even the empty remainder of a detail
+                 row — still toggles. */
               if ((e.target as HTMLElement).closest('a,[data-copyzone]')) return
-              if (window.getSelection()?.toString()) return
+              /* isCollapsed, not toString(): toString is rendering-aware and
+                 returns '' for text mid-typewriter (opacity 0), which would
+                 let a click destroy an in-progress selection. */
+              const sel = window.getSelection()
+              if (sel && !sel.isCollapsed) return
               toggle()
             }}
             onKeyDown={(e) => {
               if ((e.target as HTMLElement).closest('a')) return
               if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault()
+                /* same contract as the click path: never clip away a live
+                   selection (the tile keeps focus after a drag inside it) */
+                const sel = window.getSelection()
+                if (sel && !sel.isCollapsed) return
                 toggle()
               }
             }}
@@ -171,7 +204,7 @@ export default function CertTiles() {
                   transition: settle('grid-template-rows .3s var(--ease-settle)'),
                 }}
               >
-                <div data-copyzone style={{ overflow: 'hidden', minHeight: 0, userSelect: 'text', cursor: 'text' }}>
+                <div style={{ overflow: 'hidden', minHeight: 0 }}>
                   <TypeLine
                     className="stencil"
                     style={{ marginTop: 4 }}
@@ -194,6 +227,9 @@ export default function CertTiles() {
                       href={c.verify}
                       target="_blank"
                       rel="noreferrer noopener"
+                      /* out of the tab order while collapsed — the 0fr row
+                         hides it visually but not from keyboard focus */
+                      tabIndex={open ? 0 : -1}
                       onClick={(e) => e.stopPropagation()}
                       style={{
                         display: 'inline-block',
