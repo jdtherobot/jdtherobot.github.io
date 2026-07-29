@@ -1,5 +1,5 @@
 import { useEffect, useState, type CSSProperties } from 'react'
-import { CERTIFICATIONS } from '../content/background'
+import { CERTIFICATIONS, type Certification } from '../content/background'
 import { prefersReducedMotion } from '../hooks/useMotion'
 
 /* CertTiles — the certification tiles, landing edition (moved here from
@@ -33,6 +33,56 @@ function MitMark() {
         <rect key={i} x={x} y={y} width={w} height={h} fill={red ? MIT_RED : 'currentColor'} />
       ))}
     </svg>
+  )
+}
+
+/* Issuer wordmarks beyond MIT, approximated with the site's font stack in
+   each brand's signature treatment: CISSP's heavy grotesque in ink (mode-
+   aware via --text, as ISC2's black would vanish at night), Security+'s
+   white-on-red plate, CompTIA-red-over-ink A+, and LPI's stacked blue
+   Linux Essentials. Brand colors stay put where they read on both modes. */
+const COMPTIA_RED = '#C8202F'
+const LPI_BLUE = '#2BA9E0'
+
+function BrandMark({ logo }: { logo: NonNullable<Certification['logo']> }) {
+  if (logo === 'mit') return <MitMark />
+  if (logo === 'cissp')
+    return (
+      <span style={{ fontFamily: 'var(--font-body)', fontWeight: 700, fontSize: 12.5, letterSpacing: '.01em', color: 'var(--text)' }}>
+        CISSP
+      </span>
+    )
+  if (logo === 'security-plus')
+    return (
+      <span
+        style={{
+          background: COMPTIA_RED,
+          color: '#fff',
+          fontFamily: 'var(--font-body)',
+          fontWeight: 700,
+          fontSize: 8,
+          letterSpacing: '.01em',
+          padding: '4px 4px',
+          borderRadius: 2,
+          whiteSpace: 'nowrap',
+        }}
+      >
+        Security+
+      </span>
+    )
+  if (logo === 'a-plus')
+    return (
+      <span style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', fontFamily: 'var(--font-body)', fontWeight: 700, lineHeight: 1 }}>
+        <span style={{ color: COMPTIA_RED, fontSize: 9.5 }}>CompTIA</span>
+        <span style={{ color: 'var(--text)', fontSize: 17, marginTop: 3 }}>A+</span>
+      </span>
+    )
+  // linux-essentials
+  return (
+    <span style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', fontFamily: 'var(--font-display)', fontWeight: 700, lineHeight: 1.15, color: LPI_BLUE }}>
+      <span style={{ fontSize: 12, letterSpacing: '.1em' }}>LINUX</span>
+      <span style={{ fontSize: 7.5, letterSpacing: '.06em' }}>ESSENTIALS</span>
+    </span>
   )
 }
 
@@ -190,7 +240,7 @@ export default function CertTiles() {
                   letterSpacing: '.02em',
                 }}
               >
-                {c.logo === 'mit' ? <MitMark /> : c.mark ?? '✦'}
+                {c.logo ? <BrandMark logo={c.logo} /> : c.mark ?? '✦'}
               </div>
             </div>
             <div style={{ flex: 1, minWidth: 0 }}>
