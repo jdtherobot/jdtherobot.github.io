@@ -21,26 +21,26 @@ const RESEARCH_TIERS = [
   {
     tier: 'plain',
     stencil: 'Q.01',
-    eyebrow: 'Adaptive Learning',
-    question: 'How can a system adapt continually without erasing what it already knows?',
-    tagline: 'Continual learning without catastrophic forgetting — brain-inspired algorithms as the lens.',
-    tag: 'Theory',
+    eyebrow: ['Adaptive Learning', 'Adaptive Intelligence'],
+    question: 'How can a system keep learning—and use what it learns to reason and decide?',
+    tagline: 'Continual learning, memory, reasoning, and decision-making beyond static prediction.',
+    tag: 'Algorithms',
   },
   {
     tier: 'branch',
     stencil: 'Q.02',
-    eyebrow: 'Computer Systems',
-    question: 'How should learning, memory, runtime, and hardware be co-designed under limited resources?',
-    tagline: 'Neuromorphic and embedded constraints as a design input, not an afterthought.',
-    tag: 'Implementation',
+    eyebrow: ['Computer Systems'],
+    question: 'What should change when learning has to happen continuously, efficiently, and reliably?',
+    tagline: 'Embedded and neuromorphic systems, with software and hardware designed together from the start.',
+    tag: 'Systems',
   },
   {
     tier: 'dissolve',
     stencil: 'Q.03',
-    eyebrow: 'Neurotechnology',
-    question: 'Can adaptive methods improve neural-signal decoding and other real-time closed-loop systems?',
-    tagline: 'Real-time decoding for BCIs — where latency, drift, and noise are the problem.',
-    tag: 'Application',
+    eyebrow: ['Brain–Computer Interfaces'],
+    question: 'How can neural activity become a practical, bidirectional interface with the world?',
+    tagline: 'Decoding and feedback for communication, control, rehabilitation, and new forms of interaction.',
+    tag: 'Neurotechnology',
   },
 ] as const
 
@@ -417,7 +417,10 @@ export default function Landing() {
                     stencil={t.stencil}
                     innerStyle={{ padding: 20, height: '100%', boxSizing: 'border-box', display: 'flex', flexDirection: 'column' }}
                   >
-                    <Eyebrow on="panel">{t.eyebrow}</Eyebrow>
+                    {/* one eyebrow row per line — card 1 carries two titles */}
+                    {t.eyebrow.map((line) => (
+                      <Eyebrow on="panel" key={line}>{line}</Eyebrow>
+                    ))}
                     <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 600, lineHeight: 1.3, fontSize: 17, margin: '10px 0' }}>
                       {t.question}
                     </h3>
