@@ -134,14 +134,9 @@ export default function Landing() {
                   technical as possible. The work that motivates me is understanding how systems
                   work, taking on challenging problems, and building things. Long-term, I plan to
                   enter research at the intersection of computer science and neuroscience. My
-                  framing for building across these disciplines is based on the pillars of{' '}
-                  <Link
-                    to="/#sec-research"
-                    style={{ color: 'inherit', textDecoration: 'none', borderBottom: '1px solid var(--gold)' }}
-                  >
-                    adaptive learning algorithms, hardware–software co-design, and brain–computer
-                    interfaces
-                  </Link>.
+                  framing for building across these disciplines is based on the pillars of
+                  adaptive learning algorithms, hardware–software co-design, and brain–computer
+                  interfaces.
                 </p>
               </div>
               <div className="rv" style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
