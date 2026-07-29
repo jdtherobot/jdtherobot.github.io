@@ -4,7 +4,7 @@ import Nav from '../components/Nav'
 import Eyebrow from '../components/Eyebrow'
 import Markdown from '../components/Markdown'
 import NotFound from './NotFound'
-import { loadBackgroundRaw, CERTIFICATIONS } from '../content/background'
+import { loadBackgroundRaw } from '../content/background'
 import { PROJECTS, findProject, subDocs } from '../content/projects'
 import { useReveal } from '../hooks/useMotion'
 import { usePageMeta } from '../hooks/usePageMeta'
@@ -85,55 +85,10 @@ function PersonalDevelopment() {
 
   return (
     <>
-      {/* 1 · Certifications */}
-      <section className="rv" style={{ marginBottom: 44 }}>
-        <Eyebrow>Certifications</Eyebrow>
-        <div className="cert-grid" style={{ marginTop: 16 }}>
-          {CERTIFICATIONS.map((c) => (
-            <div key={c.name} className="cert-tile">
-              <div
-                className="cert-badge"
-                aria-hidden="true"
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  border: '1px solid var(--gold-40)',
-                  color: 'var(--gold)',
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: 15,
-                  letterSpacing: '.02em',
-                }}
-              >
-                {c.mark ?? '✦'}
-              </div>
-              <div>
-                <div className="disp" style={{ fontSize: 14 }}>{c.name}</div>
-                <div className="stencil" style={{ marginTop: 4 }}>
-                  {c.issuer}
-                  {c.year ? ` · ${c.year}` : ''}
-                </div>
-                {c.credId && (
-                  <div className="stencil" style={{ marginTop: 3, opacity: 0.6 }}>ID · {c.credId}</div>
-                )}
-                {c.verify && (
-                  <a
-                    className="stencil"
-                    href={c.verify}
-                    target="_blank"
-                    rel="noreferrer noopener"
-                    style={{ display: 'inline-block', marginTop: 6, color: 'var(--label-on-bg)', textDecoration: 'none' }}
-                  >
-                    Verify ↗
-                  </a>
-                )}
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
+      {/* Certifications moved to the landing page (CertTiles) — this page is
+          projects + extracurriculars now. */}
 
-      {/* 2 · Projects on this site */}
+      {/* 1 · Projects on this site */}
       <section className="rv" style={{ marginBottom: 44 }}>
         <Eyebrow>Projects on this site</Eyebrow>
         <p className="body" style={{ fontSize: 13.5, opacity: 0.7, margin: '8px 0 14px' }}>
@@ -142,7 +97,7 @@ function PersonalDevelopment() {
         <ProjectIndex />
       </section>
 
-      {/* 3 · Extracurriculars — the volunteer record, in the same doc card
+      {/* 2 · Extracurriculars — the volunteer record, in the same doc card
              /background/occupation uses, since it is the same kind of document.
              The markdown is a lazy chunk; the card renders once it arrives. */}
       {extras && (

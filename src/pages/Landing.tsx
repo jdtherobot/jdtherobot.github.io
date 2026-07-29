@@ -11,6 +11,7 @@ import CodeFigure from '../components/CodeFigure'
 import DashboardFigure from '../components/DashboardFigure'
 import WorkFigure from '../components/WorkFigure'
 import CtfFigure, { type CtfFigureKind } from '../components/CtfFigure'
+import CertTiles from '../components/CertTiles'
 import { PROJECTS, findProject, overviewDoc, subDocs } from '../content/projects'
 import { ACCOMPLISHMENTS, AWARDS } from '../content/work'
 import { useReveal, useRailDrift, usePianoIntro } from '../hooks/useMotion'
@@ -46,18 +47,7 @@ const RESEARCH_TIERS = [
 const BG_ROWS = [
   { stencil: 'Occupation', title: 'Full-time U.S. Air Force IT professional', to: '/background/occupation' },
   { stencil: 'Academics', title: 'Full-time CS undergrad', to: '/background/academics' },
-  { stencil: 'Personal development', title: 'Projects, certifications, extracurriculars', to: '/background/personal-development' },
-]
-
-/* Landing cert strip — display labels and order set by JD (USAF Project
-   Management intentionally omitted). Credential data, IDs, and Verify links
-   live in background.ts and render on /background/personal-development. */
-const CERT_STRIP = [
-  'CISSP',
-  'MIT: Designing and Building AI Products and Services',
-  'Linux Essentials',
-  'A+',
-  'Security+',
+  { stencil: 'Personal development', title: 'Projects and extracurriculars', to: '/background/personal-development' },
 ]
 
 /* landing-rail doc slug → drawn challenge vignette */
@@ -164,19 +154,11 @@ export default function Landing() {
                     <span style={{ fontFamily: 'var(--font-mono)', fontSize: 12, opacity: 0.55 }}>→</span>
                   </Link>
                 ))}
-                {/* quiet cert strip — a footnote to the boxes, not a fourth box;
-                    the whole row opens the full tiles with IDs + Verify links */}
-                <div style={{ marginTop: 2 }}>
-                  <div className="stencil" style={{ marginBottom: 8 }}>Certifications</div>
-                  <Link
-                    to="/background/personal-development"
-                    style={{ display: 'flex', flexWrap: 'wrap', gap: 6, textDecoration: 'none' }}
-                  >
-                    {CERT_STRIP.map((c) => (<Tag key={c}>{c}</Tag>))}
-                  </Link>
-                </div>
               </div>
             </div>
+            {/* full cert tiles (moved from /background/personal-development):
+                collapsed titles until tapped — see CertTiles */}
+            <CertTiles />
             {/* Sums of documented figures across performance reports — the whole
                 row clicks through to the underlying line items on
                 /background/occupation. 37K+ counts vulnerabilities and inspection
