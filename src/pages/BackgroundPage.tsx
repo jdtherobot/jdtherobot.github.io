@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useParams, Link, useNavigate } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import Nav from '../components/Nav'
 import Eyebrow from '../components/Eyebrow'
 import Markdown from '../components/Markdown'
@@ -8,7 +8,6 @@ import { loadBackgroundRaw } from '../content/background'
 import { PROJECTS, findProject, subDocs } from '../content/projects'
 import { useReveal } from '../hooks/useMotion'
 import { usePageMeta } from '../hooks/usePageMeta'
-import { canGoBack } from '../hooks/useScrollRestoration'
 
 /* Background pages — /background/<slug>. Occupation and Academics render a
    baked markdown doc in the standard doc-card; Personal Development composes
@@ -114,7 +113,6 @@ function PersonalDevelopment() {
 
 export default function BackgroundPage() {
   const { slug = '' } = useParams()
-  const navigate = useNavigate()
   const page = PAGES[slug]
   useReveal(`background/${slug}`)
   usePageMeta(page?.title ?? 'Not found', page?.tagline)
@@ -136,22 +134,10 @@ export default function BackgroundPage() {
 
   if (!page) return <NotFound />
 
-  const goBack = () => (canGoBack() ? navigate(-1) : navigate('/#sec-background'))
-
   return (
     <>
       <Nav />
       <main>
-        {/* back bar */}
-        <div style={{ borderBottom: '1px solid var(--edge)' }}>
-          <div className="wrap backbar">
-            <button className="navlink" style={{ color: 'var(--text)', opacity: 1 }} onClick={goBack}>
-              ← Back
-            </button>
-            <span className="stencil backbar-meta">BACKGROUND · REV 2026.07</span>
-          </div>
-        </div>
-
         {/* header */}
         <header className="dot" style={{ padding: '56px 0 40px' }}>
           <div className="wrap" style={{ maxWidth: 900 }}>

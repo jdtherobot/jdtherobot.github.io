@@ -4,11 +4,13 @@ import { MarkSpike } from './WaveTrace'
 import ModeToggle from './ModeToggle'
 import { PRIMARY_LINKS, SECTION_LINKS } from '../content/links'
 import { prefersReducedMotion } from '../hooks/useMotion'
+import { NAV_OFFSET } from '../hooks/useScrollRestoration'
 
 /* Sticky top nav.
    - Waveform mark = the sole menu trigger for the four primary links.
    - "JD BRITT" wordmark = scroll to top (returns home first from a detail route).
-   - Section links smooth-scroll (−62px offset); from detail, return home then scroll.
+   - Section links smooth-scroll (−NAV_OFFSET) on the landing page; from a detail
+     route they navigate to /#<section> and let scroll restoration place the arrival.
    - Under 820px the section links are hidden, so a row of four square marks takes
      their place: it reports which section you're in and opens the same links as a
      menu. Without it those four sections are unreachable on a phone. */
@@ -27,34 +29,39 @@ export default function Nav() {
 
   const smooth = !prefersReducedMotion()
 
+  /* Same page → scroll it ourselves, smoothly: the reader can watch the travel.
+
+     From a detail route → hand the whole job to the #hash, which useScrollRestoration
+     resolves with the same NAV_OFFSET and retries until the target sticks.
+
+     This used to be navigate('/') + setTimeout(doIt, 80). It did arrive at the right
+     offset eventually, but by the worst route: the hash-less '/' made the restoration
+     hook scroll to 0 first, and doIt then smooth-scrolled the whole way down from
+     there. Sampled every 50ms, the visitor sat at the top of the landing page for
+     ~100ms and then flew through 1349px of content over ~700ms — landing on the hero
+     when they asked for Projects. Going through the hash lands directly. */
   const scrollToId = useCallback(
     (id: string) => {
-      const doIt = () => {
-        const el = document.getElementById(id)
-        if (el)
-          window.scrollTo({
-            top: el.getBoundingClientRect().top + window.pageYOffset - 62,
-            behavior: smooth ? 'smooth' : 'auto',
-          })
-      }
       if (!isHome) {
-        navigate('/')
-        setTimeout(doIt, 80)
-      } else {
-        doIt()
+        navigate(`/#${id}`)
+        return
       }
+      const el = document.getElementById(id)
+      if (el)
+        window.scrollTo({
+          top: el.getBoundingClientRect().top + window.pageYOffset - NAV_OFFSET,
+          behavior: smooth ? 'smooth' : 'auto',
+        })
     },
     [isHome, navigate, smooth]
   )
 
   const goTop = useCallback(() => {
     setMenuOpen(false)
-    if (!isHome) {
-      navigate('/')
-      setTimeout(() => window.scrollTo({ top: 0, behavior: 'auto' }), 20)
-    } else {
-      window.scrollTo({ top: 0, behavior: smooth ? 'smooth' : 'auto' })
-    }
+    // A hash-less push already lands at the top via useScrollRestoration; a
+    // timeout here would only be a second scroll racing the first.
+    if (!isHome) navigate('/')
+    else window.scrollTo({ top: 0, behavior: smooth ? 'smooth' : 'auto' })
   }, [isHome, navigate, smooth])
 
   // close either menu on any outside click

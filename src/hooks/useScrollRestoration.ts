@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { useLocation, useNavigationType } from 'react-router-dom'
 
 /* Scroll restoration for the SPA.
@@ -14,7 +14,9 @@ import { useLocation, useNavigationType } from 'react-router-dom'
    PUSH → top of the page, or the #hash target if the URL carries one. */
 
 const KEY = 'jdb-scroll'
-const NAV_OFFSET = 62 // the sticky nav covers the top of any anchor target
+/** The sticky nav covers the top of any anchor target. Exported so the nav's own
+    same-page scrolling lands identically to a #hash arrival. */
+export const NAV_OFFSET = 62
 const SETTLE_MS = 1000
 
 type Positions = Record<string, number>
@@ -67,18 +69,28 @@ export default function useScrollRestoration() {
     }
   }, [])
 
-  // Record where the user is, against the entry they are on. The write is
-  // synchronous — cleanup runs as the route leaves, and a deferred write would
-  // land after the next route has already reset the scroll position.
+  /* Record where the user is, against the entry they are on. The write is
+     synchronous — cleanup runs as the route leaves, and a deferred write would
+     land after the next route has already reset the scroll position.
+
+     What gets written is `lastY`, not a fresh window.scrollY read: by the time
+     cleanup runs React has begun tearing the outgoing page down, so the document
+     is shorter and the browser has already clamped window.scrollY toward the new
+     maximum. Reading it there recorded a position well above where the visitor
+     actually was, and Back landed short. The listener keeps lastY honest while
+     the page is still whole. */
+  const lastY = useRef(0)
   useEffect(() => {
     const key = location.key
+    lastY.current = window.scrollY
     const save = () => {
       const positions = read()
-      positions[key] = window.scrollY
+      positions[key] = lastY.current
       write(positions)
     }
     let throttle = 0
     const onScroll = () => {
+      lastY.current = window.scrollY
       if (throttle) return
       throttle = window.setTimeout(() => {
         throttle = 0
@@ -112,9 +124,4 @@ export default function useScrollRestoration() {
 
     window.scrollTo(0, 0)
   }, [location.key, location.hash, navigationType])
-}
-
-/** True when there is an entry to go back to within this SPA session. */
-export function canGoBack(): boolean {
-  return typeof window.history.state?.idx === 'number' && window.history.state.idx > 0
 }

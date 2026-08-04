@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useParams, Link, useNavigate, Navigate } from 'react-router-dom'
+import { useParams, Link, Navigate } from 'react-router-dom'
 import Nav from '../components/Nav'
 import Tag from '../components/Tag'
 import Button from '../components/Button'
@@ -8,7 +8,6 @@ import NotFound from './NotFound'
 import { findProject, loadDocRaw, overviewDoc } from '../content/projects'
 import { useReveal } from '../hooks/useMotion'
 import { usePageMeta } from '../hooks/usePageMeta'
-import { canGoBack } from '../hooks/useScrollRestoration'
 
 /* Project page. /projects/:slug/:doc renders one writeup; multi-doc projects
    cross-link their writeups with a tab row (active one gold-boxed) and redirect
@@ -16,15 +15,9 @@ import { canGoBack } from '../hooks/useScrollRestoration'
 
 export default function ProjectPage() {
   const { slug = '', doc } = useParams()
-  const navigate = useNavigate()
   const project = findProject(slug)
   useReveal(`${slug}/${doc ?? ''}`)
   usePageMeta(project?.title ?? 'Not found', project?.tagline)
-
-  /* Going back beats the section anchor: it lands the visitor exactly where they
-     left off rather than at the top of the Projects block. Only when there is no
-     history to return to (deep link, fresh tab) do we fall back to the anchor. */
-  const goBack = () => (canGoBack() ? navigate(-1) : navigate('/#sec-projects'))
 
   const single = (project?.docs.length ?? 0) === 1
   const activeDoc = project ? (doc ? project.docs.find((d) => d.docSlug === doc) : project.docs[0]) : undefined
@@ -57,18 +50,6 @@ export default function ProjectPage() {
     <>
       <Nav />
       <main>
-        {/* back bar */}
-        <div style={{ borderBottom: '1px solid var(--edge)' }}>
-          <div className="wrap backbar">
-            <button className="navlink" style={{ color: 'var(--text)', opacity: 1 }} onClick={goBack}>
-              ← All projects
-            </button>
-            <span className="stencil backbar-meta">
-              {project.github.replace('https://github.com/', 'GH · ')}
-            </span>
-          </div>
-        </div>
-
         {/* header */}
         <header className="dot" style={{ padding: '56px 0 40px' }}>
           <div className="wrap" style={{ maxWidth: 900 }}>

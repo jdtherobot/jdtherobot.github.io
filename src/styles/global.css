@@ -484,17 +484,6 @@ body.motion .rv.in {
   padding: 32px 34px;
 }
 
-/* back / context bar above a detail page header */
-.backbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  min-height: 54px;
-  padding-top: 8px;
-  padding-bottom: 8px;
-}
-
 /* project doc tabs (writeup switcher) */
 .doc-tabs {
   display: flex;
@@ -667,10 +656,6 @@ body.motion .rv.in {
   }
   .page-h1 {
     font-size: 25px !important;
-  }
-  /* the repo path is context, not navigation — drop it before it wraps */
-  .backbar .backbar-meta {
-    display: none;
   }
 }
 
