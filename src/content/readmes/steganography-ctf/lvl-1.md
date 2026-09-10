@@ -19,10 +19,10 @@ So the solve is: pull the attachment out of the email, read its EXIF comment, an
 with the password from the message.
 
 ```mermaid
-flowchart LR
-  A["email.eml"] -->|"extract JPEG attachment"| B["badger_photo.jpeg"]
-  A -.->|"password in the body"| K["honeybadger4lyfe"]
-  B -->|"exiftool -Comment -b"| C["base64 blob"]
+flowchart TD
+  A["email.eml"] -->|"extract JPEG<br/>attachment"| B["badger_photo.jpeg"]
+  A -.->|"password in<br/>the body"| K["honeybadger4lyfe"]
+  B -->|"exiftool<br/>-Comment -b"| C["base64 blob"]
   C --> D["openssl enc -d<br/>-aes-256-cbc -pbkdf2"]
   K --> D
   D --> E["Flag{H0NeyB4d6er10OKinG0OD!!!}"]

@@ -37,7 +37,7 @@ flowchart TB
     DB[(MySQL)]
     NG -- REST/JSON --> CTL
     CTL --> SL --> DAO --> ENT --> DB
-    CFG -. exposes repositories .-> DAO
+    CFG -.->|"exposes<br/>repositories"| DAO
 ```
 
 ---

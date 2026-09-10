@@ -47,9 +47,16 @@ function fitDiagram(slot: HTMLElement) {
   const intrinsic = svg.viewBox.baseVal.width
   if (!intrinsic) return
 
+  // Measure the CONTENT box, not clientWidth — the slot carries 18px of padding
+  // on each side, so clientWidth over-reports the usable width by 36px and any
+  // diagram between (clientWidth - padding) and clientWidth renders a few pixels
+  // past the edge with no scroll hint to say so.
+  const pad = getComputedStyle(slot)
+  const available =
+    slot.clientWidth - parseFloat(pad.paddingLeft) - parseFloat(pad.paddingRight)
+
   // fit the slot, but never blow a small diagram up past its natural size,
   // and never shrink below the legibility floor
-  const available = slot.clientWidth
   const width = Math.max(Math.min(available, intrinsic), intrinsic * MIN_SCALE)
 
   svg.style.width = `${width}px`

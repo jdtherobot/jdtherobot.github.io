@@ -24,7 +24,8 @@ flowchart TD
   SE -->|"work out the password<br/>from the brief"| BUN["secret_bundle.zip<br/>qtbl.py · STEGO_KEY_368.txt · passwords.enc · iv.bin"]
   BUN -->|"split into 24-char records,<br/>concatenate records 3 · 6 · 8"| KB["stego key ('368')"]
   OFF --> NJ["carve nothingtoseehere.jpg"]
-  NJ -->|"qtbl.py extract + stego key"| AK["raw 32-byte AES key<br/>(hidden in quantization tables)"]
+  NJ -->|"qtbl.py extract"| AK["raw 32-byte AES key<br/>(hidden in quantization tables)"]
+  KB --> AK
   AK --> DP["openssl -d + iv.bin"]
   BUN --> DP
   DP --> PW["passwords.txt →<br/>the real payload password"]

@@ -173,6 +173,39 @@
   height: auto;
 }
 
+/* Mermaid drives edge-label text off nodeTextColor — which falls back to
+   primaryTextColor (cream, correct for the carbon node boxes) — via a blanket
+   `#id .label text, #id span` rule that catches edge labels too. In day mode
+   that lands cream text on the cream edgeLabelBackground: invisible, so a
+   labelled connector reads as a broken line. Mermaid exposes no variable that
+   separates the two, so split them here. var() is safe (unlike the baked SVG
+   attributes in Markdown.tsx) because these are HTML in a foreignObject,
+   painted after the node is in the document — so mode flips follow the token.
+   !important is required: mermaid's own rules are #id-scoped.
+   Both surfaces are listed because .mmd-zoom-canvas mounts as a SIBLING of
+   .markdown-body, so a slot-only selector would miss the enlarged copy. */
+.markdown-body .mermaid-slot svg .edgeLabel,
+.markdown-body .mermaid-slot svg .edgeLabel p,
+.markdown-body .mermaid-slot svg span.edgeLabel,
+.mmd-zoom-canvas svg .edgeLabel,
+.mmd-zoom-canvas svg .edgeLabel p,
+.mmd-zoom-canvas svg span.edgeLabel {
+  color: var(--text) !important;
+}
+
+/* Subgraph titles otherwise use mermaid's own defaults (#131d39 day,
+   #e8e9e5 night) rather than the palette. --label-on-bg is the same pair of
+   values as the lineColor literals in Markdown.tsx, so a cluster title reads
+   as the same ink as the connectors around it. */
+.markdown-body .mermaid-slot svg .cluster-label span,
+.markdown-body .mermaid-slot svg .cluster-label span p,
+.markdown-body .mermaid-slot svg .cluster span,
+.mmd-zoom-canvas svg .cluster-label span,
+.mmd-zoom-canvas svg .cluster-label span p,
+.mmd-zoom-canvas svg .cluster span {
+  color: var(--label-on-bg) !important;
+}
+
 /* affordance for anything that scrolls sideways inside the prose */
 .markdown-body .mermaid-slot[data-scrollable],
 .markdown-body table {

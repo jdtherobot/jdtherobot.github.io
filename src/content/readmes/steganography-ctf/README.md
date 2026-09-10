@@ -26,12 +26,10 @@ is where you actually run them — an in-browser 32-bit Linux lab and the wareho
 ```mermaid
 flowchart LR
   subgraph content["steganography-ctf"]
-    direction TB
     P["participant/<br/>challenge files · briefs · optional hints"]
     F["facilitator/<br/>flags · writeups · solver tests"]
   end
   subgraph env["jd-ctf-environment"]
-    direction TB
     LAB["browser lab<br/>32-bit Linux in the browser"]
     GAME["warehouse game"]
   end
@@ -62,7 +60,7 @@ They're mostly independent, with one hard dependency and one wink:
 
 ```mermaid
 flowchart LR
-  L1["Steganography lvl 1<br/>EXIF + OpenSSL"]
+  L1["Steganography lvl 1<br/>EXIF + OpenSSL<br/><i>(standalone)</i>"]
   L2["Steganography lvl 2<br/>steghide"]
   WH["Computer Architecture Warehouse<br/>page tables + four-square"]
   L3["Steganography lvl 3<br/>multi-payload carve"]

@@ -66,9 +66,9 @@ The four-square is set up with all four 5×5 squares keyed — corner word to co
 printed (`HONEY` / `BADGER` / `HECK` / `YEAH`), with I and J merged. Decoding line 9:
 
 ```mermaid
-flowchart LR
-  CT["UPNAHLNSIBESOLTUEBUPDNEY"] -->|"four-square<br/>Honey / Badger / Heck / Yeah, I=J"| PT["TOMHANKSAINTGOTSHITONMEZ"]
-  PT -->|"strip the Z padding"| FLAG["Flag{TOMHANKSAINTGOTSHITONME}"]
+flowchart TD
+  CT["UPNAHLNSIBESOLTUEBUPDNEY"] -->|"four-square<br/>Honey / Badger /<br/>Heck / Yeah, I=J"| PT["TOMHANKSAINTGOTSHITONMEZ"]
+  PT -->|"strip the<br/>Z padding"| FLAG["Flag{TOMHANKSAINTGOTSHITONME}"]
 ```
 
 ---

@@ -25,7 +25,7 @@ renders server-side views.
 flowchart TD
     UI[Thymeleaf templates<br/>mainscreen · forms · about]
     C[Controllers<br/>MainScreen · AddPart · AddProduct]
-    V[Validators<br/>InventoryValidator · EnufPartsValidator]
+    V[Validators<br/>InventoryValidator<br/>EnufPartsValidator]
     S[Service layer]
     R[Spring Data JPA repositories]
     D[(H2 / persistent store)]
@@ -34,7 +34,7 @@ flowchart TD
     C --> S
     S --> R
     R --> D
-    B[BootStrapData<br/>seeds sample inventory] --> R
+    B[BootStrapData<br/>seeds sample<br/>inventory] --> R
 ```
 
 **Packages:** `controllers` · `domain` · `service` · `repositories` · `validators` · `bootstrap`

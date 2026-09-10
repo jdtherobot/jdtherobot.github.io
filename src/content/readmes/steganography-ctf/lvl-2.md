@@ -17,8 +17,8 @@ passphrase in seconds — or you can just guess `password123`. `steghide extract
 202-line document. Line 1 is the flag; the rest looks like filler.
 
 ```mermaid
-flowchart LR
-  A["stego_badger.jpeg"] -->|"stegseek --crack rockyou"| P["passphrase: password123"]
+flowchart TD
+  A["stego_badger.jpeg"] -->|"stegseek<br/>--crack rockyou"| P["passphrase: password123"]
   P --> X["steghide extract"]
   X --> D["202-line document"]
   D --> L1["line 1 → Flag{DanG 7hat'S @ cUTe HOnEY b@D9eR}"]
