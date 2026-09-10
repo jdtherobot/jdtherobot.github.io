@@ -13,6 +13,7 @@ import WorkFigure from '../components/WorkFigure'
 import CtfFigure, { type CtfFigureKind } from '../components/CtfFigure'
 import CertTiles from '../components/CertTiles'
 import { PROJECTS, findProject, overviewDoc, subDocs } from '../content/projects'
+import { SHOW_RESEARCH_SECTION } from '../content/links'
 import { ACCOMPLISHMENTS, AWARDS } from '../content/work'
 import { useReveal, useRailDrift, usePianoIntro } from '../hooks/useMotion'
 import { usePageMeta } from '../hooks/usePageMeta'
@@ -398,6 +399,7 @@ export default function Landing() {
         </section>
 
         {/* RESEARCH DIRECTION */}
+        {SHOW_RESEARCH_SECTION && (
         <section id="sec-research" className="dot section">
           <div className="wrap">
             <div className="ey rv">Research direction</div>
@@ -443,6 +445,7 @@ export default function Landing() {
             </div>
           </div>
         </section>
+        )}
 
         {/* CONTACT / FOOTER */}
         <section style={{ padding: '72px 0 0', borderTop: '1px solid var(--edge)' }}>

@@ -17,9 +17,12 @@ export const PRIMARY_LINKS: PrimaryLink[] = [
   { label: 'Email', arrow: '→', href: 'mailto:jd@britt.gg', variant: 'outline' },
 ]
 
+// Flip to true to bring the Research Direction section (and its nav link) back.
+export const SHOW_RESEARCH_SECTION = false
+
 export const SECTION_LINKS = [
   { id: 'sec-background', label: 'Background' },
   { id: 'sec-projects', label: 'Projects' },
   { id: 'sec-work', label: 'Work' },
-  { id: 'sec-research', label: 'Research Direction' },
+  ...(SHOW_RESEARCH_SECTION ? [{ id: 'sec-research', label: 'Research Direction' }] : []),
 ]
