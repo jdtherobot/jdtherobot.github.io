@@ -76,6 +76,10 @@ export default function Landing() {
   const courseBoxes = subDocs(coursework)
   const otherProjects = PROJECTS.filter((p) => !p.featured)
 
+  const setuid = findProject('privilege-escalation-setuid')!
+  const setuidOverview = overviewDoc(setuid)
+  const setuidBoxes = subDocs(setuid)
+
   return (
     <>
       <Nav />
@@ -178,8 +182,8 @@ export default function Landing() {
               Things I’ve built
             </h2>
             <p className="body rv" style={{ fontSize: 15, opacity: 0.82, maxWidth: 620, margin: '0 0 30px' }}>
-              Just some things I built — security challenges, working tools, and full-stack
-              coursework, each with a full writeup on its own page.
+              Just some things I built — security challenges, low-level systems work, working tools, and
+              full-stack coursework, each with a full writeup on its own page.
             </p>
 
             {/* Challenges sub-block (re-themed: follows day/night, black figure boxes kept) */}
@@ -252,6 +256,47 @@ export default function Landing() {
                     </div>
                   )}
                 </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Systems & security — flagship overview + version boxes */}
+          <div className="wrap" style={{ marginTop: 44 }}>
+            <div className="rv" style={{ marginBottom: 14 }}>
+              <Eyebrow>Systems &amp; security</Eyebrow>
+              <p className="body" style={{ fontSize: 14, opacity: 0.75, margin: '8px 0 0', maxWidth: 640 }}>
+                Reading a root-only file the hard way — one setuid technique re-implemented down the
+                stack, each stage stripping away another layer of abstraction to reach raw x86-64.
+              </p>
+            </div>
+            <Link
+              to={`/projects/${setuid.slug}/${setuidOverview.docSlug}`}
+              className="rv flagship-grid"
+              style={{ display: 'grid', gridTemplateColumns: '1.1fr 1fr', gap: 28, alignItems: 'center', border: '1px solid var(--edge)', padding: 24, color: 'inherit', marginBottom: 26 }}
+            >
+              {setuid.figure && <CodeFigure data={setuid.figure} />}
+              <div>
+                <Eyebrow>Featured · Privilege escalation</Eyebrow>
+                <h3 className="disp" style={{ fontSize: 24, margin: '10px 0 12px' }}>{setuid.title}</h3>
+                <p className="body" style={{ fontSize: 14.5, opacity: 0.82, margin: '0 0 16px' }}>{setuid.tagline}</p>
+                <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 18 }}>
+                  {setuid.tags.map((tg) => (<Tag key={tg}>{tg}</Tag>))}
+                </div>
+                <Button variant="primary">Read the writeup →</Button>
+              </div>
+            </Link>
+            {/* no .rv on these boxes — the piano intro owns their entrance */}
+            <div className="proj-grid" data-piano style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 20 }}>
+              {setuidBoxes.map((d) => (
+                <Link
+                  key={d.docSlug}
+                  to={`/projects/${setuid.slug}/${d.docSlug}`}
+                  style={{ display: 'flex', flexDirection: 'column', border: '1px solid var(--edge)', padding: 18, color: 'inherit', background: 'var(--bg)' }}
+                >
+                  {d.figure && <CodeFigure data={d.figure} style={{ marginBottom: 14 }} />}
+                  <div className="disp" style={{ fontSize: 16 }}>{d.title}</div>
+                  <p className="body" style={{ fontSize: 12.5, opacity: 0.75, margin: '8px 0 0' }}>{d.snippet}</p>
+                </Link>
               ))}
             </div>
           </div>
