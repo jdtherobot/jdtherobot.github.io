@@ -101,12 +101,73 @@ export default function Markdown({ source }: { source: string }) {
           a.removeAttribute('target')
         }
       })
+      // Tables get a scroll wrapper. Two divs, not one: the outer is the
+      // positioning context for the edge fade, the inner is the scroller. A
+      // fade absolutely positioned inside the scroller would anchor to the
+      // content and hide at the far end instead of riding the visible edge.
+      doc.querySelectorAll('table').forEach((table) => {
+        const wrap = doc.createElement('div')
+        wrap.className = 'md-table-wrap'
+        const scroll = doc.createElement('div')
+        scroll.className = 'md-table-scroll'
+        table.replaceWith(wrap)
+        wrap.appendChild(scroll)
+        scroll.appendChild(table)
+      })
       html = doc.body.innerHTML
     } catch {
       /* no DOMParser (shouldn't happen client-side) → leave links as sanitized */
     }
     return { html, diagrams: blocks }
   }, [source])
+
+  /* Flag the tables that actually overflow so CSS can show an edge fade, and
+     drop the flag once the scroll reaches the end. Same [data-scrollable]
+     idiom fitDiagram uses for a diagram too wide for its slot — but not gated
+     on diagrams, since most pages with tables have none. */
+  useEffect(() => {
+    const root = ref.current
+    if (!root) return
+    const scrollers = Array.from(root.querySelectorAll<HTMLElement>('.md-table-scroll'))
+    if (!scrollers.length) return
+    let cancelled = false
+
+    const sync = (sc: HTMLElement) => {
+      const wrap = sc.parentElement
+      if (!wrap) return
+      // A zero-width box is an unlaid-out one (a hidden tab, a card mid-route
+      // transition) — it always looks like it overflows, so measure nothing
+      // and leave whatever flags it already had until a real layout arrives.
+      if (!sc.clientWidth) return
+      const overflows = sc.scrollWidth > sc.clientWidth + 1
+      wrap.toggleAttribute('data-scrollable', overflows)
+      wrap.toggleAttribute(
+        'data-at-end',
+        overflows && sc.scrollLeft + sc.clientWidth >= sc.scrollWidth - 1,
+      )
+      // only a region that can really scroll earns a tab stop
+      if (overflows) sc.setAttribute('tabindex', '0')
+      else sc.removeAttribute('tabindex')
+    }
+    const syncAll = () => scrollers.forEach(sync)
+    const onScroll = (e: Event) => sync(e.currentTarget as HTMLElement)
+
+    syncAll()
+    // a table measured before the webfonts settle reports the wrong width
+    document.fonts?.ready.then(() => !cancelled && syncAll()).catch(() => {})
+
+    const ro = new ResizeObserver(syncAll)
+    scrollers.forEach((sc) => {
+      ro.observe(sc)
+      sc.addEventListener('scroll', onScroll, { passive: true })
+    })
+
+    return () => {
+      cancelled = true
+      ro.disconnect()
+      scrollers.forEach((sc) => sc.removeEventListener('scroll', onScroll))
+    }
+  }, [html])
 
   // Render diagrams (and re-render on day/night flips).
   useEffect(() => {
