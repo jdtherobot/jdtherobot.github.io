@@ -266,6 +266,15 @@ caret indicator:
 - **"JD BRITT" wordmark** — scrolls to the top of the page (smooth; returns to
   `home` first from the detail route). Does **not** open the menu.
 
+## Update: nav mark signal pulse (2026.09)
+The mark stays caret-free, but now carries an ambient cue that it's clickable:
+a lit gold segment travels the spike left→right (0.7s sweep, every 7s) while the
+resting trace sits at `--gold-72`. Hover/focus and an open menu hold it solid.
+Once a visitor has opened the menu the pulse stops for the session
+(`sessionStorage['jdb-mark']`, same gate idiom as `jdb-flare` / `jdb-piano`).
+Pure CSS (`.mark-pulse`, a `pathLength=1` overlay polyline in `MarkSpike`);
+suppressed under `prefers-reduced-motion`. The footer mark stays static.
+
 ## Update: hero morph section removed (2026.07)
 The standalone hero-morph section (the reserved 1:1 animated-schematic slot that
 sat between Hero and Background) has been **removed** at JD's request — he'll add

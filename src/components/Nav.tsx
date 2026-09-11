@@ -7,7 +7,9 @@ import { prefersReducedMotion } from '../hooks/useMotion'
 import { NAV_OFFSET } from '../hooks/useScrollRestoration'
 
 /* Sticky top nav.
-   - Waveform mark = the sole menu trigger for the four primary links.
+   - Waveform mark = the sole menu trigger for the four primary links. It carries
+     an ambient signal pulse (CSS, .mark-pulse) until the visitor opens the menu
+     once; sessionStorage 'jdb-mark' keeps it still for the rest of the session.
    - "JD BRITT" wordmark = scroll to top (returns home first from a detail route).
    - Section links smooth-scroll (−NAV_OFFSET) on the landing page; from a detail
      route they navigate to /#<section> and let scroll restoration place the arrival.
@@ -15,11 +17,20 @@ import { NAV_OFFSET } from '../hooks/useScrollRestoration'
      their place: it reports which section you're in and opens the same links as a
      menu. Without it those four sections are unreachable on a phone. */
 
+const MARK_KEY = 'jdb-mark'
+
 export default function Nav() {
   const navigate = useNavigate()
   const location = useLocation()
   const isHome = location.pathname === '/'
   const [menuOpen, setMenuOpen] = useState(false)
+  const [discovered, setDiscovered] = useState(() => {
+    try {
+      return sessionStorage.getItem(MARK_KEY) === '1'
+    } catch {
+      return false
+    }
+  })
   const [secOpen, setSecOpen] = useState(false)
   const [activeSection, setActiveSection] = useState<string | null>(null)
   const triggerRef = useRef<HTMLButtonElement>(null)
@@ -153,7 +164,18 @@ export default function Nav() {
             aria-haspopup="menu"
             aria-expanded={menuOpen}
             aria-label="Open links menu"
-            onClick={() => setMenuOpen((v) => !v)}
+            className={discovered ? 'mark-trigger is-discovered' : 'mark-trigger'}
+            onClick={() => {
+              setMenuOpen((v) => !v)
+              if (!discovered) {
+                setDiscovered(true)
+                try {
+                  sessionStorage.setItem(MARK_KEY, '1')
+                } catch {
+                  /* storage unavailable → pulse simply resumes next load */
+                }
+              }
+            }}
             style={{
               display: 'flex',
               alignItems: 'center',
@@ -165,7 +187,7 @@ export default function Nav() {
               cursor: 'pointer',
             }}
           >
-            <MarkSpike size={22} />
+            <MarkSpike size={22} pulse />
           </button>
           <button
             className="navlink"

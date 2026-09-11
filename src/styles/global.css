@@ -375,6 +375,46 @@ body.motion .rv.in {
   }
 }
 
+/* nav mark signal pulse — a lit segment travels the spike left→right every ~7s
+   so the mark reads as live/clickable (the DS forbids a ▾ caret; the mark alone
+   is the affordance). The resting trace dims to gold-72 between pulses; hover
+   and focus hold full gold; an open menu, or a visitor who has already opened
+   it this session (.is-discovered, gated by sessionStorage 'jdb-mark' in Nav),
+   keep it solid and still. Pure CSS: with pathLength=1 the dash pattern is
+   1.35 long, so offset .35 parks the lit dash before the start and −1 parks it
+   past the end. */
+.mark-spike.is-pulsing .mark-base {
+  stroke-opacity: 0.72;
+  transition: stroke-opacity 0.18s;
+}
+.mark-spike.is-pulsing .mark-pulse {
+  stroke-dasharray: 0.35 1;
+  stroke-dashoffset: 0.35;
+  animation: mark-pulse 7s linear infinite;
+}
+@keyframes mark-pulse {
+  0% {
+    stroke-dashoffset: 0.35;
+  }
+  10% {
+    stroke-dashoffset: -1; /* 0.7s sweep, then parked for the remaining 6.3s */
+  }
+  100% {
+    stroke-dashoffset: -1;
+  }
+}
+.mark-trigger:hover .mark-base,
+.mark-trigger:focus-visible .mark-base,
+.mark-trigger[aria-expanded='true'] .mark-base,
+.mark-trigger.is-discovered .mark-base {
+  stroke-opacity: 1;
+}
+.mark-trigger[aria-expanded='true'] .mark-pulse,
+.mark-trigger.is-discovered .mark-pulse {
+  animation: none;
+  stroke-dashoffset: -1;
+}
+
 /* nav links menu (mark trigger) */
 .linksmenu {
   position: absolute;
@@ -668,6 +708,13 @@ body.motion .rv.in {
     opacity: 1;
     transform: none;
     transition: none;
+  }
+  .mark-spike .mark-base {
+    stroke-opacity: 1;
+  }
+  .mark-spike .mark-pulse {
+    animation: none;
+    stroke-dashoffset: -1;
   }
   * {
     scroll-behavior: auto !important;
